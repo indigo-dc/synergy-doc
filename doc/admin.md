@@ -14,15 +14,15 @@ The module will be available in the [Puppet Forge](https://forge.puppet.com/). (
 
 Usage example:
 ```puppet
-class { "indigodc-synergy":
-  synergy_db_url          => "mysql://test:test@localhost",
+class { 'indigodc-synergy':
+  synergy_db_url          => 'mysql://test:test@localhost',
   dynamic_quotas          => {'project_A' => 1,  'project_B' => 2},
   project_shares          => {'project_A' => 70, 'project_B' => 30 },
   user_shares             => {'project_A' => {'user1' => 60, 'user2' => 40 },
                               'project_B' => {'user3' => 80, 'user4' => 20}},
-  keystone_url            => "https://example.com",
-  keystone_admin_user     => "admin",
-  keystone_admin_password => "the admin password",
+  keystone_url            => 'https://example.com',
+  keystone_admin_user     => 'admin',
+  keystone_admin_password => 'the admin password',
 }
 ```
 
