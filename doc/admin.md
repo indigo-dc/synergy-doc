@@ -12,6 +12,11 @@ The module provides both the `synergy-service` and `synergy-scheduler-components
 
 The module will be available in the [Puppet Forge](https://forge.puppet.com/). (TODO)
 
+Usage:
+```puppet
+
+```
+
 # The Synergy command line interface
 
 TBC: Massimo
