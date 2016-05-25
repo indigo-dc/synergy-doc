@@ -109,17 +109,22 @@ optional arguments:
 
 ### synergycli optional arguments
 
-**--version**
-
-    Show program’s version number and exit
-
 **-h, --help**
 
     Show help message and exit
     
+**--version**
+
+    Show program’s version number and exit
+
+    
 **--debug**
 
     Show debugging information
+    
+**--os-username ```<auth-user-name>```**
+
+    Username to login with. Defaults to env[OS_USERNAME]
 
 **--os-cacert ```<ca-bundle-file>```**
 
@@ -133,7 +138,7 @@ optional arguments:
     
  **--os-project-name ```<auth-project-name>```**
  
-    Project name to scope to. Defaults to env:[OS_PROJECT_NAME)  
+    Project name to scope to. Defaults to env:[OS_PROJECT_NAME]  
 
 **--bypass-url ```<bypass-url>```**
 
