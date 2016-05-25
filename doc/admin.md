@@ -250,6 +250,7 @@ $ synergycli status
 
 ### synergycli get_quota           
 
+retrieve the project quota
 ```
 $ synergycli get_quota
 ----------------------------------------------------------------------------------------
@@ -262,7 +263,7 @@ $ synergycli get_quota
 ----------------------------------------------------------------------------------------
 ```
 
-retrieve the project quota
+
 
 
 ### synergycli get_priority        
