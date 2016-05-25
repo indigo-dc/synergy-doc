@@ -125,6 +125,19 @@ optional arguments:
 
     Specify a CA certificate bundle file to use in verifying a TLS
     (https) server certificate. Defaults to env[OS_CACERT]
+   
+**--insecure**
+
+      Disable server certificate verification, i.e. the server's certificate 
+      will not be verified against any certificate authority
+    
+ **--os-project-name ```<auth-project-name>```**
+ 
+    Project name to scope to. Defaults to env:[OS_PROJECT_NAME)  
+
+**--bypass-url ```<bypass-url>```**
+
+    Use this API endpoint instead of the Service Catalog
 
 TBC
 
