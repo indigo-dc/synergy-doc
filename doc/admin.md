@@ -250,20 +250,51 @@ $ synergycli status
 
 ### synergycli get_quota           
 
-
+```
+$ synergycli get_quota
+----------------------------------------------------------------------------------------
+| project | type    | vcpus                       | memory                             |
+----------------------------------------------------------------------------------------
+| service | static  | in use=0       | limit=0    | in use=0           | limit=0       |
+| admin   | static  | in use=0       | limit=1    | in use=0           | limit=512     |
+| prj_b   | dynamic | in use=10 (15) | limit=15.0 | in use=5120 (7680) | limit=17512.0 |
+| prj_a   | dynamic | in use=5 (15)  | limit=15.0 | in use=2560 (7680) | limit=17512.0 |
+----------------------------------------------------------------------------------------
+```
 
 retrieve the project quota
 
 
 ### synergycli get_priority        
 
-
+```
+$ synergycli get_priority
+--------------------------------
+| project | user    | priority |
+--------------------------------
+| prj_b   | user_b2 | 20       |
+| prj_b   | user_b1 | 4        |
+| prj_a   | user_a2 | 72       |
+| prj_a   | user_a1 | 52       |
+--------------------------------
+```
 
 retrieve the user priority
 
 
 ### synergycli get_share           
 
+```
+$ synergycli get_share
+------------------------------------------------
+| project | share | user    | user share (abs) |
+------------------------------------------------
+| prj_b   | 30.0% | user_b2 | 50.00% (15.00%)  |
+| prj_b   | 30.0% | user_b1 | 50.00% (15.00%)  |
+| prj_a   | 70.0% | user_a2 | 50.00% (35.00%)  |
+| prj_a   | 70.0% | user_a1 | 50.00% (35.00%)  |
+------------------------------------------------
+```
 
 
 retrieve the user share
@@ -271,13 +302,33 @@ retrieve the user share
 
 ### synergycli get_usage           
 
-
+```
+$ synergycli get_usage
+--------------------------------------------------------------------------------------
+| project | cores usage | ram usage | user    | cores usage (abs) | ram usage (abs)  |
+--------------------------------------------------------------------------------------
+| prj_b   | 68.74%      | 68.74%    | user_b2 | 0.00% (0.00%)     | 0.00% (0.00%)    |
+| prj_b   | 68.74%      | 68.74%    | user_b1 | 100.00% (68.74%)  | 100.00% (68.74%) |
+| prj_a   | 31.26%      | 31.26%    | user_a2 | 0.00% (0.00%)     | 0.00% (0.00%)    |
+| prj_a   | 31.26%      | 31.26%    | user_a1 | 100.00% (31.26%)  | 100.00% (31.26%) |
+--------------------------------------------------------------------------------------
+```
 
 retrieve the resource usage
 
 
 ### synergycli get_queue           
 
+```
+$ synergycli get_queue
+---------------------------
+| name    | status | size |
+---------------------------
+| admin   | ON     | 0    |
+| dynamic | ON     | 70   |
+| service | ON     | 0    |
+---------------------------
+```
 
 retrieve the queue information
 
