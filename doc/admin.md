@@ -125,7 +125,40 @@ optional arguments:
 **--os-username ```<auth-user-name>```**
 
     Username to login with. Defaults to env[OS_USERNAME]
+    
+** --os-password ```<auth-password>```**
 
+    Password to use.Defaults to env[OS_PASSWORD]
+    
+ **--os-project-name ```<auth-project-name>```**
+ 
+    Project name to scope to. Defaults to env:[OS_PROJECT_NAME]  
+
+**--os-project-id ```<auth-project-id>```**
+
+    Id of the project to scope to. Defaults to env[OS_PROJECT_ID]
+    
+**--os-auth-token ```<auth-token>```**
+
+    The auth token to be used. Defaults to env[OS_AUTH_TOKEN]
+    
+**--os-auth-token-cache**
+
+    Use the auth token cache. Defaults to env[OS_AUTH_TOKEN_CACHE]to False. 
+    Defaults to 'false' if not set
+    
+**--os-auth-url ```<auth-url>```**
+
+    The URL of the Identity endpoint. Defaults to env[OS_AUTH_URL]
+    
+**--os-auth-system ```<auth-system>```**
+
+    The auth system to be used. Defaults to env[OS_AUTH_SYSTEM]
+
+**--bypass-url ```<bypass-url>```**
+
+    Use this API endpoint instead of the Service Catalog
+    
 **--os-cacert ```<ca-bundle-file>```**
 
     Specify a CA certificate bundle file to use in verifying a TLS
@@ -136,13 +169,69 @@ optional arguments:
       Disable server certificate verification, i.e. the server's certificate 
       will not be verified against any certificate authority
     
- **--os-project-name ```<auth-project-name>```**
- 
-    Project name to scope to. Defaults to env:[OS_PROJECT_NAME]  
 
-**--bypass-url ```<bypass-url>```**
 
-    Use this API endpoint instead of the Service Catalog
+
+### synergycli list                
+
+
+
+list the managers
+
+
+### synergycli start               
+
+
+
+start the managers
+
+
+### synergycli stop                
+
+
+
+stop the managers
+
+
+### synergycli status              
+
+
+retrieve the manager's status
+
+
+### synergycli get_quota           
+
+
+
+retrieve the project quota
+
+
+### synergycli get_priority        
+
+
+
+retrieve the user priority
+
+
+### synergycli get_share           
+
+
+
+retrieve the user share
+
+
+### synergycli get_usage           
+
+
+
+retrieve the resource usage
+
+
+### synergycli get_queue           
+
+
+retrieve the queue information
+
 
 TBC
 
