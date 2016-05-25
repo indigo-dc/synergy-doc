@@ -174,7 +174,7 @@ optional arguments:
 
 ### synergycli list                
 
-This command returns the list of managers that are being used by the synergy service.
+This command returns the list of managers that have been deployed in the synergy service.
 
 E.g.:
 
@@ -194,16 +194,39 @@ $ synergycli list
 
 ### synergycli start               
 
+This command starts the managers deployed in the synergy service.
 
+E.g.:
 
-start the managers
+```
+$ synergycli start
+-----------------------------------------------------
+| manager          | status  | message              |
+-----------------------------------------------------
+| QuotaManager     | RUNNING | started successfully |
+| FairShareManager | RUNNING | started successfully |
+| QueueManager     | RUNNING | started successfully |
+```
+
 
 
 ### synergycli stop                
 
+This command stops the managers deployed in the synergy service.
 
+E.g.:
 
-stop the managers
+```
+$ synergycli stop
+----------------------------------------------------
+| manager          | status | message              |
+----------------------------------------------------
+| QuotaManager     | ACTIVE | stopped successfully |
+| FairShareManager | ACTIVE | stopped successfully |
+| QueueManager     | ACTIVE | stopped successfully |
+----------------------------------------------------
+```
+
 
 
 ### synergycli status              
