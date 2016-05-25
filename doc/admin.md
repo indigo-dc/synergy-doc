@@ -253,14 +253,12 @@ $ synergycli status
 retrieve the project quota
 ```
 $ synergycli get_quota
-----------------------------------------------------------------------------------------
-| project | type    | vcpus                       | memory                             |
-----------------------------------------------------------------------------------------
-| service | static  | in use=0       | limit=0    | in use=0           | limit=0       |
-| admin   | static  | in use=0       | limit=1    | in use=0           | limit=512     |
-| prj_b   | dynamic | in use=10 (15) | limit=15.0 | in use=5120 (7680) | limit=17512.0 |
-| prj_a   | dynamic | in use=5 (15)  | limit=15.0 | in use=2560 (7680) | limit=17512.0 |
-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+| project | vcpus                       | memory                             |
+------------------------------------------------------------------------------
+| prj_b   | in use=10 (15) | limit=15.0 | in use=5120 (7680) | limit=17512.0 |
+| prj_a   | in use=5 (15)  | limit=15.0 | in use=2560 (7680) | limit=17512.0 |
+------------------------------------------------------------------------------
 ```
 
 
@@ -287,6 +285,17 @@ $ synergycli get_priority
 
 
 ### synergycli get_share           
+
+This command reports the shares imposed by the Cloud administrator (in the synergy configuration file) to the dynamic projects and to their users.
+
+E.g. in the following example *prj_a* was given 70 % of the share, and the rest (30 %) was given to *prj_b*. 
+
+The relevant users of these 2 projects were given the same share. 
+
+Therefore the 2 users of *prj_a* has each one a share of 50 % within the project, and a share of 35 % (50 % of 70 %) of total resources.
+
+The 2 users of *prj_b* has each one a share of 50 % within the project, and a share of 15 % (50 % of 30 %) of total resources.
+
 
 ```
 $ synergycli get_share
