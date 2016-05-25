@@ -10,11 +10,16 @@ TBC: Lisa
 We provide a Puppet module for Synergy so users can install and configure Synergy with Puppet.
 The module provides both the `synergy-service` and `synergy-scheduler-manager` components.
 
-The module will be available in the [Puppet Forge](https://forge.puppet.com/). (**TODO**)
+The module is available on the [Puppet Forge](https://forge.puppet.com/) : [vll/synergy](https://forge.puppet.com/vll/synergy/readme).
+
+Install the puppet module with:
+```
+puppet module install vll-synergy
+```
 
 Usage example:
 ```puppet
-class { 'indigodc-synergy':
+class { 'synergy':
   synergy_db_url          => 'mysql://test:test@localhost',
   dynamic_quotas          => {'project_A' => 1,  'project_B' => 2},
   project_shares          => {'project_A' => 70, 'project_B' => 30 },
