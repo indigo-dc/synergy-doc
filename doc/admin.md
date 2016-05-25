@@ -297,7 +297,7 @@ $ synergycli get_priority
 
 ### synergycli get_share           
 
-This command reports the shares imposed by the Cloud administrator (in the synergy configuration file) to the dynamic projects and to their users.
+This command reports the shares imposed by the Cloud administrator (attribute *shares* in the synergy configuration file) to the dynamic projects and to their users.
 
 E.g. in the following example *prj_a* was given 70 % of the share, and the rest (30 %) was given to *prj_b*. 
 
