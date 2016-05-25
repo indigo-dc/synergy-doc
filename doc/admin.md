@@ -116,6 +116,15 @@ optional arguments:
 **-h, --help**
 
     Show help message and exit
+    
+**--debug**
+
+    Show debugging information
+
+**--os-cacert ```<ca-bundle-file>```**
+
+    Specify a CA certificate bundle file to use in verifying a TLS
+    (https) server certificate. Defaults to env[OS_CACERT]
 
 TBC
 
