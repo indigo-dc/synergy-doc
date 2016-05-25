@@ -325,6 +325,19 @@ $ synergycli get_share
 
 ### synergycli get_usage           
 
+This command reports the usage of the resources by the dynamic projects in the last time frame considered by synergy (attribute *period_length* of the synergy configuration file * attribute *time window*).
+
+In the following example it is reported that, in the considered time frame:
+
+* *proj_a* has used 31.26% of cores and 31.26% of RAM
+* *proj_b* has used 68.74% of cores and 68.74% of RAM
+* *user_a1* has used 100 % of resources within its project (and 31.26% considering the overall usage)
+* *user_a2* hasn't used resources at all
+* *user_b1* has used 100 % of resources within its project (and 68.74% considering the overall usage)
+* *user_b2* hasn't used resources at all
+
+
+
 ```
 $ synergycli get_usage
 --------------------------------------------------------------------------------------
@@ -337,7 +350,7 @@ $ synergycli get_usage
 --------------------------------------------------------------------------------------
 ```
 
-retrieve the resource usage
+
 
 
 ### synergycli get_queue   
