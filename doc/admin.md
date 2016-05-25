@@ -250,7 +250,7 @@ $ synergycli status
 
 ### synergycli get_quota           
 
-This command, for each dynamic project, shows the resources being used wrt the total number of available resources.
+This command, for each dynamic project, shows the resources being used wrt the total number of dynamic resources.
 
 In the following example:
 
@@ -258,8 +258,8 @@ In the following example:
 * limit=17512.0 for *memory* for each dynamic project says that the total number of MB of RAM for the dynamic portion of the resources is 17512. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
 * *prj_a* is currently using 5 VCPUs and 2560 MB of RAM
 * *prj_a* is currently using 10 VCPUs and 5120 MB of RAM
-* the total number of VCPUs used by the dynamic projects is 15 (the value reported between parenthesis)
-* the total number of MB of RAM used by the dynamic projects is 7680 (the value reported between parenthesis)
+* the total number of VCPUs currently used by the dynamic projects is 15 (the value reported between parenthesis)
+* the total number of MB of RAM currently used by the dynamic projects is 7680 (the value reported between parenthesis)
 
 
 ```
