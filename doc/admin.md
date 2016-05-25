@@ -47,7 +47,7 @@ Note that the OS_AUTH_URL variables must refer to the v3 version of the keystone
 ### synergycli usage
 
 ```
-synergycli [-h] [--version] [--debug] [--os-username <auth-user-name>]
+usage: synergycli [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
                [--os-project-name <auth-project-name>]
                [--os-project-id <auth-project-id>]
@@ -108,6 +108,14 @@ optional arguments:
 
 
 ### synergycli optional arguments
+
+**--version**
+
+    Show program’s version number and exit
+
+**-h, --help**
+
+    Show help message and exit
 
 TBC
 
