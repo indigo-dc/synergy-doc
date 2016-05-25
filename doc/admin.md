@@ -268,6 +268,10 @@ $ synergycli get_quota
 
 ### synergycli get_priority        
 
+This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources (considering the policies specified  by the Cloud administrator and considering the past usage of such resources).
+
+E.g. in the following example *user_a2* of project *prj_a* has the highest priority:
+
 ```
 $ synergycli get_priority
 --------------------------------
@@ -280,7 +284,6 @@ $ synergycli get_priority
 --------------------------------
 ```
 
-retrieve the user priority
 
 
 ### synergycli get_share           
