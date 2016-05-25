@@ -329,7 +329,11 @@ $ synergycli get_usage
 retrieve the resource usage
 
 
-### synergycli get_queue           
+### synergycli get_queue   
+
+This command returns the number of queued requests (i.e. requests in scheduling state, waiting for available resources) for each static project and for the dynamic projects, in total.
+
+E.g. in the following example there are no pending requests for the 2 static projects (admin and service), while there are 70 queued requests in total for the dynamic projects.
 
 ```
 $ synergycli get_queue
@@ -342,10 +346,6 @@ $ synergycli get_queue
 ---------------------------
 ```
 
-retrieve the queue information
-
-
-TBC
 
 
 
