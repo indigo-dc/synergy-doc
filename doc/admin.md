@@ -310,7 +310,6 @@ $ synergycli get_share
 ```
 
 
-retrieve the user share
 
 
 ### synergycli get_usage           
