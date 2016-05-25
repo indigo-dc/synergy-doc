@@ -174,9 +174,22 @@ optional arguments:
 
 ### synergycli list                
 
+This command returns the list of managers that are being used by the synergy service.
+
+E.g.:
+
+```
+$ synergycli list
+--------------------
+| manager          |
+--------------------
+| QuotaManager     |
+| FairShareManager |
+| QueueManager     |
+--------------------
+```
 
 
-list the managers
 
 
 ### synergycli start               
@@ -195,8 +208,21 @@ stop the managers
 
 ### synergycli status              
 
+This command returns the status of the managers deployed in the synergy service. 
 
-retrieve the manager's status
+E.g.:
+
+```
+$ synergycli status
+------------------------------
+| manager          | status  |
+------------------------------
+| QuotaManager     | RUNNING |
+| FairShareManager | RUNNING |
+| QueueManager     | RUNNING |
+------------------------------
+```
+
 
 
 ### synergycli get_quota           
