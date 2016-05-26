@@ -217,8 +217,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | -- | -- |
 | autostart | Specifies if the nova manager should be started when synergy starts |
 |rate | xxx |
-| nova_conf | the nova configuration file: if specified the following attributes are used: my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend; in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password
-in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password xxx |
+| nova_conf | the nova configuration file: if specified the following attributes are used: my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend; in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password; in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password xxx |
 | host | xxx |
 | timeout | The http connection timeout |
 | amqp_backend |the amqp backend tpye (rabbit or qpid) |
