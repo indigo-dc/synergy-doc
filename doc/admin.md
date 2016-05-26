@@ -139,8 +139,18 @@ db_max_overflow = 5
 autostart=True
 rate=5
 
-
 ```
+
+
+**Section: [Logger]**
+
+| Attribute | Description |
+| -- | -- |
+| filename | The name of the log file |
+| level | The log level. Possible values are xxx |
+| formatter | The format of the log file |
+| maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
+| backupCount | The number of log files to be kept |
 
 TBC: Lisa
 
