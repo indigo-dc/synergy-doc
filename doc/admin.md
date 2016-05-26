@@ -188,7 +188,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | -- | -- |
-| autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
+| autostart | Specifies if the FairShare manager should be started when synergy starts |
 |rate | xxx |
 | period_length | xxx |
 | periods | xxx |
@@ -197,6 +197,21 @@ The following describes the meaning of the attributes of the synergy configurati
 | vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by synergy |
 | age_weight | xxx |
 | memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy |
+
+**Section: [KeystoneManager]**
+
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the Keystone manager should be started when synergy starts |
+|rate | xxx |
+| auth_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
+| username | the name of the user with admin role |
+| password | the password of the specified user with admin role |
+| project_name | the project to request authorization on |
+| timeout | the http connection timeout
+| trust_expiration | the trust expiration xxx |
+
+
 
 TBC: Lisa
 
