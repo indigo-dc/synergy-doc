@@ -172,8 +172,17 @@ The following describes the meaning of the attributes of the synergy configurati
 | tcp_keepidle | Sets the value of TCP_KEEPIDLE in seconds for each server socket |
 | backlog | xxx |
 
+---
+**Section: [SchedulerManager]**
 
-
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
+|rate | xxx |
+|projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
+|shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute xxx in the xxx section is used |
+|default_TTL | Specifies the default Time to Live for a Virtual Machine/container, in minutes
+|TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the ''default_TTL'' attribute is considered |
 
 TBC: Lisa
 
