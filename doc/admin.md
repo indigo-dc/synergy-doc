@@ -1,6 +1,147 @@
 
 # Manual installation and configuration
 
+
+## The synergy configuration file
+
+Synergy must be configured properly filling the */etc/synergy/synergy.conf* configuration file.
+
+This is an example of the synergy.conf configuration file:
+
+```
+[DEFAULT]
+
+
+[Logger]
+filename=/var/log/synergy/synergy.log
+level=INFO
+formatter="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+maxBytes=1048576
+backupCount=100
+
+
+[WSGI]
+host=localhost
+port=8051
+threads=2
+use_ssl=False
+#ssl_ca_file=
+#ssl_cert_file=
+#ssl_key_file=
+max_header_line=16384
+retry_until_window=30
+tcp_keepidle=600
+backlog=4096
+
+
+
+[SchedulerManager]
+autostart=True
+# rate (minutes)
+rate=1
+
+# the list of projects accessing to the dynamic quota
+projects=prj_a, prj_b
+
+# the integer value expresses the share
+shares=prj_a=70, prj_b=30
+
+# the integer value expresses the default max time to live (minutes) for VM/Container
+default_TTL=2
+
+# the integer value expresses the max time to live (minutes) for VM/Container
+TTLs=prj_a=1, prj_b=1
+
+
+
+[FairShareManager]
+autostart=True
+# rate (minutes)
+rate=2
+
+# period size (default=7 days)
+period_length=1
+# num of periods (default=3)
+periods=3
+
+# default share value (default=10)
+default_share = 10
+
+# weights
+decay_weight=0.5
+vcpus_weight=50
+age_weight=0
+memory_weight=50
+
+
+
+[KeystoneManager]
+autostart=True
+rate=5
+
+# the Keystone url (v3 only)
+auth_url=http://10.64.31.19:5000/v3
+# the name of user with admin role
+username=admin
+# the password of user with admin role
+password=ADMIN
+# the project to request authorization on
+project_name=admin
+# set the http connection timeout
+timeout=60
+# set the trust expiration
+trust_expiration=24
+
+
+[NovaManager]
+autostart=True
+rate=5
+
+# the nova configuration file: if specified the following attributes are used:
+# my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend
+# in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password
+# in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password
+nova_conf=/etc/synergy/nova.conf
+
+host=10.64.31.19
+#set the http connection timeout (default=60)
+timeout=60
+
+# the amqp backend tpye (e.g. rabbit, qpid)
+amqp_backend=rabbit
+amqp_host=10.64.31.19
+amqp_port=5672
+amqp_user=openstack
+amqp_password=RABBIT_PASS
+amqp_virtual_host=/
+# the conductor topic
+conductor_topic = conductor
+# the compute topic
+compute_topic = compute
+# the scheduler topic
+scheduler_topic = scheduler
+# the NOVA database connection
+db_connection = mysql+pymysql://nova:NOVA_DBPASS@10.64.31.19/nova
+
+
+[QueueManager]
+autostart=True
+rate=5
+# the Synergy database connection
+db_connection=mysql://synergy:SYNERGY_DBPASS@10.64.31.19/synergy
+# the connection pool size (default=10)
+db_pool_size = 10
+# the max overflow (default=5)
+db_max_overflow = 5
+
+
+[QuotaManager]
+autostart=True
+rate=5
+
+
+```
+
 TBC: Lisa
 
 
@@ -33,7 +174,7 @@ class { 'synergy':
 
 # The Synergy command line interface
 
-The Synergy service provides a command-line client, called **synergycli**, which allows the Cloud administrator to monitor and control the Synergy service.
+The Synergy service provides a command-line client, called **synergycli**, which allows the Cloud administrator to control and monitor the Synergy service.
 
 Before running the synergycli client command, you must create and source the *admin-openrc.sh* file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools. 
 
