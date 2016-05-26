@@ -144,7 +144,7 @@ rate=5
 The following describes the meaning of the attributes of the synergy configuration file, for each possible section:
 
 
-**Section: [Logger]**
+**Section [Logger]**
 
 | Attribute | Description |
 | -- | -- |
@@ -156,7 +156,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 
 ---
-**Section: [WSGI]**
+**Section [WSGI]**
 
 | Attribute | Description |
 | -- | -- |
@@ -173,7 +173,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | backlog | xxx |
 
 ---
-**Section: [SchedulerManager]**
+**Section [SchedulerManager]**
 
 | Attribute | Description |
 | -- | -- |
@@ -184,7 +184,8 @@ The following describes the meaning of the attributes of the synergy configurati
 |default_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
 |TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the *default_TTL* attribute will be used |
 
-**Section: [FairShareManager]**
+---
+**Section [FairShareManager]**
 
 | Attribute | Description |
 | -- | -- |
@@ -198,7 +199,8 @@ The following describes the meaning of the attributes of the synergy configurati
 | age_weight | xxx |
 | memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy |
 
-**Section: [KeystoneManager]**
+---
+**Section [KeystoneManager]**
 
 | Attribute | Description |
 | -- | -- |
@@ -211,7 +213,8 @@ The following describes the meaning of the attributes of the synergy configurati
 | timeout | the http connection timeout
 | trust_expiration | the trust expiration xxx |
 
-**Section: [NovaManager]**
+---
+**Section [NovaManager]**
 
 | Attribute | Description |
 | -- | -- |
@@ -231,8 +234,25 @@ The following describes the meaning of the attributes of the synergy configurati
 | scheduler_topic | the scheduler topic |
 | db_connection | the NOVA database connection | 
 
+---
+**Section [QueueManager]**
 
-TBC: Lisa
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the Queue manager should be started when synergy starts |
+|rate | xxx |
+| db_connection | The Synergy database connection |
+| db_pool_size | The connection pool size |
+| db_max_overflow | The max overflow |
+
+-----
+
+** Section [QuotaManager]**
+
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the Quota manager should be started when synergy starts |
+|rate | xxx |
 
 
 
