@@ -181,8 +181,10 @@ The following describes the meaning of the attributes of the synergy configurati
 |rate | xxx |
 |projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
 |shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute xxx in the xxx section is used |
-|default_TTL | Specifies the default Time to Live for a Virtual Machine/container, in minutes
-|TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the ''default_TTL'' attribute is considered |
+|default_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
+|TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the *default_TTL* attribute will be used |
+
+
 
 TBC: Lisa
 
