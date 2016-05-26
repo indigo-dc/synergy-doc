@@ -47,10 +47,10 @@ projects=prj_a, prj_b
 shares=prj_a=70, prj_b=30
 
 # the integer value expresses the default max time to live (minutes) for VM/Container
-default_TTL=2
+default_TTL=2880
 
 # the integer value expresses the max time to live (minutes) for VM/Container
-TTLs=prj_a=1, prj_b=1
+TTLs=prj_a=1440, prj_b=2880
 
 
 
