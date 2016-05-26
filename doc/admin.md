@@ -141,6 +141,7 @@ rate=5
 
 ```
 
+The following describes the meaning of the attributes of the synergy configuration file, for each possible section
 
 **Section: [Logger]**
 
@@ -151,6 +152,28 @@ rate=5
 | formatter | The format of the log file |
 | maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
 | backupCount | The number of log files to be kept |
+
+
+**Section: [WSGI]**
+
+
+
+| Attribute | Description |
+| -- | -- |
+| host | The hostname where the synergy service is deployed |
+| port | The port used by the synergy service |
+| threads | The number of threads used by the synergy service |
+| use ssl | Specify if the service is secured through SSL|
+| ssl_ca_file | The CA file to be used for the SSL verification, is SSL is used |
+| ssl_cert_file |
+| ssl_key_file |
+| max_header_line |
+| retry_until_window
+| tcp_keepidle
+| backlog
+
+
+
 
 TBC: Lisa
 
