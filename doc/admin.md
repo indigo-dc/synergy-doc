@@ -141,7 +141,8 @@ rate=5
 
 ```
 
-The following describes the meaning of the attributes of the synergy configuration file, for each possible section
+The following describes the meaning of the attributes of the synergy configuration file, for each possible section:
+
 
 **Section: [Logger]**
 
@@ -154,9 +155,8 @@ The following describes the meaning of the attributes of the synergy configurati
 | backupCount | The number of log files to be kept |
 
 
+---
 **Section: [WSGI]**
-
-
 
 | Attribute | Description |
 | -- | -- |
@@ -164,13 +164,13 @@ The following describes the meaning of the attributes of the synergy configurati
 | port | The port used by the synergy service |
 | threads | The number of threads used by the synergy service |
 | use ssl | Specify if the service is secured through SSL|
-| ssl_ca_file | The CA file to be used for the SSL verification, is SSL is used |
-| ssl_cert_file |
-| ssl_key_file |
-| max_header_line |
-| retry_until_window
-| tcp_keepidle
-| backlog
+| ssl_ca_file | CA certificate file to use to verify connecting clients |
+| ssl_cert_file | Identifying certificate PEM file to present to clients |
+| ssl_key_file | Private key PEM file used to sign cert_file certificate |
+| max_header_line | xxx |
+| retry_until_window | xxx |
+| tcp_keepidle | Sets the value of TCP_KEEPIDLE in seconds for each server socket |
+| backlog | xxx |
 
 
 
