@@ -184,7 +184,19 @@ The following describes the meaning of the attributes of the synergy configurati
 |default_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
 |TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the *default_TTL* attribute will be used |
 
+**Section: [FairShareManager]**
 
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
+|rate | xxx |
+| period_length | xxx |
+| periods | xxx |
+| default_share | Specifies the default to be used for a project, if not specified in the *shares* attribute of the *SchedulerManager* section |
+| decay_weight | xxx |
+| vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by synergy |
+| age_weight | xxx |
+| memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy |
 
 TBC: Lisa
 
