@@ -211,6 +211,26 @@ The following describes the meaning of the attributes of the synergy configurati
 | timeout | the http connection timeout
 | trust_expiration | the trust expiration xxx |
 
+**Section: [NovaManager]**
+
+| Attribute | Description |
+| -- | -- |
+| autostart | Specifies if the nova manager should be started when synergy starts |
+|rate | xxx |
+| nova_conf | the nova configuration file: if specified the following attributes are used: my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend; in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password
+in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password xxx |
+| host | xxx |
+| timeout | The http connection timeout |
+| amqp_backend |the amqp backend tpye (rabbit or qpid) |
+| amqp_host | xxx |
+| amqp_port | xxx |
+| amqp_user | xxxx |
+| amqp_password | xxx |
+| amqp_virtual_host | xxx |
+| conductor_topic | the conductor topic |
+| compute_topic | the compute topic xxx |
+| scheduler_topic | the scheduler topic |
+| db_connection | the NOVA database connection | 
 
 
 TBC: Lisa
