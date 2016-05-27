@@ -199,10 +199,10 @@ The following describes the meaning of the attributes of the synergy configurati
 | -- | -- |
 | autostart | Specifies if the FairShare manager should be started when synergy starts |
 |rate | The time (in minutes) between two executions of the task implementing this manager |
-| period_length | xxx |
-| periods | xxx |
+| period_length | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the length, in days, of a single period (default=7 days) |
+| periods | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered |
 | default_share | Specifies the default to be used for a project, if not specified in the *shares* attribute of the *SchedulerManager* section |
-| decay_weight | xxx |
+| decay_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how older periods should be given a less weight   |
 | vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by synergy |
 | age_weight | xxx |
 | memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy |
