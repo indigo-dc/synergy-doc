@@ -98,7 +98,7 @@ project_name=admin
 # set the http connection timeout
 timeout=60
 # set the trust expiration
-trust_expiration=24
+
 
 
 [NovaManager]
@@ -219,7 +219,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | password | the password of the specified user with admin role |
 | project_name | the project to request authorization on |
 | timeout | the http connection timeout
-| trust_expiration | the trust expiration xxx |
+
 
 ---
 **Section [NovaManager]**
