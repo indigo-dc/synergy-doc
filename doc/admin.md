@@ -157,7 +157,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | filename | The name of the log file |
-| level | The log level. Possible values are xxx |
+| level | The log level. Possible values are  DEBUG, INFO, WARNING, ERROR, CRITICAL|
 | formatter | The format of the log file |
 | maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
 | backupCount | The number of log files to be kept |
