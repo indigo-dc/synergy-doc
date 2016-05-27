@@ -223,16 +223,16 @@ The following describes the meaning of the attributes of the synergy configurati
 | nova_conf | the pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system  |
 | host | The hostname where the xxx service runs|
 | timeout | The http connection timeout |
-| amqp_backend |the AMQP backend tpye (rabbit or qpid) |
-| amqp_host | xxx |
-| amqp_port | xxx |
-| amqp_user | xxxx |
-| amqp_password | xxx |
-| amqp_virtual_host | xxx |
-| conductor_topic | the conductor topic |
-| compute_topic | the compute topic xxx |
-| scheduler_topic | the scheduler topic |
-| db_connection | the NOVA database connection | 
+| amqp_backend |The AMQP backend tpye (rabbit or qpid) |
+| amqp_host | The server where the AMQP service runs |
+| amqp_port | The port used by the AMQP service |
+| amqp_user | The AMQP userid |
+| amqp_password | The password of the AMQP user |
+| amqp_virtual_host | The AMQP virtual host |
+| conductor_topic | The topic on which conductor nodes listen on |
+| compute_topic | The topic compute nodes listen on |
+| scheduler_topic | The topic scheduler nodes listen on |
+| db_connection | The SQLAlchemy connection string to use to connect to the Nova database.  | 
 
 ---
 **Section [QueueManager]**
