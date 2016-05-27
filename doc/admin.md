@@ -53,6 +53,44 @@ openstack endpoint create --region RegionOne management \
 --adminurl http://$SYNERGY_HOST_IP:8051
 ```
 
+Two changes are then needed on the controller node.
+
+
+The first one is edit */usr/lib/python2.7/site-packages/oslo_messaging/localcontext.py*, replacing:
+
+```python
+def _clear_local_context():
+    """Clear the request context for the current thread."""
+    delattr(_STORE, _KEY)
+```
+with:
+
+```python
+def _clear_local_context():
+    """Clear the request context for the current thread."""
+    if hasattr(_STORE, _KEY):
+        delattr(_STORE, _KEY)
+```
+
+The second one is edit */usr/lib/python2.7/dist-packages/nova/cmd/conductor.py* replacing:
+
+```python
+topic=CONF.conductor.topic,
+```
+
+with:
+
+```python
+topic=CONF.conductor.topic + "_synergy", 
+```
+
+Then restart the nova services on the Controller node.
+
+Configure the synergy service, as explained in the following section.
+
+Then start the synergy service:
+
+TBC
 
 
 ## The synergy configuration file
