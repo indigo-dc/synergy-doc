@@ -101,7 +101,7 @@ rate=5
 # my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend
 # in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password
 # in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password
-nova_conf=/etc/synergy/nova.conf
+nova_conf=/etc/nova/nova.conf
 
 host=10.64.31.19
 #set the http connection timeout (default=60)
@@ -180,7 +180,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
 |rate | xxx |
 |projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
-|shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute xxx in the xxx section is used |
+|shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute *default_share* in the *FairShareManager* section is used |
 |default_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
 |TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the *default_TTL* attribute will be used |
 
@@ -220,10 +220,10 @@ The following describes the meaning of the attributes of the synergy configurati
 | -- | -- |
 | autostart | Specifies if the nova manager should be started when synergy starts |
 |rate | xxx |
-| nova_conf | the nova configuration file: if specified the following attributes are used: my_ip, conductor_topic, compute_topic, scheduler_topic, connection, rpc_backend; in case of RABBIT backend: rabbit_host, rabbit_port, rabbit_virtual_host, rabbit_userid, rabbit_password; in case of QPID backend: qpid_hostname, qpid_port, qpid_username, qpid_password xxx |
-| host | xxx |
+| nova_conf | the pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system  |
+| host | The hostname where the xxx service runs|
 | timeout | The http connection timeout |
-| amqp_backend |the amqp backend tpye (rabbit or qpid) |
+| amqp_backend |the AMQP backend tpye (rabbit or qpid) |
 | amqp_host | xxx |
 | amqp_port | xxx |
 | amqp_user | xxxx |
