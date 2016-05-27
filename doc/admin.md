@@ -2,12 +2,23 @@
 # Manual installation and configuration
 
 
-## Package installation
+## Installation
 
-Synergy packages can be installed in the OpenStack controller node or on another node.
+Install the synergy packages. They can be installed in the OpenStack controller node or on another node.
 
 
 TBC
+
+Register the synergy service and endpoint in the Openstack service catalog:
+
+```bash
+openstack service create --name synergy management
+
+openstack endpoint create --region RegionOne management \
+--publicurl http://$SYNERGY_HOST_IP:8051 \
+--internalurl http://$SYNERGY_HOST_IP:8051 \
+--adminurl http://$SYNERGY_HOST_IP:8051
+```
 
 
 ## The synergy configuration file
