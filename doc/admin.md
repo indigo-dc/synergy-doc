@@ -9,6 +9,39 @@ Install the synergy packages. They can be installed in the OpenStack controller 
 
 TBC
 
+
+Then use the database access client to connect to the database server as the root user:
+
+```bash
+$ mysql -u root -p
+```
+
+Create the synergy database:
+````
+```
+CREATE DATABASE synergy;
+````
+
+Grant proper access to the glance database:
+
+```
+GRANT ALL PRIVILEGES ON synergy.* TO 'synergy'@'localhost' \
+IDENTIFIED BY 'SYNERGY_DBPASS';
+GRANT ALL PRIVILEGES ON synergy.* TO 'synergy'@'%' \
+IDENTIFIED BY 'SYNERGY_DBPASS';
+flush privileges; 
+```
+
+Replace SYNERGY_DBPASS with a suitable password.
+
+Exit the database access client.
+
+Source the admin credentials to gain access to admin-only CLI commands:
+
+```bash
+$ . admin-openrc
+```
+
 Register the synergy service and endpoint in the Openstack service catalog:
 
 ```bash
@@ -19,6 +52,7 @@ openstack endpoint create --region RegionOne management \
 --internalurl http://$SYNERGY_HOST_IP:8051 \
 --adminurl http://$SYNERGY_HOST_IP:8051
 ```
+
 
 
 ## The synergy configuration file
