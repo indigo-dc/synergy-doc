@@ -8,7 +8,7 @@ Synergy must be configured properly filling the */etc/synergy/synergy.conf* conf
 
 This is an example of the synergy.conf configuration file:
 
-```
+```ini
 [DEFAULT]
 
 
