@@ -175,10 +175,10 @@ The following describes the meaning of the attributes of the synergy configurati
 | ssl_ca_file | CA certificate file to use to verify connecting clients |
 | ssl_cert_file | Identifying certificate PEM file to present to clients |
 | ssl_key_file | Private key PEM file used to sign cert_file certificate |
-| max_header_line | xxx |
-| retry_until_window | xxx |
+| max_header_line | Maximum size of message headers to be accepted (default=16384) |
+| retry_until_window | Number of seconds to keep retrying for listening (default 30s) |
 | tcp_keepidle | Sets the value of TCP_KEEPIDLE in seconds for each server socket |
-| backlog | xxx |
+| backlog | Number of backlog requests to configure the socket with (default=4096). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding (i.e. not yet accepted) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
 
 ---
 **Section [SchedulerManager]**
