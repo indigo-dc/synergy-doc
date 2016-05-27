@@ -202,9 +202,9 @@ The following describes the meaning of the attributes of the synergy configurati
 | period_length | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the length, in days, of a single period (default=7 days) |
 | periods | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered |
 | default_share | Specifies the default to be used for a project, if not specified in the *shares* attribute of the *SchedulerManager* section |
-| decay_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how older periods should be given a less weight   |
+| decay_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage   |
 | vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by synergy |
-| age_weight | xxx |
+| age_weight | This attribute defines how oldest requests (and therefore with low priority) should have their priority increased so thay cam be eventaully served |
 | memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy |
 
 ---
@@ -229,7 +229,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | autostart | Specifies if the nova manager should be started when synergy starts |
 |rate | The time (in minutes) between two executions of the task implementing this manager |
 | nova_conf | The pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system  |
-| host | The hostname where the xxx service runs|
+| host | The hostname where the nova-conductor service runs|
 | timeout | The http connection timeout |
 | amqp_backend |The AMQP backend tpye (rabbit or qpid) |
 | amqp_host | The server where the AMQP service runs |
