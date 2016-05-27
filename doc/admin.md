@@ -2,6 +2,14 @@
 # Manual installation and configuration
 
 
+## Package installation
+
+Synergy packages can be installed in the OpenStack controller node or on another node.
+
+
+TBC
+
+
 ## The synergy configuration file
 
 Synergy must be configured properly filling the */etc/synergy/synergy.conf* configuration file.
