@@ -213,7 +213,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the Keystone manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manage  |
 | auth_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
 | username | the name of the user with admin role |
 | password | the password of the specified user with admin role |
