@@ -186,7 +186,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manager |
 |projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
 |shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute *default_share* in the *FairShareManager* section is used |
 |default_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
@@ -198,7 +198,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the FairShare manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manager |
 | period_length | xxx |
 | periods | xxx |
 | default_share | Specifies the default to be used for a project, if not specified in the *shares* attribute of the *SchedulerManager* section |
@@ -227,7 +227,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the nova manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manager |
 | nova_conf | The pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system  |
 | host | The hostname where the xxx service runs|
 | timeout | The http connection timeout |
@@ -248,7 +248,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the Queue manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manager |
 | db_connection | The SQLAlchemy connection string to use to connect to the synergy database.  |
 | db_pool_size | The number of SQL connections to be kept open |
 | db_max_overflow | The max overflow with SQLAlchemy |
@@ -260,7 +260,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | Attribute | Description |
 | -- | -- |
 | autostart | Specifies if the Quota manager should be started when synergy starts |
-|rate | xxx |
+|rate | The time (in minutes) between two executions of the task implementing this manager |
 
 
 
