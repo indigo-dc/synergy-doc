@@ -363,10 +363,6 @@ Usage example:
 ```puppet
 class { 'synergy':
   synergy_db_url          => 'mysql://synergy:test@localhost/synergy',
-  synergy_log_file        => '/var/log/synergy/synergy.log',
-  synergy_log_level       => 'INFO',
-  synergy_service_host    => 'localhost',
-  synergy_service_port    => 8051,
   synergy_project_shares  => {'A' => 70, 'B' => 30 },
   keystone_url            => 'https://example.com',
   keystone_admin_user     => 'admin',
