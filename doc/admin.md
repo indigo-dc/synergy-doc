@@ -370,14 +370,14 @@ class { 'synergy':
   synergy_project_shares  => {'A' => 70, 'B' => 30 },
   keystone_url            => 'https://example.com',
   keystone_admin_user     => 'admin',
-  keystone_admin_password => 'haha',
+  keystone_admin_password => 'the keystone password',
   nova_url                => 'https://example.com',
   nova_db_url             => 'mysql://nova:test@localhost/nova',
   amqp_backend            => 'rabbit',
   amqp_host               => 'localhost',
   amqp_port               => 5672,
   amqp_user               => 'openstack',
-  amqp_password           => 'haha',
+  amqp_password           => 'the amqp password',
   amqp_virtual_host       => '/',
 }
 ```
