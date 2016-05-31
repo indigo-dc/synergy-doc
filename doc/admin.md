@@ -362,14 +362,23 @@ puppet module install vll-synergy
 Usage example:
 ```puppet
 class { 'synergy':
-  synergy_db_url          => 'mysql://test:test@localhost',
-  dynamic_quotas          => {'project_A' => 1,  'project_B' => 2},
-  project_shares          => {'project_A' => 70, 'project_B' => 30 },
-  user_shares             => {'project_A' => {'user1' => 60, 'user2' => 40 },
-                              'project_B' => {'user3' => 80, 'user4' => 20}},
+  synergy_db_url          => 'mysql://synergy:test@localhost/synergy',
+  synergy_log_file        => '/var/log/synergy/synergy.log',
+  synergy_log_level       => 'INFO',
+  synergy_service_host    => 'localhost',
+  synergy_service_port    => 8051,
+  synergy_project_shares  => {'A' => 70, 'B' => 30 },
   keystone_url            => 'https://example.com',
   keystone_admin_user     => 'admin',
-  keystone_admin_password => 'the admin password',
+  keystone_admin_password => 'haha',
+  nova_url                => 'https://example.com',
+  nova_db_url             => 'mysql://nova:test@localhost/nova',
+  amqp_backend            => 'rabbit',
+  amqp_host               => 'localhost',
+  amqp_port               => 5672,
+  amqp_user               => 'openstack',
+  amqp_password           => 'haha',
+  amqp_virtual_host       => '/',
 }
 ```
 
