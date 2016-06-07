@@ -81,7 +81,7 @@ def _clear_local_context():
         delattr(_STORE, _KEY)
 ```
 
-The second one is edit */usr/lib/python2.7/dist-packages/nova/cmd/conductor.py* replacing:
+The second one is edit */usr/lib/python2.7/site-packages/nova/cmd/conductor.py* replacing:
 
 ```python
 topic=CONF.conductor.topic,
