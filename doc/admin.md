@@ -4,10 +4,19 @@
 
 ## Installation
 
-Install the synergy packages. They can be installed in the OpenStack controller node or on another node.
+Install the relevant INDIGO repository.
+
+Then install the synergy packages.
+
+On CentOS7:
+
+```
+yum install python-synergy-service python-synergy-scheduler-manager
+```
+
+They can be installed in the OpenStack controller node or on another node.
 
 
-TBC
 
 
 Then use the database access client to connect to the database server as the root user:
@@ -47,10 +56,10 @@ Register the synergy service and endpoint in the Openstack service catalog:
 ```bash
 openstack service create --name synergy management
 
-openstack endpoint create --region RegionOne management \
---publicurl http://$SYNERGY_HOST_IP:8051 \
---internalurl http://$SYNERGY_HOST_IP:8051 \
---adminurl http://$SYNERGY_HOST_IP:8051
+
+openstack endpoint create --region RegionOne management public http://$SYNERGY_HOST_IP:8051 
+openstack endpoint create --region RegionOne management admin http://$SYNERGY_HOST_IP:8051
+openstack endpoint create --region RegionOne management internal http://$SYNERGY_HOST_IP:8051
 ```
 
 Two changes are then needed on the controller node.
