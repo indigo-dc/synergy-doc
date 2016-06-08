@@ -65,7 +65,7 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 Two changes are then needed on the controller node.
 
 
-The first one is edit */usr/lib/python2.7/site-packages/oslo_messaging/localcontext.py*, replacing:
+The first one is edit */usr/lib/python2.7/site-packages/oslo_messaging/localcontext.py* (for CentOS) /*/usr/lib/python2.7/dist-packages/oslo_messaging/localcontext.py* (for Ubuntu) , replacing:
 
 ```python
 def _clear_local_context():
@@ -81,7 +81,7 @@ def _clear_local_context():
         delattr(_STORE, _KEY)
 ```
 
-The second one is edit */usr/lib/python2.7/site-packages/nova/cmd/conductor.py* replacing:
+The second one is edit */usr/lib/python2.7/site-packages/nova/cmd/conductor.py* (for CentOS) / */usr/lib/python2.7/site-packages/nova/cmd/conductor.py* (for Ubuntu) replacing:
 
 ```python
 topic=CONF.conductor.topic,
