@@ -320,7 +320,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | -- | -- |
 | autostart | Specifies if the nova manager should be started when synergy starts |
 |rate | The time (in minutes) between two executions of the task implementing this manager |
-| nova_conf | The pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system  |
+| nova_conf | The pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor_topic, compute_topic, scheduler_topic, db_connection, and the ones referring to the AMQP system. This file must be readable by the synergy user  |
 | host | The hostname where the nova-conductor service runs|
 | timeout | The http connection timeout |
 | amqp_backend |The AMQP backend tpye (rabbit or qpid) |
