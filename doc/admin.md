@@ -1,6 +1,19 @@
 
 # Manual installation and configuration
 
+## Quota setting
+
+The overall resources can be grouped in two groups:
+
+* Static resources
+* Dynamic resources
+
+
+Static resources are managed using the 'standard' Openstack policies. Therefore for the projects using static resources it is necessary to specify the relevant quota for instances, VCPUs and RAM.
+
+Dynamic 
+
+
 
 ## Installation
 
