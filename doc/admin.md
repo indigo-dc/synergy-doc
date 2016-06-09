@@ -231,7 +231,7 @@ compute_topic = compute
 # the scheduler topic
 scheduler_topic = scheduler
 # the NOVA database connection
-db_connection = mysql+pymysql://nova:NOVA_DBPASS@10.64.31.19/nova
+db_connection = mysql://nova:NOVA_DBPASS@10.64.31.19/nova
 
 
 [QueueManager]
