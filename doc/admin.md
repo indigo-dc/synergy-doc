@@ -9,9 +9,11 @@ The overall resources can be grouped in two groups:
 * Dynamic resources
 
 
-Static resources are managed using the 'standard' Openstack policies. Therefore for the projects using static resources it is necessary to specify the relevant quota for instances, VCPUs and RAM.
+Static resources are managed using the 'standard' Openstack policies. Therefore for each project referring to static resources it is necessary to specify the relevant quota for instances, VCPUs and RAM.
 
-Dynamic 
+The overall amount of dynamic resources is calculated as difference between the total amount of resources (considering also the overcommitment ratios) and the resources allocated for static projects. 
+
+For projects referring to dynamic resources, the quota values for VCPUs, instances and RAM should be set to -1 (or to very high values).
 
 
 
