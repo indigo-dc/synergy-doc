@@ -62,6 +62,16 @@ openstack endpoint create --region RegionOne management admin http://$SYNERGY_HO
 openstack endpoint create --region RegionOne management internal http://$SYNERGY_HOST_IP:8051
 ```
 
+Make sure that nova notifications are enanbled. On the controller node add the following attributes in the *nova.conf* file and then restart the nova services:
+
+```
+notify_on_state_change = vm_state
+default_notification_level = INFO
+notification_driver = messaging
+notification_topics = notifications
+```
+
+
 Two changes are then needed on the controller node.
 
 
