@@ -13,7 +13,7 @@ Static resources are managed using the 'standard' Openstack policies. Therefore 
 
 The overall amount of dynamic resources is calculated as difference between the total amount of resources (considering also the overcommitment ratios) and the resources allocated for static projects. 
 
-For projects referring to dynamic resources, the quota values for VCPUs, instances and RAM should be set to -1 (or to very high values).
+For projects referring to dynamic resources, the quota values for VCPUs, instances and RAM are not meaningful and therefore can be set to any arbitrary value.
 
 
 
@@ -122,7 +122,13 @@ Then restart the nova services on the Controller node.
 
 Configure the synergy service, as explained in the following section.
 
-Then start the synergy service:
+Then start and enable the synergy service.
+On CentOS:
+
+```
+systemctl start synergy
+systemctl enable synergy
+```
 
 TBC
 
