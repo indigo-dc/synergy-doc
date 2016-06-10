@@ -551,7 +551,7 @@ Command-line interface to the OpenStack Synergy API.
    
 
 
-### synergycli list                
+### synergy list                
 
 This command returns the list of managers that have been deployed in the synergy service.
 
