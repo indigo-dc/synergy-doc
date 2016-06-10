@@ -634,49 +634,65 @@ E.g.:
 
 
 
-### synergycli get_quota           
+### synergy get_quota           
 
-This command, for each dynamic project, shows the resources being used wrt the total number of dynamic resources.
+This command shows the dynamic resources being used wrt the total number of dynamic resources.
+
+E.g:
+```
+# synergy get_quota 
+-------------------------------
+| type     | in use | limit   |
+-------------------------------
+| ram (MB) | 9728   | 9808.00 |
+| cores    | 19     | 28.00   |
+-------------------------------
+```
+
+
+
+Using the *--long* option, it is also possible to see the status for each project.
 
 In the following example:
 
-* *limit=15.0* for *vcpus* for each dynamic project says that the total number of VCPUs for the dynamic portion of the resources is 15. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
-* limit=17512.0 for *memory* for each dynamic project says that the total number of MB of RAM for the dynamic portion of the resources is 17512. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
-* *prj_a* is currently using 5 VCPUs and 2560 MB of RAM
-* *prj_a* is currently using 10 VCPUs and 5120 MB of RAM
-* the total number of VCPUs currently used by the dynamic projects is 15 (the value reported between parenthesis)
-* the total number of MB of RAM currently used by the dynamic projects is 7680 (the value reported between parenthesis)
+* *limit=28.0* for *vcpus* for each dynamic project says that the total number of VCPUs for the dynamic portion of the resources is 28. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
+* limit=9808.0 for *memory* for each dynamic project says that the total number of MB of RAM for the dynamic portion of the resources is 9808. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
+* *prj_a* is currently using 9 VCPUs and 4608 MB of RAM
+* *prj_b* is currently using 10 VCPUs and 5120 MB of RAM
+* the total number of VCPUs currently used by the dynamic projects is 19 (the value reported between parenthesis)
+* the total number of MB of RAM currently used by the dynamic projects is 9728 (the value reported between parenthesis)
 
 
 ```
-$ synergycli get_quota
-------------------------------------------------------------------------------
-| project | vcpus                       | memory                             |
-------------------------------------------------------------------------------
-| prj_b   | in use=10 (15) | limit=15.0 | in use=5120 (7680) | limit=17512.0 |
-| prj_a   | in use=5 (15)  | limit=15.0 | in use=2560 (7680) | limit=17512.0 |
-------------------------------------------------------------------------------
+# synergy get_quota --long
+-------------------------------------------------------------------------------
+| project | cores                        | ram (MB)                           |
+-------------------------------------------------------------------------------
+| prj_b   | in use=10 (19) | limit=28.00 | in use=5120 (9728) | limit=9808.00 |
+| prj_a   | in use= 9 (19) | limit=28.00 | in use=4608 (9728) | limit=9808.00 |
+-------------------------------------------------------------------------------
 ```
 
 
 
 
-### synergycli get_priority        
+### synergy get_priority        
 
 This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources (considering the policies specified  by the Cloud administrator and considering the past usage of such resources).
 
 E.g. in the following example *user_a2* of project *prj_a* has the highest priority:
 
 ```
-$ synergycli get_priority
+# synergy get_priority
 --------------------------------
 | project | user    | priority |
 --------------------------------
-| prj_b   | user_b2 | 20       |
-| prj_b   | user_b1 | 4        |
-| prj_a   | user_a2 | 72       |
-| prj_a   | user_a1 | 52       |
+| prj_a   | user_a1 | 78.00    |
+| prj_a   | user_a2 | 80.00    |
+| prj_b   | user_b1 | 5.00     |
+| prj_b   | user_b2 | 5.00     |
 --------------------------------
+
 ```
 
 
@@ -739,20 +755,18 @@ $ synergycli get_usage
 
 
 
-### synergycli get_queue   
+### synergy get_queue   
 
-This command returns the number of queued requests (i.e. requests in scheduling state, waiting for available resources) for each static project and for the dynamic projects, in total.
+This command returns the number of queued requests for the dynamic projects, in total.
 
-E.g. in the following example there are no pending requests for the 2 static projects (admin and service), while there are 70 queued requests in total for the dynamic projects.
+E.g. in the following example there are 45 queued requests in total for the dynamic projects.
 
 ```
-$ synergycli get_queue
+# synergy get_queue
 ---------------------------
-| name    | status | size |
+| queue   | status | size |
 ---------------------------
-| admin   | ON     | 0    |
-| dynamic | ON     | 70   |
-| service | ON     | 0    |
+| DYNAMIC | ON     | 45   |
 ---------------------------
 ```
 
