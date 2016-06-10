@@ -420,7 +420,7 @@ class { 'synergy':
 
 # The Synergy command line interface
 
-The Synergy service provides a command-line client, called **synergycli**, which allows the Cloud administrator to control and monitor the Synergy service.
+The Synergy service provides a command-line client, called **synergy**, which allows the Cloud administrator to control and monitor the Synergy service.
 
 Before running the synergycli client command, you must create and source the *admin-openrc.sh* file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools. 
 
@@ -431,7 +431,7 @@ Note that the OS_AUTH_URL variables must refer to the v3 version of the keystone
 
 
 
-### synergycli usage
+### synergy usage
 
 ```
 usage: synergycli [-h] [--version] [--debug] [--os-username <auth-user-name>]
