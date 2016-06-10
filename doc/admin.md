@@ -434,31 +434,30 @@ Note that the OS_AUTH_URL variables must refer to the v3 version of the keystone
 ### synergy usage
 
 ```
-usage: synergycli [-h] [--version] [--debug] [--os-username <auth-user-name>]
+[root@cld-centos-ctrl ~]# synergy --help
+usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
                [--os-project-name <auth-project-name>]
                [--os-project-id <auth-project-id>]
                [--os-auth-token <auth-token>] [--os-auth-token-cache]
                [--os-auth-url <auth-url>] [--os-auth-system <auth-system>]
                [--bypass-url <bypass-url>] [--os-cacert <ca-certificate>]
-               [--insecure]
-               {list,start,stop,status,get_quota,get_priority,get_share,get_usage,get_queue}
+               
+               {get_priority,get_queue,get_quota,get_share,get_usage,list,start,status,stop}
                ...
 
-
-
 positional arguments:
-  {list,start,stop,status,get_quota,get_priority,get_share,get_usage,get_queue}
+  {get_priority,get_queue,get_quota,get_share,get_usage,list,start,status,stop}
                         commands
+    get_priority        shows the users priority
+    get_queue           shows the queue info
+    get_quota           shows the dynamic quota info
+    get_share           shows the users share
+    get_usage           retrieve the resource usages
     list                list the managers
     start               start the managers
-    stop                stop the managers
     status              retrieve the manager's status
-    get_quota           retrieve the project quota
-    get_priority        retrieve the user priority
-    get_share           retrieve the user share
-    get_usage           retrieve the resource usage
-    get_queue           retrieve the queue information
+    stop                stop the managers
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -486,15 +485,12 @@ optional arguments:
   --os-cacert <ca-certificate>
                         Specify a CA bundle file to use in verifying a TLS
                         (https) server certificate. Defaults to env[OS_CACERT]
-  --insecure            explicitly allow Synergy's client to perform
-                        "insecure" SSL (https) requests. The server's
-                        certificate will not be verified against any
-                        certificate authorities. This option should be used
-                        with caution.
+
+Command-line interface to the OpenStack Synergy API.
 ```
 
 
-### synergycli optional arguments
+### synergy optional arguments
 
 **-h, --help**
 
