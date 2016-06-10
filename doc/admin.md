@@ -558,70 +558,77 @@ This command returns the list of managers that have been deployed in the synergy
 E.g.:
 
 ```
-$ synergycli list
+# synergy list
 --------------------
 | manager          |
 --------------------
 | QuotaManager     |
+| NovaManager      |
 | FairShareManager |
+| TimerManager     |
 | QueueManager     |
+| KeystoneManager  |
+| SchedulerManager |
 --------------------
 ```
 
 
 
 
-### synergycli start               
+### synergy start               
 
-This command starts the managers deployed in the synergy service.
-
-E.g.:
-
-```
-$ synergycli start
------------------------------------------------------
-| manager          | status  | message              |
------------------------------------------------------
-| QuotaManager     | RUNNING | started successfully |
-| FairShareManager | RUNNING | started successfully |
-| QueueManager     | RUNNING | started successfully |
-```
-
-
-
-### synergycli stop                
-
-This command stops the managers deployed in the synergy service.
+This command start a manager deployed in the synergy service.
 
 E.g.:
 
 ```
-$ synergycli stop
-----------------------------------------------------
-| manager          | status | message              |
-----------------------------------------------------
-| QuotaManager     | ACTIVE | stopped successfully |
-| FairShareManager | ACTIVE | stopped successfully |
-| QueueManager     | ACTIVE | stopped successfully |
-----------------------------------------------------
+# synergy start TimerManager
+-------------------------------------------------
+| manager      | status  | message              |
+-------------------------------------------------
+| TimerManager | RUNNING | started successfully |
+-------------------------------------------------
 ```
 
 
 
-### synergycli status              
+### synergy stop                
+
+This command stops a manager deployed in the synergy service.
+
+E.g.:
+
+```
+# synergy stop KeystoneManager
+---------------------------------------------------
+| manager         | status | message              |
+---------------------------------------------------
+| KeystoneManager | ACTIVE | stopped successfully |
+---------------------------------------------------
+```
+
+
+
+
+
+### synergy status              
 
 This command returns the status of the managers deployed in the synergy service. 
 
 E.g.:
 
 ```
-$ synergycli status
+# synergy status
 ------------------------------
 | manager          | status  |
 ------------------------------
 | QuotaManager     | RUNNING |
+| NovaManager      | RUNNING |
 | FairShareManager | RUNNING |
+| TimerManager     | ACTIVE  |
 | QueueManager     | RUNNING |
+| KeystoneManager  | RUNNING |
+| SchedulerManager | RUNNING |
 ------------------------------
 ```
 
