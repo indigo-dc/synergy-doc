@@ -547,12 +547,8 @@ Command-line interface to the OpenStack Synergy API.
     Specify a CA certificate bundle file to use in verifying a TLS
     (https) server certificate. Defaults to env[OS_CACERT]
    
-**--insecure**
 
-      Disable server certificate verification, i.e. the server's certificate 
-      will not be verified against any certificate authority
-    
-
+   
 
 
 ### synergycli list                
