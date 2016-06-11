@@ -422,7 +422,7 @@ class { 'synergy':
 
 The Synergy service provides a command-line client, called **synergy**, which allows the Cloud administrator to control and monitor the Synergy service.
 
-Before running the synergycli client command, you must create and source the *admin-openrc.sh* file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools. 
+Before running the synergy client command, you must create and source the *admin-openrc.sh* file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools. 
 
 Note that the OS_AUTH_URL variables must refer to the v3 version of the keystone API, e.g.:
 
@@ -697,7 +697,7 @@ E.g. in the following example *user_a2* of project *prj_a* has the highest prior
 
 
 
-### synergycli get_share           
+### synergy get_share           
 
 This command reports the shares imposed by the Cloud administrator (attribute *shares* in the synergy configuration file) to the dynamic projects and to their users.
 
@@ -711,7 +711,7 @@ The 2 users of *prj_b* has each one a share of 50 % within the project, and a sh
 
 
 ```
-$ synergycli get_share
+$ synergy get_share
 ------------------------------------------------
 | project | share | user    | user share (abs) |
 ------------------------------------------------
@@ -725,7 +725,7 @@ $ synergycli get_share
 
 
 
-### synergycli get_usage           
+### synergy get_usage           
 
 This command reports the usage of the resources by the dynamic projects in the last time frame considered by synergy (attribute *period_length* of the synergy configuration file * attribute *time window*).
 
@@ -741,7 +741,7 @@ In the following example it is reported that, in the considered time frame:
 
 
 ```
-$ synergycli get_usage
+$ synergy get_usage
 --------------------------------------------------------------------------------------
 | project | cores usage | ram usage | user    | cores usage (abs) | ram usage (abs)  |
 --------------------------------------------------------------------------------------
