@@ -701,14 +701,7 @@ E.g. in the following example *user_a2* of project *prj_a* has the highest prior
 
 This command reports the shares imposed by the Cloud administrator (attribute *shares* in the synergy configuration file) to the dynamic projects and to their users.
 
-E.g. in the following example *prj_a* was given 70 % of the share, and the rest (30 %) was given to *prj_b*. 
-
-The relevant users of these 2 projects were given the same share. 
-
-Therefore the 2 users of *prj_a* has each one a share of 50 % within the project, and a share of 35 % (50 % of 70 %) of total resources.
-
-The 2 users of *prj_b* has each one a share of 50 % within the project, and a share of 15 % (50 % of 30 %) of total resources.
-
+E.g. in the following example the administrator specified in the synergy configuration file the value 70 for the share value of *prj_a*, and 10 as share value for *prj_b*. The command also reports the % values.
 
 ```
 # synergy get_share
@@ -718,8 +711,15 @@ The 2 users of *prj_b* has each one a share of 50 % within the project, and a sh
 | prj_b   | 12.50% (10.00) |
 | prj_a   | 87.50% (70.00) |
 ----------------------------
+```
+With the *--long* option it is also possible to see the shares for the users. The relevant users of the 2 projects are given the same share. 
+
+Therefore the 2 users of *prj_a* has each one a share of 43.75 % (50 % of 87.50 %) of total resources.
+
+The 2 users of *prj_b* has each one a share of 6.25 % (50 % of 12.50 %) of total resources.
 
 
+```
 # synergy get_share --long
 -----------------------------------------------
 | project | share          | user    | share  |
