@@ -40,8 +40,8 @@ For all the packages that depend on *synergy-service*: update the `requirements.
 
 ### Making a new release for *synergy-scheduler-manager*
 1. Change the version in `setup.cfg`.
-2. Publish the changes on git (see the [synergy-service way](#publish-the-changes) for details).
-3. Package the new version (see the [synergy-service](#package-the-new-version) way for details).
+2. Publish the changes on git (see the [synergy-service way](#publish-the-changes-on-git) for details).
+3. Package the new version (see the [synergy-service way](#package-the-new-version) for details).
 
 ### Changes related to INDIGO-DC
 #### Openstack version
