@@ -29,6 +29,13 @@ On CentOS7:
 yum install python-synergy-service python-synergy-scheduler-manager
 ```
 
+On Ubuntu:
+
+```
+apt-get install python-synergy-service python-synergy-scheduler-manager
+```
+
+
 They can be installed in the OpenStack controller node or on another node.
 
 
@@ -130,7 +137,11 @@ systemctl start synergy
 systemctl enable synergy
 ```
 
-TBC
+On Ubuntu:
+
+````
+service synergy start
+```
 
 
 ## The synergy configuration file
