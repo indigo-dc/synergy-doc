@@ -18,9 +18,9 @@ Synergy is made of two packages:
 
 #### Publish the changes on git
 1. Commit these changes.
-2. Push them to OpenStack CI.
+2. Push them to OpenStack CI, wait for it to be merged.
 3. Make a pull-request to the github repository with the latest commits.
-4. Once the changes are merge, tag the version in git (in both the OpenStack and Github repositories).
+4. Once the changes are merged, tag the version in git (Github repository).
 
 #### Package the new version
 1. Build the RPM and DEB packages.
