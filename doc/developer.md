@@ -39,7 +39,7 @@ Synergy is made of two packages:
 For all the packages that depend on *synergy-service*: update the `requirements.txt` with the new version of *synergy-service*.
 
 ### Making a new release for *synergy-scheduler-manager*
-1. Change the version in `setup.cfg`.
+1. Change the version in `setup.cfg` and add changelog for RPM and DEB (see the [synergy-service way](#set-the-version) for details).
 2. Publish the changes on git (see the [synergy-service way](#publish-the-changes-on-git) for details).
 3. Package the new version (see the [synergy-service way](#package-the-new-version) for details).
 
