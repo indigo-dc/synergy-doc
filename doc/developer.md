@@ -23,7 +23,7 @@ Synergy is made of two packages:
 4. Once the changes are merged, tag the version in git (Github repository).
 
 #### Package the new version
-1. Build the RPM and DEB packages.
+1. Build the RPM and DEB packages (read `packaging/README.md` for an how-to).
 2. Publish the RPM and DEB packages. If the INDIGO-DC repository is set up, hand them to WP3. Otherwise, make a release on Github and attach the RPM and DEB packages to it.
 3. Build the python package with:
   ```
