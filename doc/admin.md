@@ -21,7 +21,7 @@ For projects referring to dynamic resources, the quota values for VCPUs, instanc
 
 Install the relevant INDIGO repository.
 
-Then install the synergy packages.
+### Install the synergy packages
 
 On CentOS7:
 
@@ -39,7 +39,7 @@ apt-get install python-synergy-service python-synergy-scheduler-manager
 They can be installed in the OpenStack controller node or on another node.
 
 
-
+### Setup the Synergy database
 
 Then use the database access client to connect to the database server as the root user:
 
@@ -67,6 +67,8 @@ Replace SYNERGY_DBPASS with a suitable password.
 
 Exit the database access client.
 
+### Add Synergy as an OpenStack endpoint and service
+
 Source the admin credentials to gain access to admin-only CLI commands:
 
 ```bash
@@ -84,6 +86,8 @@ openstack endpoint create --region RegionOne management admin http://$SYNERGY_HO
 openstack endpoint create --region RegionOne management internal http://$SYNERGY_HOST_IP:8051
 ```
 
+### Adjust nova notifications
+
 Make sure that nova notifications are enanbled. On the controller node add the following attributes in the *nova.conf* file and then restart the nova services:
 
 ```
@@ -93,6 +97,7 @@ notification_driver = messaging
 notification_topics = notifications
 ```
 
+### Edit the source files for proper messaging
 
 Two changes are then needed on the controller node.
 
@@ -125,7 +130,11 @@ with:
 topic=CONF.conductor.topic + "_synergy", 
 ```
 
+### Restart nova
+
 Then restart the nova services on the Controller node.
+
+### Configure and start Synergy
 
 Configure the synergy service, as explained in the following section.
 
