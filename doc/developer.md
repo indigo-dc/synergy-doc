@@ -8,11 +8,8 @@ Synergy is made of two packages:
 
 ### Making a new release for *synergy-service*
 #### Set the version
-1. Change the version in
-  - `setup.cfg`
-  - `packaging/docker/build_env.sh`
-2. *(OPTIONAL)* If you use the Docker image to build RPM and DEB packages, you should rebuild the image since it depends on `build_env.sh`.
-3. Update the changelogs of the RPM and DEB:
+1. Change the version in `setup.cfg`.
+2. Update the changelogs of the RPM and DEB:
   - RPM: edit the spec file and set ` Release` to `0%{?dist}` and `Version` to the new version number, then use `rpmdev-bumpspec -c "insert changelog here" -u "Firstname Lastname <email>" path/to/python-synergy-service.spec`.
   - DEB: use `dch -i` inside the package directory.
 
