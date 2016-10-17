@@ -8,8 +8,9 @@ Synergy is made of two packages:
 
 ### Making a new release for *synergy-service*
 #### Set the version
-1. Change the version in `setup.cfg`.
-2. Update the changelogs of the RPM and DEB:
+1. Tag the last commit with the current version (e.g. `git tag -a 1.3.0` but *not* `git tag -a v1.3.0`).
+2. Build the python package with `python setup.py bdist_wheel`, this way the `AUTHORS` and `ChangeLog` files get updated.
+3. Update the changelogs of the RPM and DEB (you can copy from the `ChangeLog` file):
   - RPM: edit the spec file and set ` Release` to `0%{?dist}` and `Version` to the new version number, then use `rpmdev-bumpspec -c "insert changelog here" -u "Firstname Lastname <email>" path/to/python-synergy-service.spec`.
   - DEB: use `dch -i` inside the package directory.
 
@@ -22,11 +23,7 @@ Synergy is made of two packages:
 #### Package the new version
 1. Build the RPM and DEB packages (read `packaging/README.md` for an how-to).
 2. Publish the RPM and DEB packages. If the INDIGO-DC repository is set up, hand them to WP3. Otherwise, make a release on Github and attach the RPM and DEB packages to it.
-3. Build the python package with:
-  ```
-  python setup.py bdist_wheel
-  ```
-  and upload it to PyPI:
+3. Upload the Python wheel to PyPI:
   ```
   twine upload dist/PACKAGE
   ```
