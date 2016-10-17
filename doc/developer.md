@@ -1,5 +1,12 @@
 # Developer documentation
 
+## Workflow
+We use [PBR](http://docs.openstack.org/developer/pbr/) to manage part of the release workflow.
+
+When a developer makes a commit, it should include a `Sem-Ver` line in it indicating the semantic versioning level of the change. By default, this change is `bugfix`. Other levels are: `feature`, `api-break` and `deprecation`.
+
+Example of a commit using `Sem-Ver`: https://review.openstack.org/#/c/384381/3//COMMIT_MSG
+
 ## Release management
 Synergy is made of two packages:
 
