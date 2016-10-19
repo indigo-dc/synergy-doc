@@ -821,7 +821,10 @@ E.g. in the following example there are 45 queued requests in total for the dyna
 ---------------------------
 ```
 
+## Open Ports 
 
+To interact with Synergy using the client tool, just one port needs to be open.
+This is the port defined in the synergy configuration file (attribute ``port`` in the ``[WSGI]`` section). The default value is 8051. 
 
 
 
