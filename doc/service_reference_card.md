@@ -41,7 +41,9 @@ To interact with Synergy using the client tool, just one port needs to be open. 
 Likewise the OpenStack services, synergy stores persistently the needed information in a relational database.
 Instructions how to create this database are reported in the 'Deployment and Administrator Guide'.
 
+## Cron jobs
 
+Synergy doesn't use any cron jobs
 
 
 
