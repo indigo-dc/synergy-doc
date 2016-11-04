@@ -32,4 +32,16 @@ Instructions how to fill this file, along with an example, are available in the 
 
 By default synergy logs its activities on the file */var/log/synergy/synergy.log*. This file name can be changed modifying the synergy configuration file (attribute *filename* of the *[Logger]* section)
 
+## Open ports
+
+To interact with Synergy using the client tool, just one port needs to be open. This is the port defined in the synergy configuration file (attribute *port* in the *[WSGI]* section). The default value is 8051.
+
+## Synergy storage
+
+Likewise the OpenStack services, synergy stores persistently the needed information in a relational database.
+Instructions how to create this database are reported in the 'Deployment and Administrator Guide'.
+
+
+
+
 
