@@ -22,23 +22,14 @@ service synergy [start|stop|status]
 ```
 
 
-## Configuration files
+## Configuration file
 
-Synergy must be configured properly filling the /etc/synergy/synergy.conf configuration file.
+Synergy must be configured properly filling the */etc/synergy/synergy.conf* configuration file.
 
-This is an example of the synergy.conf configuration file:
+Instructions how to fill this file, along with an example, are available in the 'Deployment and Administrator Guide'
 
+## Logfile 
 
-location with example or template
-Logfile locations (and management) and other useful audit information
-Open ports
-Possible unit test of the service
-Where is service state held (and can it be rebuilt)
-Cron jobs
-Security information
-Access control Mechanism description (authentication & authorization)
-How to block/ban a user
-Network Usage
-Firewall configuration
-Security recommendations
+By default synergy logs its activities on the file */var/log/synergy/synergy.log*. This file name can be changed modifying the synergy configuration file (attribute *filename* of the *[Logger]* section)
+
 
