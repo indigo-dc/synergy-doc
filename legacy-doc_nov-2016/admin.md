@@ -1,4 +1,9 @@
+** ⚠ This is the documentation for an old version of Synergy ⚠ **
 
+The Synergy package versions corresponding to this documentation are:
+- synergy-service v1.2.0
+- synergy-scheduler-manager v2.1.0
+- - - 
 # Manual installation and configuration
 
 ## Quota setting
