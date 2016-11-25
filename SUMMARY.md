@@ -7,4 +7,4 @@
 
 ## Older documentation
 
-* [Legacy Documentation/November 2016](legacy-doc_nov-2016/README.md) (synergy-service v1.2.0, synergy-scheduler-manager v2.1.0)
+* [Legacy Documentation/November 2016](legacy-doc_nov-2016/admin.md) (synergy-service v1.2.0, synergy-scheduler-manager v2.1.0)
