@@ -226,7 +226,8 @@ default_TTL=2880
 # the integer value expresses the max time to live (minutes) for VM/Container
 TTLs=prj_a=1440, prj_b=2880
 
-
+# the integer value expresses the max depth used by the backfilling strategy: this allow Synergy to not check the whole queue when looking for VMs to start
+backfill_depth = 100
 
 [FairShareManager]
 autostart=True
@@ -264,7 +265,10 @@ project_name=admin
 # set the http connection timeout
 timeout=60
 # set the trust expiration
-
+# set the user domain name
+user_domain_name=default
+# set the project domain name
+project_domain_name=default
 
 
 [NovaManager]
@@ -299,8 +303,9 @@ db_connection = mysql://nova:NOVA_DBPASS@10.64.31.19/nova
 
 
 [QueueManager]
-autostart=True
-rate=5
+autostart=False
+#rate=5
+
 # the Synergy database connection
 db_connection=mysql://synergy:SYNERGY_DBPASS@10.64.31.19/synergy
 # the connection pool size (default=10)
