@@ -226,7 +226,8 @@ default_TTL=2880
 # the integer value expresses the max time to live (minutes) for VM/Container
 TTLs=prj_a=1440, prj_b=2880
 
-# the integer value expresses the max depth used by the backfilling strategy: this allow Synergy to not check the whole queue when looking for VMs to start
+# the integer value expresses the max depth used by the backfilling strategy:
+# this allow Synergy to not check the whole queue when looking for VMs to start
 backfill_depth = 100
 
 [FairShareManager]
