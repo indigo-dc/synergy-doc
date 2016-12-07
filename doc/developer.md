@@ -14,35 +14,44 @@ Synergy is made of two packages:
 - *synergy-scheduler-manager*: plugin for *synergy-service* that adds the scheduler functionality. **This package depends on synergy-service**..
 
 ### Making a new release for *synergy-service*
-#### Set the version
-1. Tag the last commit with the current version (e.g. `git tag -a 1.3.0` but *not* `git tag -a v1.3.0`).
-2. Build the python package with `python setup.py bdist_wheel`, this way the `AUTHORS` and `ChangeLog` files get updated.
-3. Update the changelogs of the RPM and DEB (you can copy from the `ChangeLog` file):
-  - RPM: edit the spec file and set ` Release` to `0%{?dist}` and `Version` to the new version number, then use `rpmdev-bumpspec -c "insert changelog here" -u "Firstname Lastname <email>" path/to/python-synergy-service.spec`.
-  - DEB: use `dch -i` inside the package directory.
+#### Get the ChangeLog
+Use `python setup.py bdist_wheel` to
+- automatically update the `ChangeLog` and `AUTHORS` files.
+- get the new version number: the name of the resulting wheel package will be something like `synergy_service-1.3.0.dev18-py2-none-any.whl`, here `1.3.0` is the new version number that respects [semver](http://semver.org).
 
-#### Publish the changes on git
-1. Commit these changes.
-2. Push them to OpenStack CI, wait for it to be merged.
-3. Make a pull-request to the github repository with the latest commits.
-4. Once the changes are merged, tag the version in git (Github repository).
+#### Update the debian and RPM changelogs
+Use the previously generated `ChangeLog` to update the changelog for the Debian and RPM packages. Don't forget to update the synergy version in these files!
 
-#### Package the new version
-1. Build the RPM and DEB packages (read `packaging/README.md` for an how-to).
-2. Publish the RPM and DEB packages. If the INDIGO-DC repository is set up, hand them to WP3. Otherwise, make a release on Github and attach the RPM and DEB packages to it.
-3. Upload the Python wheel to PyPI:
-  ```
-  twine upload dist/PACKAGE
-  ```
-  see [Python packaging](https://packaging.python.org/en/latest/distributing/) for more info.
-  
+For debian, edit the file `packaging/debian/changelog` and add a new entry corresponding to the new version.
+Note: you can get a correctly formatted date by using the command `date -R`.
+
+For RPM, edit the file `packaging/rpm/python-synergy.spec`.
+You will have to edit the `Version: ` line, as well as adding an entry below the `%changelog` line.
+Note: if you are using an \*EL system, you can use the `rpmdev-bumpspec` command.
+
+#### Test packaging for debian and RPM
+Use docker to test the packaging for debian and RPM (see `packaging/README.md` for instructions). Don't forget to add `-e "PKG_VERSION=x.y.z"` to test for the new x.y.z version.
+
+#### Commit and submit to OpenStack CI
+Make a single commit containing the changes to the debian and RPM packaging for the making of the new release. This way it is easy to rebuild the package for old version.
+
+Go to the next step once the commit is merged.
+
+#### Tag the commit
+Once the release commit has been merged into `master`, tag it with git.
+Note: you *must* make a *signed* and *annotated* tag, otherwise gerrit won't accept it.
+
+After that, submit it to gerrit: `git push gerrit x.y.z`.
+
+#### Synchronize to Indigo GitHub repository
+Try to synchronize the commits after each release.
+After that, you can manually add the debian and RPM packages to the github release page.
+
 #### Update dependencies
 For all the packages that depend on *synergy-service*: update the `requirements.txt` with the new version of *synergy-service*.
 
 ### Making a new release for *synergy-scheduler-manager*
-1. Change the version in `setup.cfg` and add changelog for RPM and DEB (see the [synergy-service way](#set-the-version) for details).
-2. Publish the changes on git (see the [synergy-service way](#publish-the-changes-on-git) for details).
-3. Package the new version (see the [synergy-service way](#package-the-new-version) for details).
+Same process as *synergy-service* above, expect that you don't need to do the step *Update dependencies* since it doesn't have any that we control.
 
 ### Changes related to INDIGO-DC
 #### Openstack version
