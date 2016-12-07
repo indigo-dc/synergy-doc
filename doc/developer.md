@@ -14,6 +14,8 @@ Synergy is made of two packages:
 - *synergy-scheduler-manager*: plugin for *synergy-service* that adds the scheduler functionality. **This package depends on synergy-service**..
 
 ### Making a new release for *synergy-service*
+The idea when a making a release for a synergy package is to do it in a *single commit*. This way, we can easily go to this commit and package for that specific version.
+
 #### Get the ChangeLog
 Use `python setup.py bdist_wheel` to
 - automatically update the `ChangeLog` and `AUTHORS` files.
