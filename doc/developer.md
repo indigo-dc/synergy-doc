@@ -43,7 +43,7 @@ Go to the next step once the commit is merged.
 Once the release commit has been merged into `master`, tag it with git.
 Note: you *must* make a *signed* and *annotated* tag, otherwise gerrit won't accept it.
 
-After that, submit it to gerrit: `git push gerrit x.y.z`.
+After that, submit it to gerrit: `git push gerrit x.y.z`. This will automatically trigger the publication of the python wheel package to PyPI.
 
 #### Synchronize to Indigo GitHub repository
 Try to synchronize the commits after each release.
