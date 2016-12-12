@@ -288,28 +288,28 @@ amqp_user = openstack
 amqp_password = RABBIT_PASS
 amqp_virtual_host = /
 
-# set the NOVA host
+# set the Nova host
 host = CONTROLLER_HOST
 
-# set the NOVA conductor topic
+# set the Nova conductor topic
 conductor_topic = conductor
 
-# set the NOVA compute topic
+# set the Nova compute topic
 compute_topic = compute
 
-# set the NOVA scheduler topic
+# set the Nova scheduler topic
 scheduler_topic = scheduler
 
-# set the NOVA database connection
+# set the Nova database connection
 db_connection = mysql://nova:NOVA_DBPASS@CONTROLLER_HOST/nova
 
-# set the NOVA CPU allocation ratio (default: 16)
+# set the Nova CPU allocation ratio (default: 16)
 cpu_allocation_ratio = 16
 
-# set the NOVA RAM allocation ratio (default: 1.5)
+# set the Nova RAM allocation ratio (default: 1.5)
 ram_allocation_ratio = 1.5
 
-# set the NOVA metadata_proxy_shared_secret
+# set the Nova metadata_proxy_shared_secret
 metadata_proxy_shared_secret =
 
 
@@ -421,7 +421,6 @@ The following describes the meaning of the attributes of the synergy configurati
 | --- | --- |
 | autostart | Specifies if the nova manager should be started when synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| nova\_conf | The pathname of the nova configuration file, if synergy is deployed in the OpenStack controller node. Otherwise it is necessary to specify the attributes host, conductor\_topic, compute\_topic, scheduler\_topic, db\_connection, and the ones referring to the AMQP system. This file must be readable by the synergy user |
 | host | The hostname where the nova-conductor service runs |
 | timeout | The http connection timeout |
 | amqp\_backend | The AMQP backend tpye \(rabbit or qpid\) |
@@ -433,9 +432,9 @@ The following describes the meaning of the attributes of the synergy configurati
 | conductor\_topic | The topic on which conductor nodes listen on |
 | compute\_topic | The topic on which compute nodes listen on |
 | scheduler\_topic | The topic on which scheduler nodes listen on |
-| cpu\_allocation\_ratio | The NOVA CPU allocation ratio \(default: 16\) |
-| ram\_allocation\_ratio | The NOVA RAM allocation ratio \(default: 1.5\) |
-| metadata\_proxy\_shared\_secret | The NOVA metadata\_proxy\_shared\_secret |
+| cpu\_allocation\_ratio | The Nova CPU allocation ratio \(default: 16\) |
+| ram\_allocation\_ratio | The Nova RAM allocation ratio \(default: 1.5\) |
+| metadata\_proxy\_shared\_secret | The Nova metadata\_proxy\_shared\_secret |
 | db\_connection | The SQLAlchemy connection string to use to connect to the Nova database. |
 
 ---
@@ -850,8 +849,6 @@ This command provides information about the amount of user requests stored in th
 ╘═════════╧════════╧═══════════╛
 ```
 
-
-
 ### 
 
 ### 
@@ -859,7 +856,6 @@ This command provides information about the amount of user requests stored in th
 ### This command provides information about the private and shared quotas of all projects:
 
 ```
-
 This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources (considering the policies specified  by the Cloud administrator and considering the past usage of such resources).
 ```
 
