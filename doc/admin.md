@@ -44,6 +44,7 @@ CREATE DATABASE synergy;
 ```
 
 Grant proper access to the glance database:
+
 ```
 GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'localhost' \  
 IDENTIFIED BY 'SYNERGY_DBPASS';  
@@ -51,6 +52,7 @@ GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'%' \
 IDENTIFIED BY 'SYNERGY_DBPASS';  
 flush privileges;
 ```
+
 Replace SYNERGY\_DBPASS with a suitable password.
 
 Exit the database access client.
@@ -681,7 +683,13 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+```
 
+### synergy manager list
+
+This command list the managers deployed in the synergy service:
+
+```
 # synergy manager list
 ╒══════════════════╕
 │ manager          │
@@ -700,7 +708,13 @@ optional arguments:
 ├──────────────────┤
 │ FairShareManager │
 ╘══════════════════╛
+```
 
+### synergy manager status
+
+This command get the status of the managers deployed in the synergy service:
+
+```
 # synergy manager status
 ╒══════════════════╤══════════╤══════════════╕
 │ manager          │ status   │   rate (min) │
@@ -726,14 +740,26 @@ optional arguments:
 ╞══════════════╪══════════╪══════════════╡
 │ TimerManager │ ACTIVE   │           60 │
 ╘══════════════╧══════════╧══════════════╛
+```
 
+### synergy manager start
+
+This command start a manager deployed in the synergy service:
+
+```
 # synergy manager start TimerManager
 ╒══════════════╤════════════════════════════════╤══════════════╕
 │ manager      │ status                         │   rate (min) │
 ╞══════════════╪════════════════════════════════╪══════════════╡
 │ TimerManager │ RUNNING (started successfully) │           60 │
 ╘══════════════╧════════════════════════════════╧══════════════╛
+```
 
+### synergy stop
+
+This command stops a manager deployed in the synergy service:
+
+```
 # synergy manager stop TimerManager
 ╒══════════════╤═══════════════════════════════╤══════════════╕
 │ manager      │ status                        │   rate (min) │
@@ -742,97 +768,100 @@ optional arguments:
 ╘══════════════╧═══════════════════════════════╧══════════════╛
 ```
 
-### synergy start
+### synergy quota
 
-This command start a manager deployed in the synergy service.
-
-E.g.:
+This command provides information about the private and shared quotas:
 
 ```
-# synergy start TimerManager
--------------------------------------------------
-| manager      | status  | message              |
--------------------------------------------------
-| TimerManager | RUNNING | started successfully |
--------------------------------------------------
+# synergy quota -h
+usage: synergy quota [-h] {show} ...
+
+positional arguments:
+  {show}
+    show      shows the quota info
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+# synergy quota show -h
+usage: synergy quota show [-h] [-i <id> | -n <name> | -a | -s]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i <id>, --project_id <id>
+  -n <name>, --project_name <name>
+  -a, --all_projects
+  -s, --shared
 ```
 
-### synergy stop
+### synergy quota show --shared
 
-This command stops a manager deployed in the synergy service.
-
-E.g.:
+This command provides information about the shared quota:
 
 ```
-# synergy stop KeystoneManager
----------------------------------------------------
-| manager         | status | message              |
----------------------------------------------------
-| KeystoneManager | ACTIVE | stopped successfully |
----------------------------------------------------
+# synergy quota show --shared
+╒════════════╤════════╤════════╕
+│ resource   │   used │   size │
+╞════════════╪════════╪════════╡
+│ vcpus      │      2 │     27 │
+├────────────┼────────┼────────┤
+│ memory     │   1024 │  60980 │
+├────────────┼────────┼────────┤
+│ instances  │      1 │     -1 │
+╘════════════╧════════╧════════╛
 ```
 
-### synergy status
+in this example the total amount of VCPUs allocated to the shared quota is 27 of which have been used just 2 CPUs \(similarly to the memory and instances number\).
 
-This command returns the status of the managers deployed in the synergy service.
+### synergy quota show --all\_projects
 
-E.g.:
-
-```
-# synergy status
-------------------------------
-| manager          | status  |
-------------------------------
-| QuotaManager     | RUNNING |
-| NovaManager      | RUNNING |
-| FairShareManager | RUNNING |
-| TimerManager     | ACTIVE  |
-| QueueManager     | RUNNING |
-| KeystoneManager  | RUNNING |
-| SchedulerManager | RUNNING |
-------------------------------
-```
-
-### synergy get\_quota
-
-This command shows the dynamic resources being used wrt the total number of dynamic resources.
-
-E.g:
+This command provides information about the private and shared quotas of all projects:
 
 ```
-# synergy get_quota 
--------------------------------
-| type     | in use | limit   |
--------------------------------
-| ram (MB) | 9728   | 9808.00 |
-| cores    | 19     | 28.00   |
--------------------------------
+# synergy quota show --all_projects
+╒═══════════╤════════════════════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════════╕
+│ project   │ private quota                                  │ shared quota                                                                  │
+╞═══════════╪════════════════════════════════════════════════╪═══════════════════════════════════════════════════════════════════════════════╡
+│ prj_b     │ vcpus: 1.00 of 3.00 | memory: 512.0 of 1536.00 │ vcpus: 0.00 of 27.00 | memory: 0.00 of 60980.00 | share: 30.00% | TTL: 5.00   │
+├───────────┼────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+│ prj_a     │ vcpus: 0.00 of 1.00 | memory: 0.00 of 512.00   │ vcpus: 2.00 of 27.00 | memory: 1024.0 of 60980.00 | share: 70.00% | TTL: 5.00 │
+╘═══════════╧════════════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
+
+# synergy quota show -n prj_a
+╒═══════════╤══════════════════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════════╕
+│ project   │ private quota                                │ shared quota                                                                  │
+╞═══════════╪══════════════════════════════════════════════╪═══════════════════════════════════════════════════════════════════════════════╡
+│ prj_a     │ vcpus: 0.00 of 1.00 | memory: 0.00 of 512.00 │ vcpus: 2.00 of 27.00 | memory: 1024.0 of 60980.00 | share: 70.00% | TTL: 5.00 │
+╘═══════════╧══════════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
 ```
 
-Using the _--long_ option, it is also possible to see the status for each project.
+in this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) and none of the shared quota. The _prj\_a_ instead is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values are: 70% for prj\_a and 30% prj\_b while for both projects the TTL has been set to 5 minutes, meaning that the VMs instantiated in the shared quota can live just 5 minutes \(n.b. the VMs created in the private quota can live forever\).
 
-In the following example:
+### synergy queue show
 
-* _limit=28.0_ for _vcpus_ for each dynamic project says that the total number of VCPUs for the dynamic portion of the resources is 28. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
-* limit=9808.0 for _memory_ for each dynamic project says that the total number of MB of RAM for the dynamic portion of the resources is 9808. This is calculated considering the total number of resources and the ones allocated to static projects. The overcommitment factor is also taken into account.
-* _prj\_a_ is currently using 9 VCPUs and 4608 MB of RAM
-* _prj\_b_ is currently using 10 VCPUs and 5120 MB of RAM
-* the total number of VCPUs currently used by the dynamic projects is 19 \(the value reported between parenthesis\)
-* the total number of MB of RAM currently used by the dynamic projects is 9728 \(the value reported between parenthesis\)
+This command provides information about the amount of user requests stored in the persistent priority queue:
 
 ```
-# synergy get_quota --long
--------------------------------------------------------------------------------
-| project | cores                        | ram (MB)                           |
--------------------------------------------------------------------------------
-| prj_b   | in use=10 (19) | limit=28.00 | in use=5120 (9728) | limit=9808.00 |
-| prj_a   | in use= 9 (19) | limit=28.00 | in use=4608 (9728) | limit=9808.00 |
--------------------------------------------------------------------------------
+# synergy queue show
+╒═════════╤════════╤═══════════╕
+│ name    │   size │ is open   │
+╞═════════╪════════╪═══════════╡
+│ DYNAMIC │    544 │ true      │
+╘═════════╧════════╧═══════════╛
 ```
 
-### synergy get\_priority
 
-This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources \(considering the policies specified  by the Cloud administrator and considering the past usage of such resources\).
+
+### 
+
+### 
+
+### This command provides information about the private and shared quotas of all projects:
+
+```
+
+This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources (considering the policies specified  by the Cloud administrator and considering the past usage of such resources).
+```
 
 E.g. in the following example _user\_a2_ of project _prj\_a_ has the highest priority:
 
