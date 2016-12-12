@@ -41,33 +41,32 @@ Create the synergy database:
 
 ```
 CREATE DATABASE synergy;
+```
 
 Grant proper access to the glance database:
 ```
-
 GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'localhost' \  
-IDENTIFIED BY 'SYNERGY\_DBPASS';  
+IDENTIFIED BY 'SYNERGY_DBPASS';  
 GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'%' \  
-IDENTIFIED BY 'SYNERGY\_DBPASS';  
+IDENTIFIED BY 'SYNERGY_DBPASS';  
 flush privileges;
+```
+Replace SYNERGY\_DBPASS with a suitable password.
 
-    Replace SYNERGY\_DBPASS with a suitable password.
+Exit the database access client.
 
-    Exit the database access client.
+### Add Synergy as an OpenStack endpoint and service
 
-    ### Add Synergy as an OpenStack endpoint and service
+Source the admin credentials to gain access to admin-only CLI commands:
 
-    Source the admin credentials to gain access to admin-only CLI commands:
-
-    ```bash
-    $ . admin-openrc
+```bash
+$ . admin-openrc
+```
 
 Register the synergy service and endpoint in the Openstack service catalog:
 
 ```bash
 openstack service create --name synergy management
-
-
 openstack endpoint create --region RegionOne management public http://$SYNERGY_HOST_IP:8051 
 openstack endpoint create --region RegionOne management admin http://$SYNERGY_HOST_IP:8051
 openstack endpoint create --region RegionOne management internal http://$SYNERGY_HOST_IP:8051
