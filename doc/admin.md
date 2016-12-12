@@ -388,7 +388,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | --- | --- |
 | autostart | Specifies if the FairShare manager should be started when synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| period\_length | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the length, in days, of a single period \(default: 7 days\) |
+| period\_length | The time window considered for resource usage by the fair-share algorithm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period \(default: 7 days\) |
 | periods | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered |
 | default\_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section |
 | decay\_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage |
@@ -834,7 +834,7 @@ This command provides information about the private and shared quotas of all pro
 ╘═══════════╧══════════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
 ```
 
-in this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) and none of the shared quota. The _prj\_a_ instead is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values are: 70% for prj\_a and 30% prj\_b while for both projects the TTL has been set to 5 minutes, meaning that the VMs instantiated in the shared quota can live just 5 minutes \(n.b. the VMs created in the private quota can live forever\).
+in this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) and none of the shared quota. The _prj\_a_ instead is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values imposed by the Cloud administrator \(attribute _shares_ in the synergy configuration file\) are: 70% for prj\_a and 30% prj\_b while for both projects the TTL has been set to 5 minutes \(see _TTL_ attribute\), meaning that the VMs instantiated in the shared quota can live just 5 minutes \(n.b. the VMs created in the private quota can live forever\).
 
 ### synergy queue show
 
@@ -849,106 +849,89 @@ This command provides information about the amount of user requests stored in th
 ╘═════════╧════════╧═══════════╛
 ```
 
-### 
+### synergy usage show
 
-### 
-
-### This command provides information about the private and shared quotas of all projects:
+This command allows to get information about the usage of shared resources at project or user level in the time window defined by the Synergy attributes _period_ and _period\_length_ :
 
 ```
-This command returns the priority set in that moment by Synergy to all users of the dynamic projects, to guarantee the fair share use of the resources (considering the policies specified  by the Cloud administrator and considering the past usage of such resources).
-```
+# synergy usage show -h
+usage: synergy usage show [-h] {project,user} ...
 
-E.g. in the following example _user\_a2_ of project _prj\_a_ has the highest priority:
+positional arguments:
+  {project,user}
+    project       project help
+    user          user help
 
-```
-# synergy get_priority
---------------------------------
-| project | user    | priority |
---------------------------------
-| prj_a   | user_a1 | 78.00    |
-| prj_a   | user_a2 | 80.00    |
-| prj_b   | user_b1 | 5.00     |
-| prj_b   | user_b2 | 5.00     |
---------------------------------
-```
-
-### synergy get\_share
-
-This command reports the shares imposed by the Cloud administrator \(attribute _shares_ in the synergy configuration file\) to the dynamic projects and to their users.
-
-E.g. in the following example the administrator specified in the synergy configuration file the value 70 for the share value of _prj\_a_, and 10 as share value for _prj\_b_. The command also reports the % values.
+optional arguments:
+  -h, --help      show this help message and exit
 
 ```
-# synergy get_share
-----------------------------
-| project | share          |
-----------------------------
-| prj_b   | 12.50% (10.00) |
-| prj_a   | 87.50% (70.00) |
-----------------------------
-```
 
-With the _--long_ option it is also possible to see the shares for the users. The relevant users of the 2 projects are given the same share.
+### synergy usage show project
 
-Therefore the 2 users of _prj\_a_ has each one a share of 43.75 % \(50 % of 87.50 %\) of total resources.
+This command provides the resource usage information by the projects.
 
-The 2 users of _prj\_b_ has each one a share of 6.25 % \(50 % of 12.50 %\) of total resources.
+The following example shows the projects prj\_a \(share: 70% share\) and prj\_b \(share: 30%\) have consumed in the last three days, respectively 70.40% and 29.40% of shared resources:
 
 ```
-# synergy get_share --long
------------------------------------------------
-| project | share          | user    | share  |
------------------------------------------------
-| prj_b   | 12.50% (10.00) | user_b1 | 6.25%  |
-| prj_b   | 12.50% (10.00) | user_b2 | 6.25%  |
-| prj_a   | 87.50% (70.00) | user_a1 | 43.75% |
-| prj_a   | 87.50% (70.00) | user_a2 | 43.75% |
------------------------------------------------
+# synergy usage show project
+╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
+│ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
+╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
+│ prj_b     │ vcpus: 29.60% | memory: 29.60%                                │ 30.00%  │
+├───────────┼───────────────────────────────────────────────────────────────┼─────────┤
+│ prj_a     │ vcpus: 70.40% | memory: 70.40%                                │ 70.00%  │
+╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
+
+# synergy usage show project -m prj_a
+╒═══════════╤══════════════════════════════════════════════════════════════╤═════════╕
+│ project   │ shared quota (09 Dec 2016 15:01:44 - 12 Dec 2016 15:01:44)   │ share   │
+╞═══════════╪══════════════════════════════════════════════════════════════╪═════════╡
+│ prj_a     │ vcpus: 70.40% | memory: 70.40%                               │ 70.00%  │
+╘═══════════╧══════════════════════════════════════════════════════════════╧═════════╛
 ```
 
-### synergy get\_usage
-
-This command reports the usage of the resources by the dynamic projects in the last time frame considered by synergy \(attribute _period\_length_ of the synergy configuration file \_ attribute \_time window\*\).
-
-In the following example it is reported that, in the considered time frame:
-
-* _proj\_a_ has used 31.26% of cores and 31.26% of RAM
-* _proj\_b_ has used 68.74% of cores and 68.74% of RAM
-* _user\_a1_ has used 100 % of resources within its project \(and 31.26% considering the overall usage\)
-* _user\_a2_ hasn't used resources at all
-* _user\_b1_ has used 100 % of resources within its project \(and 68.74% considering the overall usage\)
-* _user\_b2_ hasn't used resources at all
+However it may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume shared resources for a while: in this scenario the others projects \(i.e. prj\_b\) can take advantage and so consume more resources than the imposed share. But, as soon as the prj\_a requires resources, a lot of its requests will be satisfied because, meantime, its priority has been increased:
 
 ```
-# synergy get_usage
----------------------------------------------------------------------------
-| project | cores  | ram    | user    | cores (abs)     | ram (abs)       | 
----------------------------------------------------------------------------
-| prj_b   | 28.47% | 28.47% | user_b1 | 48.58% (13.83%) | 48.58% (13.83%) | 
-| prj_b   | 28.47% | 28.47% | user_b2 | 51.42% (14.64%) | 51.42% (14.64%) | 
-| prj_a   | 71.53% | 71.53% | user_a1 | 59.68% (42.69%) | 59.68% (42.69%) | 
-| prj_a   | 71.53% | 71.53% | user_a2 | 40.32% (28.84%) | 40.32% (28.84%) | 
----------------------------------------------------------------------------
+# synergy usage show project
+╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
+│ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
+╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
+│ prj_b     │ vcpus: 98.40% | memory: 98.40%                                │ 30.00%  │
+├───────────┼───────────────────────────────────────────────────────────────┼─────────┤
+│ prj_a     │ vcpus: 1.60% | memory: 1.60%                                  │ 70.00%  │
+╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
 ```
 
-### synergy get\_queue
+### synergy usage show user 
 
-This command returns the number of queued requests for the dynamic projects, in total.
+This command provides the resource usage information by the project users.
 
-E.g. in the following example there are 45 queued requests in total for the dynamic projects.
+The following example shows the usage report of users belonging to the project prj\_a. They have the same value for share \(35%\) but different priority \(user\_a1=80, user\_a2=100\) because the user\_a1 has consumed too much with respect to user\_a2 \(51.90% VS 48.10%\).
 
 ```
-# synergy get_queue
----------------------------
-| queue   | status | size |
----------------------------
-| DYNAMIC | ON     | 45   |
----------------------------
+# synergy usage show user --project_name prj_a --all_users
+╒═════════╤══════════════════════════════════════════════════════════════╤═════════╤════════════╕
+│ user    │ shared quota (09 Dec 2016 14:58:44 - 12 Dec 2016 14:58:44)   │ share   │   priority │
+╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
+│ user_a2 │ vcpus: 48.10% | memory: 48.10%                               │ 35.00%  │        100 │
+├─────────┼──────────────────────────────────────────────────────────────┼─────────┼────────────┤
+│ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
+╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
+
+# synergy usage show user --project_name prj_a --user_name user_a1
+╒═════════╤══════════════════════════════════════════════════════════════╤═════════╤════════════╕
+│ user    │ shared quota (09 Dec 2016 14:58:44 - 12 Dec 2016 14:58:44)   │ share   │   priority │
+╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
+│ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
+╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
 ```
 
-## Open Ports
+### Open Ports
 
 To interact with Synergy using the client tool, just one port needs to be open.  
 This is the port defined in the synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
+
+
 
