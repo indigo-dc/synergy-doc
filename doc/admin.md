@@ -39,30 +39,28 @@ $ mysql -u root -p
 
 Create the synergy database:
 
-    ```
-    CREATE DATABASE synergy;
+```
+CREATE DATABASE synergy;
 
 Grant proper access to the glance database:
-
 ```
-GRANT ALL PRIVILEGES ON synergy.* TO 'synergy'@'localhost' \
-IDENTIFIED BY 'SYNERGY_DBPASS';
-GRANT ALL PRIVILEGES ON synergy.* TO 'synergy'@'%' \
-IDENTIFIED BY 'SYNERGY_DBPASS';
+
+GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'localhost' \  
+IDENTIFIED BY 'SYNERGY\_DBPASS';  
+GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'%' \  
+IDENTIFIED BY 'SYNERGY\_DBPASS';  
 flush privileges;
-```
 
-Replace SYNERGY\_DBPASS with a suitable password.
+    Replace SYNERGY\_DBPASS with a suitable password.
 
-Exit the database access client.
+    Exit the database access client.
 
-### Add Synergy as an OpenStack endpoint and service
+    ### Add Synergy as an OpenStack endpoint and service
 
-Source the admin credentials to gain access to admin-only CLI commands:
+    Source the admin credentials to gain access to admin-only CLI commands:
 
-```bash
-$ . admin-openrc
-```
+    ```bash
+    $ . admin-openrc
 
 Register the synergy service and endpoint in the Openstack service catalog:
 
@@ -379,6 +377,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute _default\_share_ in the _FairShareManager_ section is used |
 | default\_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
 | TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the _default\_TTL_ attribute will be used |
+| backfill\_depth | the integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start |
 
 ---
 
@@ -408,7 +407,10 @@ The following describes the meaning of the attributes of the synergy configurati
 | username | the name of the user with admin role |
 | password | the password of the specified user with admin role |
 | project\_name | the project to request authorization on |
+| user\_domain\_name | set the user domain name \(default: "default"\) |
+| project\_domain\_name | set the project domain name \(default: "default"\) |
 | timeout | the http connection timeout |
+| clock\_skew | force the request for token, a delta time before the token expiration \(default: 60 sec\) |
 
 ---
 
@@ -428,8 +430,11 @@ The following describes the meaning of the attributes of the synergy configurati
 | amqp\_password | The password of the AMQP user |
 | amqp\_virtual\_host | The AMQP virtual host |
 | conductor\_topic | The topic on which conductor nodes listen on |
-| compute\_topic | The topic compute nodes listen on |
-| scheduler\_topic | The topic scheduler nodes listen on |
+| compute\_topic | The topic on which compute nodes listen on |
+| scheduler\_topic | The topic on which scheduler nodes listen on |
+| cpu\_allocation\_ratio | set the NOVA CPU allocation ratio \(default: 16\) |
+| ram\_allocation\_ratio | set the NOVA RAM allocation ratio \(default: 1.5\) |
+| metadata\_proxy\_shared\_secret | set the NOVA metadata\_proxy\_shared\_secret |
 | db\_connection | The SQLAlchemy connection string to use to connect to the Nova database. |
 
 ---
@@ -589,7 +594,7 @@ Password to use.Defaults to env[OS_PASSWORD]
 **--os-project-name **`<auth-project-name>`
 
 ```
-Project name to scope to. Defaults to env:[OS_PROJECT_NAME]  
+Project name to scope to. Defaults to env:[OS_PROJECT_NAME]
 ```
 
 **--os-project-id **`<auth-project-id>`
@@ -799,7 +804,7 @@ The 2 users of _prj\_b_ has each one a share of 6.25 % \(50 % of 12.50 %\) of to
 
 ### synergy get\_usage
 
-This command reports the usage of the resources by the dynamic projects in the last time frame considered by synergy \(attribute _period\_length_ of the synergy configuration file _ attribute _time window\*\).
+This command reports the usage of the resources by the dynamic projects in the last time frame considered by synergy \(attribute _period\_length_ of the synergy configuration file \_ attribute \_time window\*\).
 
 In the following example it is reported that, in the considered time frame:
 
