@@ -864,7 +864,29 @@ positional arguments:
 
 optional arguments:
   -h, --help      show this help message and exit
+  
 
+# synergy usage show project -h
+usage: synergy usage show project [-h] [-d <id> | -m <name> | -a]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d <id>, --project_id <id>
+  -m <name>, --project_name <name>
+  -a, --all_projects
+
+
+# synergy usage show user -h
+usage: synergy usage show user [-h] (-d <id> | -m <name>)
+                               (-i <id> | -n <name> | -a)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d <id>, --project_id <id>
+  -m <name>, --project_name <name>
+  -i <id>, --user_id <id>
+  -n <name>, --user_name <name>
+  -a, --all_users
 ```
 
 ### synergy usage show project
@@ -874,7 +896,7 @@ This command provides the resource usage information by the projects.
 The following example shows the projects prj\_a \(share: 70% share\) and prj\_b \(share: 30%\) have consumed in the last three days, respectively 70.40% and 29.40% of shared resources:
 
 ```
-# synergy usage show project
+# synergy usage show project --all_projects
 ╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
 │ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
 ╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
@@ -883,7 +905,7 @@ The following example shows the projects prj\_a \(share: 70% share\) and prj\_b 
 │ prj_a     │ vcpus: 70.40% | memory: 70.40%                                │ 70.00%  │
 ╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
 
-# synergy usage show project -m prj_a
+# synergy usage show project --project_name prj_a
 ╒═══════════╤══════════════════════════════════════════════════════════════╤═════════╕
 │ project   │ shared quota (09 Dec 2016 15:01:44 - 12 Dec 2016 15:01:44)   │ share   │
 ╞═══════════╪══════════════════════════════════════════════════════════════╪═════════╡
@@ -894,7 +916,7 @@ The following example shows the projects prj\_a \(share: 70% share\) and prj\_b 
 However it may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume shared resources for a while: in this scenario the others projects \(i.e. prj\_b\) can take advantage and so consume more resources than the imposed share. But, as soon as the prj\_a requires resources, a lot of its requests will be satisfied because, meantime, its priority has been increased:
 
 ```
-# synergy usage show project
+# synergy usage show project --all_projects
 ╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
 │ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
 ╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
@@ -904,7 +926,7 @@ However it may happen that the prj\_a \(or prj\_b\) doesn't have the need to con
 ╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
 ```
 
-### synergy usage show user 
+### synergy usage show user
 
 This command provides the resource usage information by the project users.
 
@@ -932,6 +954,4 @@ The following example shows the usage report of users belonging to the project p
 
 To interact with Synergy using the client tool, just one port needs to be open.  
 This is the port defined in the synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
-
-
 
