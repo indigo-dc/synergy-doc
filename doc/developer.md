@@ -49,11 +49,11 @@ After that, submit it to gerrit: `git push gerrit x.y.z`. This will automaticall
 Try to synchronize the commits after each release.
 After that, you can manually add the debian and RPM packages to the github release page.
 
+### Making a new release for *synergy-scheduler-manager*
+Same process as *synergy-service* above, expect that you need to do the extra step *Update dependencies*:
+
 #### Update dependencies
 For all the packages that depend on *synergy-service*: update the `requirements.txt` with the new version of *synergy-service*.
-
-### Making a new release for *synergy-scheduler-manager*
-Same process as *synergy-service* above, expect that you don't need to do the step *Update dependencies* since it doesn't have any that we control.
 
 ### Changes related to INDIGO-DC
 #### Openstack version
