@@ -359,10 +359,10 @@ The following describes the meaning of the attributes of the synergy configurati
 | ssl\_ca\_file | CA certificate file to use to verify connecting clients |
 | ssl\_cert\_file | Identifying certificate PEM file to present to clients |
 | ssl\_key\_file | Private key PEM file used to sign cert\_file certificate |
-| max\_header\_line | Maximum size of message headers to be accepted \(default=16384\) |
-| retry\_until\_window | Number of seconds to keep retrying for listening \(default 30s\) |
+| max\_header\_line | Maximum size of message headers to be accepted \(default: 16384\) |
+| retry\_until\_window | Number of seconds to keep retrying for listening \(default: 30sec\) |
 | tcp\_keepidle | Sets the value of TCP\_KEEPIDLE in seconds for each server socket |
-| backlog | Number of backlog requests to configure the socket with \(default=4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
+| backlog | Number of backlog requests to configure the socket with \(default: 4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
 
 ---
 
@@ -376,7 +376,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute _default\_share_ in the _FairShareManager_ section is used |
 | default\_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes |
 | TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the _default\_TTL_ attribute will be used |
-| backfill\_depth | the integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start |
+| backfill\_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start |
 
 ---
 
@@ -386,7 +386,7 @@ The following describes the meaning of the attributes of the synergy configurati
 | --- | --- |
 | autostart | Specifies if the FairShare manager should be started when synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| period\_length | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the length, in days, of a single period \(default=7 days\) |
+| period\_length | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the length, in days, of a single period \(default: 7 days\) |
 | periods | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered |
 | default\_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section |
 | decay\_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage |
@@ -431,9 +431,9 @@ The following describes the meaning of the attributes of the synergy configurati
 | conductor\_topic | The topic on which conductor nodes listen on |
 | compute\_topic | The topic on which compute nodes listen on |
 | scheduler\_topic | The topic on which scheduler nodes listen on |
-| cpu\_allocation\_ratio | set the NOVA CPU allocation ratio \(default: 16\) |
-| ram\_allocation\_ratio | set the NOVA RAM allocation ratio \(default: 1.5\) |
-| metadata\_proxy\_shared\_secret | set the NOVA metadata\_proxy\_shared\_secret |
+| cpu\_allocation\_ratio | The NOVA CPU allocation ratio \(default: 16\) |
+| ram\_allocation\_ratio | The NOVA RAM allocation ratio \(default: 1.5\) |
+| metadata\_proxy\_shared\_secret | The NOVA metadata\_proxy\_shared\_secret |
 | db\_connection | The SQLAlchemy connection string to use to connect to the Nova database. |
 
 ---
@@ -503,30 +503,22 @@ Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keysto
 ### synergy usage
 
 ```
-[root@cld-centos-ctrl ~]# synergy --help
 usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
+               [--os-user-domain-id <auth-user-domain-id>]
+               [--os-user-domain-name <auth-user-domain-name>]
                [--os-project-name <auth-project-name>]
                [--os-project-id <auth-project-id>]
+               [--os-project-domain-id <auth-project-domain-id>]
+               [--os-project-domain-name <auth-project-domain-name>]
                [--os-auth-token <auth-token>] [--os-auth-token-cache]
                [--os-auth-url <auth-url>] [--os-auth-system <auth-system>]
                [--bypass-url <bypass-url>] [--os-cacert <ca-certificate>]
-
-               {get_priority,get_queue,get_quota,get_share,get_usage,list,start,status,stop}
-               ...
+               {manager,queue,quota,usage} ...
 
 positional arguments:
-  {get_priority,get_queue,get_quota,get_share,get_usage,list,start,status,stop}
+  {manager,queue,quota,usage}
                         commands
-    get_priority        shows the users priority
-    get_queue           shows the queue info
-    get_quota           shows the dynamic quota info
-    get_share           shows the users share
-    get_usage           retrieve the resource usages
-    list                list the managers
-    start               start the managers
-    status              retrieve the manager's status
-    stop                stop the managers
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -536,10 +528,18 @@ optional arguments:
                         defaults to env[OS_USERNAME]
   --os-password <auth-password>
                         defaults to env[OS_PASSWORD]
+  --os-user-domain-id <auth-user-domain-id>
+                        defaults to env[OS_USER_DOMAIN_ID]
+  --os-user-domain-name <auth-user-domain-name>
+                        defaults to env[OS_USER_DOMAIN_NAME]
   --os-project-name <auth-project-name>
                         defaults to env[OS_PROJECT_NAME]
   --os-project-id <auth-project-id>
                         defaults to env[OS_PROJECT_ID]
+  --os-project-domain-id <auth-project-domain-id>
+                        defaults to env[OS_PROJECT_DOMAIN_ID]
+  --os-project-domain-name <auth-project-domain-name>
+                        defaults to env[OS_PROJECT_DOMAIN_NAME]
   --os-auth-token <auth-token>
                         defaults to env[OS_AUTH_TOKEN]
   --os-auth-token-cache
@@ -602,6 +602,30 @@ Project name to scope to. Defaults to env:[OS_PROJECT_NAME]
 Id of the project to scope to. Defaults to env[OS_PROJECT_ID]
 ```
 
+**--os-project-domain-id** &lt;auth-project-domain-id&gt;
+
+```
+Specify the project domain id. Defaults to env[OS_PROJECT_DOMAIN_ID]
+```
+
+**--os-project-domain-name** &lt;auth-project-domain-name&gt;
+
+```
+Specify the project domain name. Defaults to env[OS_PROJECT_DOMAIN_NAME]
+```
+
+**--os-user-domain-id** &lt;auth-user-domain-id&gt;
+
+```
+Specify the user domain id. Defaults to env[OS_USER_DOMAIN_ID]
+```
+
+**--os-user-domain-name** &lt;auth-user-domain-name&gt;
+
+```
+Specify the user domain name. Defaults to env[OS_USER_DOMAIN_NAME]
+```
+
 **--os-auth-token **`<auth-token>`
 
 ```
@@ -640,25 +664,82 @@ Specify a CA certificate bundle file to use in verifying a TLS
 (https) server certificate. Defaults to env[OS_CACERT]
 ```
 
-### synergy list
+### synergy manager
 
-This command returns the list of managers that have been deployed in the synergy service.
-
-E.g.:
+This command allows to get information about the managers deployed in the synergy service and control their execution:
 
 ```
-# synergy list
---------------------
-| manager          |
---------------------
-| QuotaManager     |
-| NovaManager      |
-| FairShareManager |
-| TimerManager     |
-| QueueManager     |
-| KeystoneManager  |
-| SchedulerManager |
---------------------
+# synergy manager -h
+usage: synergy manager [-h] {list,status,start,stop} ...
+
+positional arguments:
+  {list,status,start,stop}
+    list                list the managers
+    status              show the managers status
+    start               start the manager
+    stop                stop the manager
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+# synergy manager list
+╒══════════════════╕
+│ manager          │
+╞══════════════════╡
+│ QuotaManager     │
+├──────────────────┤
+│ NovaManager      │
+├──────────────────┤
+│ SchedulerManager │
+├──────────────────┤
+│ TimerManager     │
+├──────────────────┤
+│ QueueManager     │
+├──────────────────┤
+│ KeystoneManager  │
+├──────────────────┤
+│ FairShareManager │
+╘══════════════════╛
+
+# synergy manager status
+╒══════════════════╤══════════╤══════════════╕
+│ manager          │ status   │   rate (min) │
+╞══════════════════╪══════════╪══════════════╡
+│ QuotaManager     │ RUNNING  │            1 │
+├──────────────────┼──────────┼──────────────┤
+│ NovaManager      │ RUNNING  │            1 │
+├──────────────────┼──────────┼──────────────┤
+│ SchedulerManager │ RUNNING  │            1 │
+├──────────────────┼──────────┼──────────────┤
+│ TimerManager     │ ACTIVE   │           60 │
+├──────────────────┼──────────┼──────────────┤
+│ QueueManager     │ RUNNING  │           10 │
+├──────────────────┼──────────┼──────────────┤
+│ KeystoneManager  │ RUNNING  │            1 │
+├──────────────────┼──────────┼──────────────┤
+│ FairShareManager │ RUNNING  │            1 │
+╘══════════════════╧══════════╧══════════════╛
+
+# synergy manager status TimerManager
+╒══════════════╤══════════╤══════════════╕
+│ manager      │ status   │   rate (min) │
+╞══════════════╪══════════╪══════════════╡
+│ TimerManager │ ACTIVE   │           60 │
+╘══════════════╧══════════╧══════════════╛
+
+# synergy manager start TimerManager
+╒══════════════╤════════════════════════════════╤══════════════╕
+│ manager      │ status                         │   rate (min) │
+╞══════════════╪════════════════════════════════╪══════════════╡
+│ TimerManager │ RUNNING (started successfully) │           60 │
+╘══════════════╧════════════════════════════════╧══════════════╛
+
+# synergy manager stop TimerManager
+╒══════════════╤═══════════════════════════════╤══════════════╕
+│ manager      │ status                        │   rate (min) │
+╞══════════════╪═══════════════════════════════╪══════════════╡
+│ TimerManager │ ACTIVE (stopped successfully) │           60 │
+╘══════════════╧═══════════════════════════════╧══════════════╛
 ```
 
 ### synergy start
