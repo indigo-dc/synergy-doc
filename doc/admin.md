@@ -7,7 +7,7 @@ The overall cloud resources can be grouped in two groups:
 * **private quota**: composed of resources statically allocated and managed using the 'standard' OpenStack policies
 * **shared quota**: composed of resources non statically allocated and fairly distributed among users by Synergy
 
-The size of the shared quota is calculated as the difference between the total amount of cloud resources \(considering also the over-commitment ratios\) and the total resources allocated to the private quotas. Therefore for all projects it is necessary to specify the proper quota for instances, VCPUs and RAM so that their total sum is less than the total amount of cloud resources.
+The size of the shared quota is calculated as the difference between the total amount of cloud resources \(considering also the over-commitment ratios\) and the total resources allocated to the private quotas. Therefore for all projects it is necessary to specify the proper quota for instances, VCPUs and RAM so that their total is less than the total amount of cloud resources.
 
 ## Installation
 
@@ -559,7 +559,7 @@ optional arguments:
 Command-line interface to the OpenStack Synergy API.
 ```
 
-### synergy optional arguments
+The synergy optional arguments:
 
 **-h, --help**
 
@@ -684,9 +684,7 @@ optional arguments:
   -h, --help            show this help message and exit
 ```
 
-### synergy manager list
-
-This command list the managers deployed in the synergy service:
+The command **synergy manager list **provides the list of all managers deployed in the synergy service:
 
 ```
 # synergy manager list
@@ -709,9 +707,7 @@ This command list the managers deployed in the synergy service:
 ╘══════════════════╛
 ```
 
-### synergy manager status
-
-This command get the status of the managers deployed in the synergy service:
+To get the status about managers, use:
 
 ```
 # synergy manager status
@@ -741,9 +737,7 @@ This command get the status of the managers deployed in the synergy service:
 ╘══════════════╧══════════╧══════════════╛
 ```
 
-### synergy manager start
-
-This command start a manager deployed in the synergy service:
+To control the execution of a specific manager, use the **start** and **stop** sub-commands:
 
 ```
 # synergy manager start TimerManager
@@ -752,13 +746,7 @@ This command start a manager deployed in the synergy service:
 ╞══════════════╪════════════════════════════════╪══════════════╡
 │ TimerManager │ RUNNING (started successfully) │           60 │
 ╘══════════════╧════════════════════════════════╧══════════════╛
-```
 
-### synergy stop
-
-This command stops a manager deployed in the synergy service:
-
-```
 # synergy manager stop TimerManager
 ╒══════════════╤═══════════════════════════════╤══════════════╕
 │ manager      │ status                        │   rate (min) │
@@ -793,9 +781,7 @@ optional arguments:
   -s, --shared
 ```
 
-### synergy quota show --shared
-
-This command provides information about the shared quota:
+To get the status about the shared quota, use the option **--shared**:
 
 ```
 # synergy quota show --shared
@@ -810,7 +796,7 @@ This command provides information about the shared quota:
 ╘════════════╧════════╧════════╛
 ```
 
-in this example the total amount of VCPUs allocated to the shared quota is 27 of which have been used just 2 CPUs \(similarly to the memory and instances number\).
+in this example the total amount of VCPUs allocated to the shared quota is 27 whereof have been used just 2 CPUs \(similarly to the memory and instances number\). The value -1 means that the Cloud administrator has not fixed the limit of the number of instances \(i.e. VMs\), so in this example the VMs can be unlimited.
 
 ### synergy quota show --all\_projects
 
@@ -864,7 +850,7 @@ positional arguments:
 
 optional arguments:
   -h, --help      show this help message and exit
-  
+
 
 # synergy usage show project -h
 usage: synergy usage show project [-h] [-d <id> | -m <name> | -a]
