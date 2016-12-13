@@ -491,24 +491,6 @@ class { 'synergy':
 }
 ```
 
-# How to use Synergy
-
-Synergy doesn't need extra tools to create VMs into the private or shared quota but they are created in the standard OpenStack way \(i.e. shell and dashboard\). For example: 
-
-```
-# openstack server create <options>
-```
-
-By default, the VMs are instantiated into the private quota. To select the shared quota, is needed to place special keys in the local user data file and pass it through the`--user-data <user-data-file>` parameter at instance creation:
-
-```
-# cat ~mydata.txt 
-[synergy]
-quota=shared
-
-# openstack server create --image ubuntu-cloudimage --flavor 1 --user-data mydata.file VM_INSTANCE
-```
-
 # The Synergy command line interface
 
 The Synergy service provides a command-line client, called **synergy**, which allows the Cloud administrator to control and monitor the Synergy service.
@@ -962,10 +944,8 @@ The following example shows the usage report of users belonging to the project p
 ╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
 ```
 
-###  Open Ports
+### Open Ports
 
 To interact with Synergy using the client tool, just one port needs to be open.  
 This is the port defined in the synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
-
-
 
