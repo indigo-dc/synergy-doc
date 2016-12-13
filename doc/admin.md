@@ -820,11 +820,21 @@ The** --all\_projects** option provides information about the private and shared
 
 In this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) while the shared quota is not used. By contrary, the _prj\_a_ is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
 
-### synergy queue show
+### synergy queue
 
 This command provides information about the amount of user requests stored in the persistent priority queue:
 
 ```
+# synergy queue -h
+usage: synergy queue [-h] {show} ...
+
+positional arguments:
+  {show}
+    show      shows the queue info
+
+optional arguments:
+  -h, --help  show this help message and exit
+
 # synergy queue show
 ╒═════════╤════════╤═══════════╕
 │ name    │   size │ is open   │
@@ -833,9 +843,9 @@ This command provides information about the amount of user requests stored in th
 ╘═════════╧════════╧═══════════╛
 ```
 
-### synergy usage show
+### synergy usage
 
-This command allows to get information about the usage of shared resources at project or user level in the time window defined by the Synergy attributes _period_ and _period\_length_ :
+To get information about the usage of shared resources at project or user level, use:
 
 ```
 # synergy usage show -h
@@ -873,11 +883,9 @@ optional arguments:
   -a, --all_users
 ```
 
-### synergy usage show project
+The **project** sub-command provides the resource usage information by the projects.
 
-This command provides the resource usage information by the projects.
-
-The following example shows the projects prj\_a \(share: 70% share\) and prj\_b \(share: 30%\) have consumed in the last three days, respectively 70.40% and 29.40% of shared resources:
+The following example shows the projects prj\_a \(share: 70%\) and prj\_b \(share: 30%\) have consumed in the last three days, respectively 70.40% and 29.40% of shared resources:
 
 ```
 # synergy usage show project --all_projects
@@ -897,7 +905,9 @@ The following example shows the projects prj\_a \(share: 70% share\) and prj\_b 
 ╘═══════════╧══════════════════════════════════════════════════════════════╧═════════╛
 ```
 
-However it may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume shared resources for a while: in this scenario the others projects \(i.e. prj\_b\) can take advantage and so consume more resources than the imposed share. But, as soon as the prj\_a requires resources, a lot of its requests will be satisfied because, meantime, its priority has been increased:
+The time window is defined by Cloud administrator by setting the attributes _period_ and _period\_length_ in synergy.conf.
+
+It may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume shared resources for a while: in this scenario the others projects \(i.e. prj\_b\) can take advantage and so consume more resources than the fixed share \(i.e. 30%\):
 
 ```
 # synergy usage show project --all_projects
@@ -909,6 +919,8 @@ However it may happen that the prj\_a \(or prj\_b\) doesn't have the need to con
 │ prj_a     │ vcpus: 1.60% | memory: 1.60%                                  │ 70.00%  │
 ╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
 ```
+
+However, as soon as the prj\_a requires more shared resources, it will gain a higher priority than the prj\_b, in order to balance their usage.
 
 ### synergy usage show user
 
