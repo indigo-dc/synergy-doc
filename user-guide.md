@@ -9,14 +9,12 @@ Synergy doesn't need extra tools to create VMs into the private or shared quota 
 By default, the VMs are instantiated into the private quota. To select the shared quota, is needed to place special keys in the local user data file and pass it through the`--user-data <user-data-file>` parameter at instance creation:
 
 ```
-# cat ~mydata.txt 
+# cat mydata.txt 
 [synergy]
 quota=shared
 
 # openstack server create --image ubuntu-cloudimage --flavor 1 --user-data mydata.file VM_INSTANCE
 ```
-
-
 
 
 
