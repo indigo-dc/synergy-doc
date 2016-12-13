@@ -922,9 +922,7 @@ It may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume sha
 
 However, as soon as the prj\_a requires more shared resources, it will gain a higher priority than the prj\_b, in order to balance their usage.
 
-### synergy usage show user
-
-This command provides the resource usage information by the project users.
+The **user** sub-command provides the resource usage information by the project users.
 
 The following example shows the usage report of users belonging to the project prj\_a. They have the same value for share \(35%\) but different priority \(user\_a1=80, user\_a2=100\) because the user\_a1 has consumed too much with respect to user\_a2 \(51.90% VS 48.10%\).
 
