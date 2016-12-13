@@ -1,3 +1,5 @@
+# About Synergy
+
 In the current OpenStack implementation, the resource allocation model is based on a static partitioning, so that to every project is assigned an agreed and fixed quota of resources which cannot be exceeded even if there are idle resources available but allocated to other projects.
 
 Moreover the OpenStack scheduler logic is simply based on the immediate First Come First Served \(FCFS\) model, consequently a request will be rejected if there are no resources immediately available. It is then up to the client to later re-issue the request.
