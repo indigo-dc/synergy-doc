@@ -13,7 +13,7 @@ By default, the VMs are instantiated into the private quota. To select the share
 [synergy]
 quota=shared
 
-# openstack server create --image ubuntu-cloudimage --flavor 1 --user-data mydata.file VM_INSTANCE
+# openstack server create --image ubuntu-cloudimage --flavor 1 --user-data mydata.txt VM_INSTANCE
 ```
 
 
