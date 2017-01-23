@@ -1,15 +1,6 @@
 # Manual installation and configuration
 
-## Quota setting
-
-The overall cloud resources can be grouped in two groups:
-
-* **private quota**: composed of resources statically allocated and managed using the 'standard' OpenStack policies
-* **shared quota**: composed of resources non statically allocated and fairly distributed among users by Synergy
-
-The size of the shared quota is calculated as the difference between the total amount of cloud resources \(considering also the over-commitment ratios\) and the total resources allocated to the private quotas. Therefore for all projects it is necessary to specify the proper quota for instances, VCPUs and RAM so that their total is less than the total amount of cloud resources.
-
-## Installation
+### Repository
 
 Install the INDIGO repository.
 
@@ -757,7 +748,42 @@ To control the execution of a specific manager, use the **start** and **stop** s
 
 ### synergy quota
 
-This command provides information about the private and shared quotas:
+The overall cloud resources can be grouped in:
+
+* **private quota**: composed of resources statically allocated and managed using the 'standard' OpenStack policies
+* **shared quota**: composed of resources non statically allocated and fairly distributed among users by Synergy
+
+The size of the shared quota is calculated as the difference between the total amount of cloud resources \(considering also the over-commitment ratios\) and the total resources allocated to the private quotas. Therefore for all projects it is necessary to specify the proper quota for instances, VCPUs and RAM so that their total is less than the total amount of cloud resources.
+
+                                      ![](/assets/quota.png)
+
+Since Synergy is installed, the private quota of projects **cannot be managed anymore by using the Horizon dashboard**, but **only via command line tools** using the following OpenStack command:
+
+```
+# openstack quota set --cores <num_vcpus> --ram <memory_size> --instances <max_num_instances> --class <project_id>
+```
+
+The private quota will be updated from Synergy after a few minutes without restart it. This example shows how the private quota of the project \_prj\_a \(id=\_a5ccbaf2a9da407484de2af881198eb9\) has been modified:
+
+```
+# synergy quota show --project_name prj_a
+╒═══════════╤═══════════════════════════════════════════════╤═════════════════════════════════════════════════════════════════════════════╕
+│ project   │ private quota                                 │ shared quota │
+╞═══════════╪═══════════════════════════════════════════════╪═════════════════════════════════════════════════════════════════════════════╡
+│ prj_a     │ vcpus: 0.00 of 3.00 | memory: 0.00 of 1024.00 │ vcpus: 0.00 of 26.00 | memory: 0.00 of 59956.00 | share: 70.00% | TTL: 5.00 │
+╘═══════════╧═══════════════════════════════════════════════╧═════════════════════════════════════════════════════════════════════════════╛ 
+
+# openstack quota set --cores 2 --ram 2048 --instances 10 --class a5ccbaf2a9da407484de2af881198eb9
+
+# synergy quota show --project_name prj_a
+╒═══════════╤═══════════════════════════════════════════════╤═════════════════════════════════════════════════════════════════════════════╕
+│ project   │ private quota                                 │ shared quota │
+╞═══════════╪═══════════════════════════════════════════════╪═════════════════════════════════════════════════════════════════════════════╡
+│ prj_a     │ vcpus: 0.00 of 2.00 | memory: 0.00 of 2048.00 │ vcpus: 0.00 of 27.00 | memory: 0.00 of 58932.00 | share: 70.00% | TTL: 5.00 │
+╘═══════════╧═══════════════════════════════════════════════╧═════════════════════════════════════════════════════════════════════════════╛
+```
+
+To get information about the private and shared quotas you must use the **synergy quota** command :
 
 ```
 # synergy quota -h
