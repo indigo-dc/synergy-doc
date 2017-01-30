@@ -88,7 +88,7 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 
 ### Adjust nova notifications
 
-Make sure that nova notifications are enanbled. On the controller node add the following attributes in the _nova.conf_ file and then restart the nova services:
+Make sure that nova notifications are enanbled. On the controller and compute nodes add the following attributes in the _nova.conf_ file and then restart the nova services:
 
 ```
 notify_on_state_change = vm_state
@@ -96,6 +96,7 @@ default_notification_level = INFO
 notification_driver = messaging
 notification_topics = notifications
 ```
+The _notification_topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications)
 
 ### Edit the source files for proper messaging
 
