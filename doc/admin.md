@@ -1,11 +1,9 @@
 # Manual installation and configuration
 
 ### Repository
-
 Install the [INDIGO repository](https://indigo-dc.gitbooks.io/indigo-datacloud-releases/content/generic_installation_and_configuration_guide_1.html).
 
 ### Install the synergy packages
-
 On CentOS7:
 
 ```
@@ -22,7 +20,6 @@ They can be installed in the OpenStack controller node or on another node.
 
 
 ### Updating the synergy packages
-
 The Synergy project makes periodic releases. As a system administrator you can get the latest features and bug fixes by updating Synergy.
 
 This is done using the standard update commands for your OS, as long you have the INDIGO repository set up.
@@ -42,7 +39,6 @@ yum update
 
 
 ### Setup the Synergy database
-
 Then use the database access client to connect to the database server as the root user:
 
 ```bash
@@ -70,7 +66,6 @@ Replace SYNERGY\_DBPASS with a suitable password.
 Exit the database access client.
 
 ### Add Synergy as an OpenStack endpoint and service
-
 Source the admin credentials to gain access to admin-only CLI commands:
 
 ```bash
@@ -87,7 +82,6 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 ```
 
 ### Adjust nova notifications
-
 Make sure that nova notifications are enanbled. On the controller and compute nodes add the following attributes in the _nova.conf_ file and then restart the nova services:
 
 ```
@@ -99,7 +93,6 @@ notification_topics = notifications
 The _notification_topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. notification_topics = notifications,**synergy_notifications**)
 
 ### Edit the source files for proper messaging
-
 Two changes are then needed on the controller node.
 
 The first one is edit _/usr/lib/python2.7/site-packages/oslo\_messaging/localcontext.py_ \(for CentOS\) /_/usr/lib/python2.7/dist-packages/oslo\_messaging/localcontext.py_ \(for Ubuntu\) , replacing:
@@ -132,11 +125,9 @@ topic=CONF.conductor.topic + "_synergy",
 ```
 
 ### Restart nova
-
 Then restart the nova services on the Controller node.
 
 ### Configure and start Synergy
-
 Configure the synergy service, as explained in the following section.
 
 Then start and enable the synergy service.  
@@ -176,9 +167,8 @@ Requirement.parse('oslo.middleware<3.5.0,>=3.0.0'))
 
 please patch the the file `/usr/lib/python2.7/site-packages/synergy_service-1.0.0-py2.7.egg-info/requires.txt` by removing the versions after the dependencies.
 
-## The synergy configuration file
-
-Synergy must be configured properly filling the _/etc/synergy/synergy.conf_ configuration file.
+## The Synergy configuration file
+Synergy must be configured properly filling the _/etc/synergy/synergy.conf_ configuration file. To apply the changes of any configuration parameter, the Synergy service must be restarted.
 
 This is an example of the **synergy.conf** configuration file:
 
@@ -540,7 +530,6 @@ The following describes the meaning of the attributes of the synergy configurati
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
 
 # Installation and configuration using puppet
-
 We provide a Puppet module for Synergy so users can install and configure Synergy with Puppet.  
 The module provides both the `synergy-service` and `synergy-scheduler-manager` components.
 
@@ -573,7 +562,6 @@ class { 'synergy':
 ```
 
 # The Synergy command line interface
-
 The Synergy service provides a command-line client, called **synergy**, which allows the Cloud administrator to control and monitor the Synergy service.
 
 Before running the synergy client command, you must create and source the _admin-openrc.sh_ file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools.
@@ -583,7 +571,6 @@ Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keysto
 `export OS_AUTH_URL=https://cloud-areapd.pd.infn.it:35357/v3`
 
 ### synergy usage
-
 ```
 usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
@@ -747,7 +734,6 @@ Specify a CA certificate bundle file to use in verifying a TLS
 ```
 
 ### synergy manager
-
 This command allows to get information about the managers deployed in the synergy service and control their execution:
 
 ```
@@ -837,7 +823,6 @@ To control the execution of a specific manager, use the **start** and **stop** s
 ```
 
 ### synergy quota
-
 The overall cloud resources can be grouped in:
 
 * **private quota**: composed of resources statically allocated and managed using the 'standard' OpenStack policies
@@ -939,7 +924,6 @@ The** --all\_projects** option provides information about the private and shared
 In this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) while the shared quota is not used. By contrary, the _prj\_a_ is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
 
 ### synergy queue
-
 This command provides information about the amount of user requests stored in the persistent priority queue:
 
 ```
@@ -962,7 +946,6 @@ optional arguments:
 ```
 
 ### synergy usage
-
 To get information about the usage of shared resources at project or user level, use:
 
 ```
@@ -1063,7 +1046,6 @@ The following example shows the usage report of users belonging to the project p
 ```
 
 ### Open Ports
-
 To interact with Synergy using the client tool, just one port needs to be open.  
 This is the port defined in the synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
 
