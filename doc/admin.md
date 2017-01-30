@@ -531,7 +531,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 ---
 
-** Section \[QuotaManager\]**
+**Section \[QuotaManager\]**
 
 | Attribute | Description |
 | --- | --- |
