@@ -1,16 +1,8 @@
 # About Synergy
+In OpenStack based IaaS private clouds the computing and storage resources are statically partitioned among projects. A user typically is member of one project, and each project has its own fixed quota of resources defined by the cloud administrator. A user request is rejected if the project quota has been already reached, even if unused resources allocated to other projects would be available. This rigid resource allocation model strongly limits the global efficiency of the data centres, which aim to fully utilise their resources for optimizing costs. In the traditional computing clusters the utilisation efficiency is maximized through the use of a batch system with sophisticated scheduling algorithms plugged in.
+**Synergy** is an advanced service interoperable with the OpenStack components, which implements a new resource provisioning model based on pluggable scheduling algorithms. It allows to maximize the resource usage, at the same time guaranteeing a _fair_ distribution of resources among users and groups. The service also provides a persistent queuing mechanism for handling those user requests exceeding the current overall resource capacity. These requests are processed according to a priority defined by the scheduling algorithm, when the required resources become available.
 
-In the current OpenStack implementation, the resource allocation model is based on a static partitioning, so that to every project is assigned an agreed and fixed quota of resources which cannot be exceeded even if there are idle resources available but allocated to other projects.
+## The Synergy architecture
+Synergy is an extensible general purpose management service designed for executing tasks in OpenStack. Its functionalities are provided by a collection of managers which are specific and independent pluggable tasks executed periodically, like the cron jobs, or interactively through a RESTful API. Different managers can coexist and they can interact with each other or with different OpenStack services in a loosely coupled way.
 
-Moreover the OpenStack scheduler logic is simply based on the immediate First Come First Served \(FCFS\) model, consequently a request will be rejected if there are no resources immediately available. It is then up to the client to later re-issue the request.
-
-**Synergy** addresses both these issues.
-
-With Synergy the OpenStack administrator can allocate a subset of not statically allocated resources, called _shared quota,_ to be distributed among different projects by complying specific fair-share policies.
-
-Synergy provides also a queuing mechanism for the requests that can't be immediately fulfilled so that they will be served when the required resources are available.
-
-Synergy can manage the instantiation of both Virtual Machines and containers managed via the nova-docker service.
-
-For what concerns the architecture, Synergy is an extensible general purpose management service to be integrated in OpenStack. Its capabilities are implemented by a collection of managers which are specific and independent pluggable tasks, executed periodically, like the cron jobs, or interactively through a RESTful API. Different managers can coexist and they can interact with each other in a loosely coupled way by implementing any even complex business logic.
 
