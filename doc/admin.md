@@ -2,7 +2,7 @@
 
 ### Repository
 
-Install the INDIGO repository.
+Install the [INDIGO repository](https://indigo-dc.gitbooks.io/indigo-datacloud-releases/content/generic_installation_and_configuration_guide_1.html).
 
 ### Install the synergy packages
 
@@ -19,6 +19,27 @@ apt-get install python-synergy-service python-synergy-scheduler-manager
 ```
 
 They can be installed in the OpenStack controller node or on another node.
+
+
+### Updating the synergy packages
+
+The Synergy project makes periodic releases. As a system administrator you can get the latest features and bug fixes by updating Synergy.
+
+This is done using the standard update commands for your OS, as long you have the INDIGO repository set up.
+
+On Ubuntu:
+
+```
+apt-get update
+apt-get upgrade
+```
+
+On CentOS:
+
+```
+yum update
+```
+
 
 ### Setup the Synergy database
 
