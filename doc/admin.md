@@ -844,7 +844,7 @@ The overall cloud resources can be grouped in:
 
 The size of the shared quota is calculated as the difference between the total amount of cloud resources \(considering also the over-commitment ratios\) and the total resources allocated to the private quotas. Therefore for all projects it is necessary to specify the proper quota for instances, VCPUs and RAM so that their total is less than the total amount of cloud resources.
 
-                                   ![](/assets/quota.png)
+-> ![quota](../assets/quota.png) <-
 
 Since Synergy is installed, the private quota of projects **cannot be managed anymore by using the Horizon dashboard**, but **only via command line tools** using the following OpenStack command:
 
