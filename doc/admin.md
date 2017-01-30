@@ -96,7 +96,7 @@ default_notification_level = INFO
 notification_driver = messaging
 notification_topics = notifications
 ```
-The _notification_topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications)
+The _notification_topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. notification_topics = notifications,**synergy_notifications**)
 
 ### Edit the source files for proper messaging
 
