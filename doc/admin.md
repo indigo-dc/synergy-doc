@@ -3,7 +3,7 @@
 ### Repository
 Install the [INDIGO repository](https://indigo-dc.gitbooks.io/indigo-datacloud-releases/content/generic_installation_and_configuration_guide_1.html).
 
-### Install the synergy packages
+### Install the Synergy packages
 On CentOS7:
 
 ```
@@ -19,7 +19,7 @@ apt-get install python-synergy-service python-synergy-scheduler-manager
 They can be installed in the OpenStack controller node or on another node.
 
 
-### Updating the synergy packages
+### Updating the Synergy packages
 The Synergy project makes periodic releases. As a system administrator you can get the latest features and bug fixes by updating Synergy.
 
 This is done using the standard update commands for your OS, as long you have the INDIGO repository set up.
@@ -54,7 +54,8 @@ CREATE DATABASE synergy;
 Grant proper access to the glance database:
 
 ```
-GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'localhost' \  
+GRANT ALL PRIVILEGES ON 
+._ TO 'synergy'@'localhost' \  
 IDENTIFIED BY 'SYNERGY_DBPASS';  
 GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'%' \  
 IDENTIFIED BY 'SYNERGY_DBPASS';  
@@ -72,7 +73,7 @@ Source the admin credentials to gain access to admin-only CLI commands:
 $ . admin-openrc
 ```
 
-Register the synergy service and endpoint in the Openstack service catalog:
+Register the Synergy service and endpoint in the Openstack service catalog:
 
 ```bash
 openstack service create --name synergy management
@@ -128,9 +129,9 @@ topic=CONF.conductor.topic + "_synergy",
 Then restart the nova services on the Controller node.
 
 ### Configure and start Synergy
-Configure the synergy service, as explained in the following section.
+Configure the Synergy service, as explained in the following section.
 
-Then start and enable the synergy service.  
+Then start and enable the Synergy service.  
 On CentOS:
 
 ```
@@ -144,7 +145,7 @@ On Ubuntu:
 service synergy start
 ```
 
-If synergy complains about  incompatibility with the version of installed oslo packages, e.g.:
+If Synergy complains about incompatibility with the version of installed oslo packages, e.g.:
 
 ```
 synergy.service - ERROR - manager 'timer' instantiation error: (oslo.log 
@@ -403,7 +404,7 @@ autostart = True
 rate = 5
 ```
 
-The following describes the meaning of the attributes of the synergy configuration file, for each possible section:
+The following describes the meaning of the attributes of the Synergy configuration file, for each possible section:
 
 **Section \[Logger\]**
 
@@ -421,9 +422,9 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| host | The hostname where the synergy service is deployed |
-| port | The port used by the synergy service |
-| threads | The number of threads used by the synergy service |
+| host | The hostname where the Synergy service is deployed |
+| port | The port used by the Synergy service |
+| threads | The number of threads used by the Synergy service |
 | use ssl | Specify if the service is secured through SSL |
 | ssl\_ca\_file | The CA certificate file to use to verify connecting clients |
 | ssl\_cert\_file | The Identifying certificate PEM file to present to clients |
@@ -439,12 +440,12 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the SchedulerManager manager should be started when synergy starts |
+| autostart | Specifies if the SchedulerManager manager should be started when Synergy starts |
 | rate | the time \(in minutes\) between two executions of the task implementing this manager |
 | projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
 | shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute _default\_share_ in the _FairShareManager_ section is used |
 | default\_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes \(default: 2880\) |
-| TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by synergy. If for a certain project the value is not specified, the value specified by the _default\_TTL_ attribute will be used |
+| TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by Synergy. If for a certain project the value is not specified, the value specified by the _default\_TTL_ attribute will be used |
 | backfill\_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start \(default: 100\) |
 | notification\_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
 
@@ -454,15 +455,15 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the FairShare manager should be started when synergy starts |
+| autostart | Specifies if the FairShare manager should be started when Synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| period\_length | The time window considered for resource usage by the fair-share algorithm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period \(default: 7\) |
-| periods | The time window considered for resource usage by the fairshare algoritm used by synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered \(default: 3\) |
+| period\_length | The time window considered for resource usage by the fair-share algorithm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period \(default: 7\) |
+| periods | The time window considered for resource usage by the fairshare algoritm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered \(default: 3\) |
 | default\_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section \(default: 10\) |
 | decay\_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage \(default: 0.5\) |
-| vcpus\_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by synergy \(default: 100\) |
+| vcpus\_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by Synergy \(default: 100\) |
 | age\_weight | This attribute defines how oldest requests \(and therefore with low priority\) should have their priority increased so thay cam be eventaully served \(default: 10\) |
-| memory\_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by synergy \(default: 70\) |
+| memory\_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy \(default: 70\) |
 
 ---
 
@@ -470,7 +471,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the Keystone manager should be started when synergy starts |
+| autostart | Specifies if the Keystone manager should be started when Synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manage |
 | auth\_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
 | username | The name of the user with admin role |
@@ -488,7 +489,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the nova manager should be started when synergy starts |
+| autostart | Specifies if the nova manager should be started when Synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
 | host | The hostname where the nova-conductor service runs \(default: localhost\) |
 | timeout | The http connection timeout \(default: 60\) |
@@ -513,9 +514,9 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the Queue manager should be started when synergy starts |
+| autostart | Specifies if the Queue manager should be started when Synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| db\_connection | The SQLAlchemy connection string to use to connect to the synergy database |
+| db\_connection | The SQLAlchemy connection string to use to connect to the Synergy database |
 | db\_pool\_size | The number of SQL connections to be kept open \(default: 10\) |
 | db\_pool\_recycle | The number of seconds after which a connection is automatically recycled \(default: 30\) |
 | db\_max\_overflow | The max overflow with SQLAlchemy \(default: 5\) |
@@ -526,7 +527,7 @@ The following describes the meaning of the attributes of the synergy configurati
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the Quota manager should be started when synergy starts |
+| autostart | Specifies if the Quota manager should be started when Synergy starts |
 | rate | The time \(in minutes\) between two executions of the task implementing this manager |
 
 # Installation and configuration using puppet
@@ -564,7 +565,7 @@ class { 'synergy':
 # The Synergy command line interface
 The Synergy service provides a command-line client, called **synergy**, which allows the Cloud administrator to control and monitor the Synergy service.
 
-Before running the synergy client command, you must create and source the _admin-openrc.sh_ file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools.
+Before running the Synergy client command, you must create and source the _admin-openrc.sh_ file to set the relevant environment variables. This is the same script used to run the OpenStack command line tools.
 
 Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keystone API, e.g.:
 
@@ -627,7 +628,7 @@ optional arguments:
 Command-line interface to the OpenStack Synergy API.
 ```
 
-The synergy optional arguments:
+The _synergy_ optional arguments:
 
 **-h, --help**
 
@@ -734,7 +735,7 @@ Specify a CA certificate bundle file to use in verifying a TLS
 ```
 
 ### synergy manager
-This command allows to get information about the managers deployed in the synergy service and control their execution:
+This command allows to get information about the managers deployed in the Synergy service and control their execution:
 
 ```
 # synergy manager -h
@@ -751,7 +752,7 @@ optional arguments:
   -h, --help            show this help message and exit
 ```
 
-The command **synergy manager list **provides the list of all managers deployed in the synergy service:
+The command **synergy manager list **provides the list of all managers deployed in the Synergy service:
 
 ```
 # synergy manager list
@@ -1047,5 +1048,5 @@ The following example shows the usage report of users belonging to the project p
 
 ### Open Ports
 To interact with Synergy using the client tool, just one port needs to be open.  
-This is the port defined in the synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
+This is the port defined in the Synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
 
