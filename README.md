@@ -5,4 +5,6 @@ In OpenStack based IaaS private clouds the computing and storage resources are s
 ## The Synergy architecture
 Synergy is an extensible general purpose management service designed for executing tasks in OpenStack. Its functionalities are provided by a collection of managers which are specific and independent pluggable tasks executed periodically, like the cron jobs, or interactively through a RESTful API. Different managers can coexist and they can interact with each other or with different OpenStack services in a loosely coupled way.
 
-
+<p align="center">
+    <img src="./images/synergy_arch1.png">
+</p>
