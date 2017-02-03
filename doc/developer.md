@@ -34,6 +34,8 @@ Note: if you are using an \*EL system, you can use the `rpmdev-bumpspec` command
 #### Test packaging for debian and RPM
 Use docker to test the packaging for debian and RPM (see `packaging/README.md` for instructions). Don't forget to add `-e "PKG_VERSION=x.y.z"` to test for the new x.y.z version.
 
+Note that the packages generated at this stage are *dev* packages and should not be provided to users as they will cause problems when upgrading.
+
 #### Commit and submit to OpenStack CI
 Make a single commit containing the changes to the debian and RPM packaging for the making of the new release. This way it is easy to rebuild the package for old version.
 
@@ -44,6 +46,10 @@ Once the release commit has been merged into `master`, tag it with git.
 Note: you *must* make a *signed* and *annotated* tag, otherwise gerrit won't accept it.
 
 After that, submit it to gerrit: `git push gerrit x.y.z`. This will automatically trigger the publication of the python wheel package to PyPI.
+
+#### Packaging
+Now that the work has been commited and tagged, we can make proper system packages.
+Read the file `packaging/README.md` for instructions, the easiest method for packaging being using Docker.
 
 #### Synchronize to Indigo GitHub repository
 Try to synchronize the commits after each release.
