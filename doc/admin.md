@@ -36,7 +36,7 @@ On CentOS:
 ```
 yum update
 ```
-nce the update is complete remember to restart the service. Follow the instructions in "Configure and start Synergy" section of this guide to see how to do it.
+Once the update is complete remember to restart the service. Follow the instructions in "Configure and start Synergy" section of this guide to see how to do it.
 
 
 ### Setup the Synergy database
