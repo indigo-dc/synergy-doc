@@ -87,10 +87,15 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 Make sure that nova notifications are enabled on the **compute node**. Edit the _/etc/nova/nova.conf_ file. In the [DEFAULT] and [oslo_messaging] add the following attributes:
 
 ```
+[DEFAULT]
+...
 notify_on_state_change = vm_state
 default_notification_level = INFO
-notification_driver = messaging
-notification_topics = notifications
+
+[oslo_messaging]
+...
+driver = messagingv2
+topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_)
 
