@@ -95,26 +95,7 @@ notification_topics = notifications
 The _notification_topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. notification_topics = notifications,**synergy_notifications**)
 
 ### Edit the source files for proper messaging
-Two changes are then needed on the controller node.
-
-The first one is edit _/usr/lib/python2.7/site-packages/oslo\_messaging/localcontext.py_ \(for CentOS\) /_/usr/lib/python2.7/dist-packages/oslo\_messaging/localcontext.py_ \(for Ubuntu\) , replacing:
-
-```python
-def _clear_local_context():
-    """Clear the request context for the current thread."""
-    delattr(_STORE, _KEY)
-```
-
-with:
-
-```python
-def _clear_local_context():
-    """Clear the request context for the current thread."""
-    if hasattr(_STORE, _KEY):
-        delattr(_STORE, _KEY)
-```
-
-The second one is edit _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for CentOS\) / _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for Ubuntu\) replacing:
+On the controller node edit _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for CentOS\) / _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for Ubuntu\) replacing:
 
 ```python
 topic=CONF.conductor.topic,
