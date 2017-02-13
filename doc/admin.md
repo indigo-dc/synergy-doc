@@ -84,7 +84,7 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 ```
 
 ### Adjust nova notifications
-Make sure that nova notifications are enabled. On the controller and compute nodes add the following attributes in the _nova.conf_ file and then restart the nova services:
+Make sure that nova notifications are enabled on the **compute node**. add the following attributes in the _nova.conf_ file and then restart the nova services:
 
 ```
 notify_on_state_change = vm_state
