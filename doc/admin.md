@@ -101,7 +101,7 @@ The _topics_ parameter is used by Nova for informing listeners about the state c
 
 
 ### Configure Nova to use Synergy
-This section describes how to configure nova on the controller and compute nodes to use Synergy. In _/etc/nova/_ create the _nova-conductor.conf_ file. Edit _/etc/nova/nova-conductor.conf_ file and add the following to it:
+ In _/etc/nova/_ create a _nova-conductor.conf_ file. Edit _/etc/nova/nova-conductor.conf_ file and add the following to it:
 
 
 ```
@@ -109,7 +109,7 @@ This section describes how to configure nova on the controller and compute nodes
 topic=conductor_synergy
 ```
 
-
+Perform these steps on the controller and compute nodes.
 
 
 ### Restart nova
