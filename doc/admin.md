@@ -115,6 +115,28 @@ Perform these steps on the controller and compute nodes.
 ### Restart nova
 Then restart the nova services on the Controller and Compute nodes.
 
+
+### Verify operation
+
+```
+# rabbitmqctl list_queues | grep synergy
+conductor_synergy_fanout_55408359225b4d1f8a825b472de99fd3    0
+conductor_synergy_fanout_7892360ce9c14fb4bb6df70ca6829984    0
+conductor_synergy_fanout_c012b565a7b0414ebb75011eda1d18e8    0
+conductor_synergy_fanout_17fdc55529fd4e51ae56208a3bac0735    0
+conductor_synergy    0
+conductor_synergy.cld-corso-21.cloud.pd.infn.it    0
+conductor_synergy_fanout_5e6e8f8f09bf4ec4be9405499dc4b921    0
+conductor_synergy_fanout_7e6adf936eb24cdaab41af661740649b    0
+conductor_synergy_fanout_bb35ba53dd914138a2bd0e205c57e315    0
+conductor_synergy_fanout_9a94fef80955478e96dddca32ac4eeb6    0
+conductor_synergy_fanout_ad1fdd78801148e6a1a29ea58e929b76    0 
+
+```
+
+
+
+
 ### Configure and start Synergy
 Configure the Synergy service, as explained in the following section.
 
