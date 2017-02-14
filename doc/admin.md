@@ -117,7 +117,7 @@ Then restart the nova services on the Controller and Compute nodes.
 
 
 ### Verify operation
-Run this command on the controller node:
+Run this command on the controller node to check whether your configuration is correct:
 
 ```
 # rabbitmqctl list_queues | grep synergy
@@ -135,6 +135,7 @@ conductor_synergy_fanout_9a94fef80955478e96dddca32ac4eeb6    0
 conductor_synergy_fanout_ad1fdd78801148e6a1a29ea58e929b76    0 
 
 ```
+The output of the command should show something similar.
 
 ### Configure and start Synergy
 Configure the Synergy service, as explained in the following section.
