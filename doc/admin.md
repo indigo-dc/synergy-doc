@@ -100,18 +100,17 @@ topics = notifications
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
 
 
-### Edit the sources file for proper messaging
-On the **controller node** edit _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for CentOS\) / _/usr/lib/python2.7/site-packages/nova/cmd/conductor.py_ \(for Ubuntu\) replacing:
+### Configure Nova to use Synergy
+This section describes how to configure nova on the controller and compute nodes to use Synergy. In _/etc/nova/_ create the _nova-conductor.conf_ file. Edit _/etc/nova/nova-conductor.conf_ file and add the following to it:
 
-```python
-topic=CONF.conductor.topic,
+
+```
+[conductor]
+topic=conductor_synergy
 ```
 
-with:
 
-```python
-topic=CONF.conductor.topic + "_synergy",
-```
+
 
 ### Restart nova
 Then restart the nova services on the Controller and Compute nodes.
