@@ -101,7 +101,7 @@ The _topics_ parameter is used by Nova for informing listeners about the state c
 
 
 ### Configure Controller to use Synergy
- In _/etc/nova/_ create a _nova-conductor.conf_ file. Edit _/etc/nova/nova-conductor.conf_ file and add the following to it:
+ In _/etc/nova/_ create a _nova-api.conf_ file. Edit _/etc/nova/nova-api.conf_ file and add the following to it:
 
 
 ```
@@ -122,18 +122,9 @@ Run this command on the controller node to check whether your configuration is c
 ```
 # rabbitmqctl list_queues | grep synergy
 
-conductor_synergy_fanout_55408359225b4d1f8a825b472de99fd3    0
-conductor_synergy_fanout_7892360ce9c14fb4bb6df70ca6829984    0
-conductor_synergy_fanout_c012b565a7b0414ebb75011eda1d18e8    0
-conductor_synergy_fanout_17fdc55529fd4e51ae56208a3bac0735    0
+conductor_synergy_fanout_1e30d613c19142ec8ce452292042c35c    0
 conductor_synergy    0
-conductor_synergy.cld-corso-21.cloud.pd.infn.it    0
-conductor_synergy_fanout_5e6e8f8f09bf4ec4be9405499dc4b921    0
-conductor_synergy_fanout_7e6adf936eb24cdaab41af661740649b    0
-conductor_synergy_fanout_bb35ba53dd914138a2bd0e205c57e315    0
-conductor_synergy_fanout_9a94fef80955478e96dddca32ac4eeb6    0
-conductor_synergy_fanout_ad1fdd78801148e6a1a29ea58e929b76    0 
-
+conductor_synergy.192.168.60.231    0 
 ```
 The output of the command should show something similar.
 
