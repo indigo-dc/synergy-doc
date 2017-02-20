@@ -1,3 +1,9 @@
+** ⚠ This is the documentation for an old version of Synergy on INDIGO 1 ⚠ **
+
+The Synergy package versions corresponding to this documentation are:
+- synergy-service v1.4.0
+- synergy-scheduler-manager v2.3.0
+- - - 
 # How to use Synergy
 
 Synergy doesn't need extra tools to create VMs into the private or shared quota but they are created in the standard OpenStack way \(i.e. shell and dashboard\). For example:

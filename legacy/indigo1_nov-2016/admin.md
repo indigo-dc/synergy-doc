@@ -1,4 +1,4 @@
-** ⚠ This is the documentation for an old version of Synergy ⚠ **
+** ⚠ This is the documentation for an old version of Synergy on INDIGO 1 ⚠ **
 
 The Synergy package versions corresponding to this documentation are:
 - synergy-service v1.2.0
