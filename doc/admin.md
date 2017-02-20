@@ -99,7 +99,7 @@ topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
 
-Then restart the nova services on the Compute nodes.
+Then restart the nova services on the Compute node.
 
 
 
@@ -117,7 +117,6 @@ Run this command on the controller node to check whether it  is correct:
 
 ```
 # rabbitmqctl list_queues | grep synergy
-
 conductor_synergy_fanout_1e30d613c19142ec8ce452292042c35c    0
 conductor_synergy    0
 conductor_synergy.192.168.60.231    0 
