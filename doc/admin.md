@@ -99,25 +99,21 @@ topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
 
+Then restart the nova services on the Compute nodes.
+
+
 
 ### Configure Controller to use Synergy
- In _/etc/nova/_ create a _nova-api.conf_ file. Edit _/etc/nova/nova-api.conf_ file and add the following to it:
-
+ Perform these steps on the controller node. In _/etc/nova/_ create a _nova-api.conf_ file. Edit _/etc/nova/nova-api.conf_ file and add the following to it:
 
 ```
 [conductor]
 topic=conductor_synergy
 ```
 
-Perform these steps on the controller node.
+Restart nova-api service to enable your configuration.
 
-
-### Restart nova
-Then restart the nova services on the Controller and Compute nodes.
-
-
-### Verify operation
-Run this command on the controller node to check whether your configuration is correct:
+Run this command on the controller node to check whether it  is correct:
 
 ```
 # rabbitmqctl list_queues | grep synergy
