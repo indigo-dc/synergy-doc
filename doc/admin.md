@@ -576,7 +576,6 @@ usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-project-id <auth-project-id>]
                [--os-project-domain-id <auth-project-domain-id>]
                [--os-project-domain-name <auth-project-domain-name>]
-               [--os-auth-token <auth-token>] [--os-auth-token-cache]
                [--os-auth-url <auth-url>] [--os-auth-system <auth-system>]
                [--bypass-url <bypass-url>] [--os-cacert <ca-certificate>]
                {manager,queue,quota,usage} ...
@@ -605,11 +604,6 @@ optional arguments:
                         defaults to env[OS_PROJECT_DOMAIN_ID]
   --os-project-domain-name <auth-project-domain-name>
                         defaults to env[OS_PROJECT_DOMAIN_NAME]
-  --os-auth-token <auth-token>
-                        defaults to env[OS_AUTH_TOKEN]
-  --os-auth-token-cache
-                        Use the auth token cache. Defaults to False if
-                        env[OS_AUTH_TOKEN_CACHE] is not set
   --os-auth-url <auth-url>
                         defaults to env[OS_AUTH_URL]
   --os-auth-system <auth-system>
