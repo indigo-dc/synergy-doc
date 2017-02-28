@@ -164,7 +164,7 @@ Requirement.parse('oslo.middleware<3.5.0,>=3.0.0'))
 please patch the the file `/usr/lib/python2.7/site-packages/synergy_service-1.0.0-py2.7.egg-info/requires.txt` by removing the versions after the dependencies.
 
 ## The Synergy configuration file
-Synergy must be configured properly filling the _/etc/synergy/synergy.conf_ configuration file. To apply the changes of any configuration parameter, the Synergy service must be restarted.
+Synergy must be configured properly filling the _synergy.conf_ and _synergy_scheduler.conf_ configuration files in _/etc/synergy/_. To apply the changes of any configuration parameter, the Synergy service must be restarted.
 
 This is an example of the **synergy.conf** configuration file:
 
@@ -208,6 +208,42 @@ max_header_line = 16384
 retry_until_window = 30
 tcp_keepidle = 600
 backlog = 4096
+```
+The following describes the meaning of the attributes of the _synergy.conf_ file, for each possible section:
+
+**Section \[Logger\]**
+
+| Attribute | Description |
+| --- | --- |
+| filename | The name of the log file |
+| level | The logging level. Valid values are: CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET |
+| formatter | The format of the logged messages |
+| maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
+| backupCount | The number of log files to be kept |
+
+---
+
+**Section \[WSGI\]**
+
+| Attribute | Description |
+| --- | --- |
+| host | The hostname where the Synergy service is deployed |
+| port | The port used by the Synergy service |
+| threads | The number of threads used by the Synergy service |
+| use ssl | Specify if the service is secured through SSL |
+| ssl\_ca\_file | The CA certificate file to use to verify connecting clients |
+| ssl\_cert\_file | The Identifying certificate PEM file to present to clients |
+| ssl\_key\_file | The Private key PEM file used to sign cert\_file certificate |
+| max\_header\_line | The maximum size of message headers to be accepted \(default: 16384\) |
+| retry\_until\_window | The number of seconds to keep retrying for listening \(default: 30sec\) |
+| tcp\_keepidle | The value of TCP\_KEEPIDLE in seconds for each server socket |
+| backlog | The number of backlog requests to configure the socket with \(default: 4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
+
+---
+This example shows how to configure the **synergy_scheduler.conf** file:
+
+```
+[DEFAULT]
 
 
 [SchedulerManager]
@@ -399,37 +435,7 @@ autostart = True
 rate = 5
 ```
 
-The following describes the meaning of the attributes of the Synergy configuration file, for each possible section:
-
-**Section \[Logger\]**
-
-| Attribute | Description |
-| --- | --- |
-| filename | The name of the log file |
-| level | The logging level. Valid values are: CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET |
-| formatter | The format of the logged messages |
-| maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
-| backupCount | The number of log files to be kept |
-
----
-
-**Section \[WSGI\]**
-
-| Attribute | Description |
-| --- | --- |
-| host | The hostname where the Synergy service is deployed |
-| port | The port used by the Synergy service |
-| threads | The number of threads used by the Synergy service |
-| use ssl | Specify if the service is secured through SSL |
-| ssl\_ca\_file | The CA certificate file to use to verify connecting clients |
-| ssl\_cert\_file | The Identifying certificate PEM file to present to clients |
-| ssl\_key\_file | The Private key PEM file used to sign cert\_file certificate |
-| max\_header\_line | The maximum size of message headers to be accepted \(default: 16384\) |
-| retry\_until\_window | The number of seconds to keep retrying for listening \(default: 30sec\) |
-| tcp\_keepidle | The value of TCP\_KEEPIDLE in seconds for each server socket |
-| backlog | The number of backlog requests to configure the socket with \(default: 4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
-
----
+Attributes and their meanings are described in the following tables:
 
 **Section \[SchedulerManager\]**
 
