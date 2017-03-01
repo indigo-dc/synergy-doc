@@ -208,7 +208,9 @@ max_header_line = 16384
 retry_until_window = 30
 tcp_keepidle = 600
 backlog = 4096
+
 ```
+
 The following describes the meaning of the attributes of the _synergy.conf_ file, for each possible section:
 
 **Section \[Logger\]**
@@ -689,19 +691,6 @@ Specify the user domain id. Defaults to env[OS_USER_DOMAIN_ID]
 
 ```
 Specify the user domain name. Defaults to env[OS_USER_DOMAIN_NAME]
-```
-
-**--os-auth-token **`<auth-token>`
-
-```
-The auth token to be used. Defaults to env[OS_AUTH_TOKEN]
-```
-
-**--os-auth-token-cache**
-
-```
-Use the auth token cache. Defaults to env[OS_AUTH_TOKEN_CACHE]to False. 
-Defaults to 'false' if not set
 ```
 
 **--os-auth-url **`<auth-url>`
