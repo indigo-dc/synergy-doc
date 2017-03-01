@@ -164,7 +164,7 @@ Requirement.parse('oslo.middleware<3.5.0,>=3.0.0'))
 please patch the the file `/usr/lib/python2.7/site-packages/synergy_service-1.0.0-py2.7.egg-info/requires.txt` by removing the versions after the dependencies.
 
 ## The Synergy configuration file
-Synergy must be configured properly filling the _synergy.conf_ and _synergy_scheduler.conf_ configuration files in _/etc/synergy/_. To apply the changes of any configuration parameter, the Synergy service must be restarted.
+Synergy must be configured properly by filling the _synergy.conf_ and _synergy_scheduler.conf_ configuration files in _/etc/synergy/_. To apply the changes of any configuration parameter, the Synergy service must be restarted.
 
 This is an example of the **synergy.conf** configuration file:
 
