@@ -54,12 +54,8 @@ CREATE DATABASE synergy;
 
 Grant proper access to the glance database:
 
-```
-GRANT ALL PRIVILEGES ON 
-._ TO 'synergy'@'localhost' \  
-IDENTIFIED BY 'SYNERGY_DBPASS';  
-GRANT ALL PRIVILEGES ON synergy._ TO 'synergy'@'%' \  
-IDENTIFIED BY 'SYNERGY_DBPASS';  
+```SQL
+GRANT ALL PRIVILEGES ON synergy.* TO 'synergy'@'%' IDENTIFIED BY 'SYNERGY_DBPASS';  
 flush privileges;
 ```
 
