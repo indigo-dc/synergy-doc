@@ -85,12 +85,12 @@ Make sure that nova notifications are enabled on the **compute node**. Edit the 
 ```
 [DEFAULT]
 ...
-notify_on_state_change = vm_and_task_state
+notify_on_state_change = vm_state
 default_notification_level = INFO
 
 [oslo_messaging_notifications]
 ...
-driver = messagingv2
+driver = messaging
 topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
@@ -104,12 +104,14 @@ Then restart the nova services on the Compute node.
 
 ```
 [conductor]
-topic=conductor_synergy
+topic=synergy
 ```
+
+The _topic_ must have the same value of the _synergy_topic_ in _/etc/synergy/synergy_scheduler.conf_ file.
 
 Restart nova-api service to enable your configuration.
 
-Run this command on the controller node to check whether it  is correct:
+On the node where it is installed RabbitMQ run this command to check whether your configuration is correct:
 
 ```
 # rabbitmqctl list_queues | grep synergy
@@ -378,6 +380,9 @@ amqp_virtual_host = /
 # set the Nova host (default: localhost)
 host = CONTROLLER_HOST
 
+# set the Synery topic as defined in nova-api.conf file (default: synergy)
+synergy_topic = synergy
+
 # set the Nova conductor topic (default: conductor)
 conductor_topic = conductor
 
@@ -499,6 +504,7 @@ Attributes and their meanings are described in the following tables:
 | amqp\_user | The AMQP userid |
 | amqp\_password | The password of the AMQP user |
 | amqp\_virtual\_host | The AMQP virtual host |
+|synergy\_topic|The topic on which synergy listen on (default: synergy). It simplifies communication between Synergy and Nova API. It must have the same value of the _topic_ in _nova-api.conf_ file.|
 | conductor\_topic | The topic on which conductor nodes listen on \(default: conductor\) |
 | compute\_topic | The topic on which compute nodes listen on \(default: compute\) |
 | scheduler\_topic | The topic on which scheduler nodes listen on \(default: scheduler\) |
