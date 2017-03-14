@@ -107,17 +107,17 @@ Then restart the nova services on the Compute node.
 topic=synergy
 ```
 
-The _topic_ must have the same value of the _synergy_topic_ in _/etc/synergy/synergy_scheduler.conf_ file.
+The _topic_ must have the same value of the _synergy_topic_ defined in the _/etc/synergy/synergy_scheduler.conf_ file.
 
 Restart nova-api service to enable your configuration.
 
-On the node where it is installed RabbitMQ run this command to check whether your configuration is correct:
+On the node where it is installed RabbitMQ, run the following command to check whether your configuration is correct:
 
 ```
 # rabbitmqctl list_queues | grep synergy
-conductor_synergy_fanout_1e30d613c19142ec8ce452292042c35c    0
-conductor_synergy    0
-conductor_synergy.192.168.60.231    0 
+synergy_fanout_1e30d613c19142ec8ce452292042c35c    0
+synergy    0
+synergy.192.168.60.231    0 
 ```
 The output of the command should show something similar.
 
@@ -504,7 +504,7 @@ Attributes and their meanings are described in the following tables:
 | amqp\_user | The AMQP userid |
 | amqp\_password | The password of the AMQP user |
 | amqp\_virtual\_host | The AMQP virtual host |
-|synergy\_topic|The topic on which synergy listen on (default: synergy). It simplifies communication between Synergy and Nova API. It must have the same value of the _topic_ in _nova-api.conf_ file.|
+| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
 | conductor\_topic | The topic on which conductor nodes listen on \(default: conductor\) |
 | compute\_topic | The topic on which compute nodes listen on \(default: compute\) |
 | scheduler\_topic | The topic on which scheduler nodes listen on \(default: scheduler\) |
