@@ -109,6 +109,17 @@ topic=synergy
 
 The _topic_ must have the same value of the _synergy_topic_ defined in the _/etc/synergy/synergy_scheduler.conf_ file.
 
+Only for Ubuntu 16.04, edit the _/etc/init.d/nova-api_ file and replace
+
+```
+[ "x$USE_LOGFILE" != "xno" ] && DAEMON_ARGS="$DAEMON_ARGS --log-file=$LOGFILE"
+```
+with
+
+```
+[ "x$USE_LOGFILE" != "xno" ] && DAEMON_ARGS="$DAEMON_ARGS --config-file /etc/nova/nova-api.conf --log-file=$LOGFILE"
+```
+
 Restart nova-api service to enable your configuration.
 
 On the node where it is installed RabbitMQ, run the following command to check whether your configuration is correct:
