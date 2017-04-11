@@ -80,7 +80,7 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 ```
 
 ### Adjust nova notifications
-Make sure that nova notifications are enabled on the **compute node**. Edit the _/etc/nova/nova.conf_ file. In the [DEFAULT] and [oslo_messaging_notifications] sections add the following attributes:
+Make sure that nova notifications are enabled on the **controller and compute node**. Edit the _/etc/nova/nova.conf_ file. In the [DEFAULT] and [oslo_messaging_notifications] sections add the following attributes:
 
 ```
 [DEFAULT]
