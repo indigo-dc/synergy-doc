@@ -145,7 +145,7 @@ systemctl enable synergy
 
 On Ubuntu:
 
-````
+```
 service synergy start
 ```
 
@@ -515,7 +515,7 @@ Attributes and their meanings are described in the following tables:
 | amqp\_user | The AMQP userid |
 | amqp\_password | The password of the AMQP user |
 | amqp\_virtual\_host | The AMQP virtual host |
-| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
+| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-   api.conf_ file (default: synergy) |
 | conductor\_topic | The topic on which conductor nodes listen on \(default: conductor\) |
 | compute\_topic | The topic on which compute nodes listen on \(default: compute\) |
 | scheduler\_topic | The topic on which scheduler nodes listen on \(default: scheduler\) |
@@ -1041,9 +1041,7 @@ The following example shows the usage report of users belonging to the project p
 ╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
 │ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
 ╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
-```
 
 ### Open Ports
 To interact with Synergy using the client tool, just one port needs to be open.  
 This is the port defined in the Synergy configuration file \(attribute `port` in the `[WSGI]` section\). The default value is 8051.
-
