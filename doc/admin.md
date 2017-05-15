@@ -1041,6 +1041,7 @@ The following example shows the usage report of users belonging to the project p
 ╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
 │ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
 ╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
+```
 
 ### Open Ports
 To interact with Synergy using the client tool, just one port needs to be open.  
