@@ -5,19 +5,20 @@ We use [PBR](http://docs.openstack.org/developer/pbr/) to manage part of the rel
 
 When a developer makes a commit, it should include a `Sem-Ver` line in it indicating the semantic versioning level of the change. By default, this change is `bugfix`. Other levels are: `feature`, `api-break` and `deprecation`.
 
-Example of a commit using `Sem-Ver`: https://review.openstack.org/#/c/384381/3//COMMIT_MSG
+Example of a commit using `Sem-Ver`: https://review.openstack.org/#/c/384381/3//COMMIT_MSG.
 
 ## Release management
 Synergy is made of two packages:
 
 - *synergy-service*: the main package
-- *synergy-scheduler-manager*: plugin for *synergy-service* that adds the scheduler functionality. **This package depends on synergy-service**..
+- *synergy-scheduler-manager*: plugin for *synergy-service* that adds the scheduler functionality. **This package depends on synergy-service**.
 
 ### Making a new release for *synergy-service*
-The idea when a making a release for a synergy package is to do it in a *single commit*. This way, we can easily go to this commit and package for that specific version.
+The idea when making a release for a synergy package is to do it in a *single commit*. This way, we can easily go to this commit and package for that specific version.
 
 #### Get the ChangeLog
-Use `python setup.py bdist_wheel` to
+Make sure your local repository is up to date with `git pull`.
+Then, use `python setup.py bdist_wheel` to
 - automatically update the `ChangeLog` and `AUTHORS` files.
 - get the new version number: the name of the resulting wheel package will be something like `synergy_service-1.3.0.dev18-py2-none-any.whl`, here `1.3.0` is the new version number that respects [semver](http://semver.org).
 
@@ -49,7 +50,7 @@ After that, submit it to gerrit: `git push gerrit x.y.z`. This will automaticall
 
 #### Packaging
 Now that the work has been commited and tagged, we can make proper system packages.
-Read the file `packaging/README.md` for instructions, the easiest method for packaging being using Docker.
+Read the file `packaging/README.md` for instructions, the easiest method for packaging is using Docker.
 
 #### Synchronize to Indigo GitHub repository
 Try to synchronize the commits after each release.
