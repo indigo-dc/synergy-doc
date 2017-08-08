@@ -63,10 +63,11 @@ For all the packages that depend on *synergy-service*: update the `requirements.
 
 ### Changes related to INDIGO-DC
 #### Openstack version
-As of 2016-06-13, the supported OpenStack version by INDIGO-DC is *Liberty*.
+As of 2017-08-08, the supported OpenStack version by INDIGO-DC is *Newton*.
 If this changes in the future, one should update the Dockerfiles used for packaging.
+
 #### Operating System support
-As of 2016-06-13, the support OS by INDIGO-DC are CentOS 7 and Ubuntu 14.04.
+As of 2017-08-08, the support OS by INDIGO-DC are CentOS 7 and Ubuntu 16.04.
 If this changes, one should update the Dockerfiles used for packaging accordingly.
 
 ## Plugin developement
