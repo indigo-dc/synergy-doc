@@ -53,7 +53,12 @@ Now that the work has been commited and tagged, we can make proper system packag
 Read the file `packaging/README.md` for instructions, the easiest method for packaging is using Docker.
 
 #### Synchronize to Indigo GitHub repository
-Try to synchronize the commits after each release.
+Try to synchronize the commits after each release:
+- on your local repo, create a new branch that contains the release commit: `git checkout -b release-x.y.z`
+- send this to GitHub (you need to have setup the GitHub remote first): `git push github release-x.y.z`
+- on GitHub, create a new pull request with the new branch `release-x.y.z`
+- wait for the automatic tests to run and pass, then merge the PR into master.
+
 After that, you can manually add the debian and RPM packages to the github release page.
 
 ### Making a new release for *synergy-scheduler-manager*
