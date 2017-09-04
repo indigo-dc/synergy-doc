@@ -153,29 +153,6 @@ On Ubuntu:
 service synergy start
 ```
 
-If Synergy complains about incompatibility with the version of installed oslo packages, e.g.:
-
-```
-synergy.service - ERROR - manager 'timer' instantiation error: (oslo.log 
-1.10.0 (/usr/lib/python2.7/site-packages), 
-Requirement.parse('oslo.log<2.3.0,>=2.0.0')) 
-
-synergy.service - ERROR - manager 'timer' instantiation error: 
-(oslo.service 0.9.0 (/usr/lib/python2.7/site-packages), 
-Requirement.parse('oslo.service<1.3.0,>=1.0.0')) 
-
-synergy.service - ERROR - manager 'timer' instantiation error: 
-(oslo.concurrency 2.6.0 (/usr/lib/python2.7/site-packages), 
-Requirement.parse('oslo.concurrency<3.3.0,>=3.0.0')) 
-
-synergy.service - ERROR - manager 'timer' instantiation error: 
-(oslo.middleware 2.8.0 (/usr/lib/python2.7/site-packages), 
-
-Requirement.parse('oslo.middleware<3.5.0,>=3.0.0'))
-```
-
-please patch the the file `/usr/lib/python2.7/site-packages/synergy_service-1.0.0-py2.7.egg-info/requires.txt` by removing the versions after the dependencies.
-
 ## The Synergy configuration file
 Synergy must be configured properly by filling the _synergy.conf_ and _synergy_scheduler.conf_ configuration files in _/etc/synergy/_. To apply the changes of any configuration parameter, the Synergy service must be restarted.
 
