@@ -1,5 +1,9 @@
 # Manual installation and configuration
 
+Synergy version: service 1.5.1, scheduler 2.5.1
+
+OpenStack supported versions: Mitaka, Newton, Ocata
+
 ### Repository
 Install the [INDIGO repository](https://indigo-dc.gitbooks.io/indigo-datacloud-releases/content/generic_installation_and_configuration_guide_1.html).
 
