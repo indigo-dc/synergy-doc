@@ -676,25 +676,25 @@ Show program’s version number and exit
 Show debugging information
 ```
 
-**--os-username **`<auth-user-name>`
+**--os-username ** &lt;auth-user-name&gt;
 
 ```
 Username to login with. Defaults to env[OS_USERNAME]
 ```
 
-** --os-password **`<auth-password>`
+** --os-password ** &lt;auth-password&gt;
 
 ```
 Password to use.Defaults to env[OS_PASSWORD]
 ```
 
-**--os-project-name **`<auth-project-name>`
+**--os-project-name ** &lt;auth-project-name&gt;
 
 ```
 Project name to scope to. Defaults to env:[OS_PROJECT_NAME]
 ```
 
-**--os-project-id **`<auth-project-id>`
+**--os-project-id ** &lt;auth-project-id&gt;
 
 ```
 Id of the project to scope to. Defaults to env[OS_PROJECT_ID]
@@ -724,20 +724,20 @@ Specify the user domain id. Defaults to env[OS_USER_DOMAIN_ID]
 Specify the user domain name. Defaults to env[OS_USER_DOMAIN_NAME]
 ```
 
-**--os-auth-url **`<auth-url>`
+**--os-auth-url ** &lt;auth-url&gt;
 
 ```
 The URL of the Identity endpoint. Defaults to env[OS_AUTH_URL]
 
 ```
 
-**--bypass-url **`<bypass-url>`
+**--bypass-url ** &lt;bypass-url&gt;
 
 ```
 Use this API endpoint instead of the Service Catalog
 ```
 
-**--os-cacert **`<ca-bundle-file>`
+**--os-cacert ** &lt;ca-bundle-file&gt;
 
 ```
 Specify a CA certificate bundle file to use in verifying a TLS
