@@ -608,6 +608,7 @@ Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keysto
 
 ### synergy usage
 ```
+# synergy -h
 usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
                [--os-user-domain-id <auth-user-domain-id>]
@@ -616,12 +617,12 @@ usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-project-id <auth-project-id>]
                [--os-project-domain-id <auth-project-domain-id>]
                [--os-project-domain-name <auth-project-domain-name>]
-               [--os-auth-url <auth-url>] [--os-auth-system <auth-system>]
-               [--bypass-url <bypass-url>] [--os-cacert <ca-certificate>]
-               {manager,queue,quota,usage} ...
+               [--os-auth-url <auth-url>] [--bypass-url <bypass-url>]
+               [--os-cacert <ca-certificate>]
+               {manager,project,user} ...
 
 positional arguments:
-  {manager,queue,quota,usage}
+  {manager,project,user}
                         commands
 
 optional arguments:
@@ -646,8 +647,6 @@ optional arguments:
                         defaults to env[OS_PROJECT_DOMAIN_NAME]
   --os-auth-url <auth-url>
                         defaults to env[OS_AUTH_URL]
-  --os-auth-system <auth-system>
-                        defaults to env[OS_AUTH_SYSTEM]
   --bypass-url <bypass-url>
                         use this API endpoint instead of the Service Catalog
   --os-cacert <ca-certificate>
@@ -729,12 +728,7 @@ Specify the user domain name. Defaults to env[OS_USER_DOMAIN_NAME]
 
 ```
 The URL of the Identity endpoint. Defaults to env[OS_AUTH_URL]
-```
 
-**--os-auth-system **`<auth-system>`
-
-```
-The auth system to be used. Defaults to env[OS_AUTH_SYSTEM]
 ```
 
 **--bypass-url **`<bypass-url>`
@@ -779,7 +773,7 @@ The command **synergy manager list **provides the list of all managers deployed 
 ├──────────────────┤
 │ NovaManager      │
 ├──────────────────┤
-│ SchedulerManager │
+│ FairShareManager │
 ├──────────────────┤
 │ TimerManager     │
 ├──────────────────┤
@@ -787,7 +781,9 @@ The command **synergy manager list **provides the list of all managers deployed 
 ├──────────────────┤
 │ KeystoneManager  │
 ├──────────────────┤
-│ FairShareManager │
+│ ProjectManager   │
+├──────────────────┤
+│ SchedulerManager │
 ╘══════════════════╛
 ```
 
@@ -798,20 +794,23 @@ To get the status about managers, use:
 ╒══════════════════╤══════════╤══════════════╕
 │ manager          │ status   │   rate (min) │
 ╞══════════════════╪══════════╪══════════════╡
-│ QuotaManager     │ RUNNING  │            1 │
+│ QuotaManager     │ RUNNING  │            2 │
 ├──────────────────┼──────────┼──────────────┤
-│ NovaManager      │ RUNNING  │            1 │
+│ NovaManager      │ RUNNING  │            5 │
 ├──────────────────┼──────────┼──────────────┤
-│ SchedulerManager │ RUNNING  │            1 │
+│ FairShareManager │ RUNNING  │            2 │
 ├──────────────────┼──────────┼──────────────┤
 │ TimerManager     │ ACTIVE   │           60 │
 ├──────────────────┼──────────┼──────────────┤
-│ QueueManager     │ RUNNING  │           10 │
+│ QueueManager     │ RUNNING  │           60 │
 ├──────────────────┼──────────┼──────────────┤
-│ KeystoneManager  │ RUNNING  │            1 │
+│ KeystoneManager  │ RUNNING  │            5 │
 ├──────────────────┼──────────┼──────────────┤
-│ FairShareManager │ RUNNING  │            1 │
+│ ProjectManager   │ RUNNING  │           60 │
+├──────────────────┼──────────┼──────────────┤
+│ SchedulerManager │ RUNNING  │            1 │
 ╘══════════════════╧══════════╧══════════════╛
+
 
 # synergy manager status TimerManager
 ╒══════════════╤══════════╤══════════════╕
