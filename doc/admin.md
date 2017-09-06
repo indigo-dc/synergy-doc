@@ -206,7 +206,7 @@ policy_file = /etc/synergy/policy.json
 
 The following describes the meaning of the attributes of the _synergy.conf_ file, for each possible section:
 
-**Section \[Logger\]**
+**Section [Logger]**
 
 | Attribute | Description |
 | --- | --- |
@@ -218,7 +218,7 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 
 ---
 
-**Section \[WSGI\]**
+**Section [WSGI]**
 
 | Attribute | Description |
 | --- | --- |
@@ -226,22 +226,22 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 | port | The port used by the Synergy service |
 | threads | The number of threads used by the Synergy service |
 | use ssl | Specify if the service is secured through SSL |
-| ssl\_ca\_file | The CA certificate file to use to verify connecting clients |
-| ssl\_cert\_file | The Identifying certificate PEM file to present to clients |
-| ssl\_key\_file | The Private key PEM file used to sign cert\_file certificate |
-| max\_header\_line | The maximum size of message headers to be accepted \(default: 16384\) |
-| retry\_until\_window | The number of seconds to keep retrying for listening \(default: 30sec\) |
-| tcp\_keepidle | The value of TCP\_KEEPIDLE in seconds for each server socket |
-| backlog | The number of backlog requests to configure the socket with \(default: 4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
+| ssl_ca_file | The CA certificate file to use to verify connecting clients |
+| ssl_cert_file | The Identifying certificate PEM file to present to clients |
+| ssl_key_file | The Private key PEM file used to sign cert_file certificate |
+| max_header_line | The maximum size of message headers to be accepted (default: 16384) |
+| retry_until_window | The number of seconds to keep retrying for listening (default: 30sec) |
+| tcp_keepidle | The value of TCP_KEEPIDLE in seconds for each server socket |
+| backlog | The number of backlog requests to configure the socket with (default: 4096). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding (i.e. not yet accepted) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
 
 ---
 
-**Section \[Authorization\]**
+**Section [Authorization]**
 
 | Attribute | Description |
 | --- | --- |
 | plugin | Synergy has security mechanism highly configurable. The security policies are pluggable so that it is possible to define any kind of authorization checks. The simplest authorization plugin is _synergy.auth.plugin.LocalHostAuthorization_ which denies any command coming from clients having IP address different from the Synergy's one. A more advanced security policies can be defined by using the _synergy_scheduler_manager.auth.plugin.KeystoneAuthorization_ plugin based on the policy.json |
-| policy\_file | set the policy.json file used by the _synergy_scheduler_manager.auth.plugin.KeystoneAuthorization_ plugin |
+| policy_file | set the policy.json file used by the _synergy_scheduler_manager.auth.plugin.KeystoneAuthorization_ plugin |
 
 
 This example shows how to configure the **synergy_scheduler.conf** file:
@@ -431,98 +431,99 @@ rate = 5
 
 Attributes and their meanings are described in the following tables:
 
-**Section \[SchedulerManager\]**
+**Section [SchedulerManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the SchedulerManager manager should be started when Synergy starts |
-| rate | the time \(in minutes\) between two executions of the task implementing this manager |
-| backfill\_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start \(default: 100\) |
+| rate | the time (in minutes) between two executions of the task implementing this manager |
+| backfill_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start (default: 100) |
 
----
-
-**Section \[FairShareManager\]**
+**Section [FairShareManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the FairShare manager should be started when Synergy starts |
-| rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| period\_length | The time window considered for resource usage by the fair-share algorithm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period \(default: 7\) |
-| periods | The time window considered for resource usage by the fairshare algoritm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered \(default: 3\) |
-| default\_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section \(default: 10\) |
-| decay\_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage \(default: 0.5\) |
-| vcpus\_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by Synergy \(default: 100\) |
-| age\_weight | This attribute defines how oldest requests \(and therefore with low priority\) should have their priority increased so thay cam be eventaully served \(default: 10\) |
-| memory\_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy \(default: 70\) |
+| rate | The time (in minutes) between two executions of the task implementing this manager |
+| period_length | The time window considered for resource usage by the fair-share algorithm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period (default: 7) |
+| periods | The time window considered for resource usage by the fairshare algoritm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered (default: 3) |
+| default_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section (default: 10) |
+| decay_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage (default: 0.5) |
+| vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by Synergy (default: 100) |
+| age_weight | This attribute defines how oldest requests (and therefore with low priority) should have their priority increased so thay cam be eventaully served (default: 10) |
+| memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy (default: 70) |
 
 ---
 
-**Section \[KeystoneManager\]**
+**Section [KeystoneManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the Keystone manager should be started when Synergy starts |
-| rate | The time \(in minutes\) between two executions of the task implementing this manage |
-| auth\_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
+| rate | The time (in minutes) between two executions of the task implementing this manage |
+| auth_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
 | username | The name of the user with admin role |
 | password | The password of the specified user with admin role |
-| project\_id | The project id to request authorization on |
-| project\_name | The project name to request authorization on |
-| user\_domain\_name | The user domain name \(default: "default"\) |
-| project\_domain\_name | The project domain name \(default: "default"\) |
-| timeout | The http connection timeout \(default: 60\) |
-| clock\_skew | force the request for token, a delta time before the token expiration (default: 60 sec) |
+| project_id | The project id to request authorization on |
+| project_name | The project name to request authorization on |
+| user_domain_name | The user domain name (default: "default") |
+| project_domain_name | The project domain name (default: "default") |
+| timeout | The http connection timeout (default: 60) |
+| clock_skew | force the request for token, a delta time before the token expiration (default: 60 sec) |
 | ssl_ca_file | set the PEM encoded Certificate Authority to use when verifying HTTPs connections |
 | ssl_cert_file | set the SSL client certificate (PEM encoded) |
+| amqp_url | set the AMQP server url (e.g. rabbit://RABBIT_USER:RABBIT_PASS@RABBIT_HOST_IP) |
+| amqp_exchange | set the AMQP exchange (default: keystone) |
+| amqp_topic | set the AMQP notification topic (default: notification) | |
 
 ---
 
-**Section \[NovaManager\]**
+**Section [NovaManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the nova manager should be started when Synergy starts |
-| rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| host | The hostname where the nova-conductor service runs \(default: localhost\) |
-| timeout | The http connection timeout \(default: 60\) |
-| amqp\_backend | The AMQP backend tpye \(rabbit or qpid\) |
-| amqp\_hosts | The AMQP HA cluster host:port pairs |
-| amqp\_host | The server where the AMQP service runs \(default: localhost\) |
-| amqp\_port | The port used by the AMQP service |
-| amqp\_user | The AMQP userid |
-| amqp\_password | The password of the AMQP user |
-| amqp\_virtual\_host | The AMQP virtual host |
-| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
-| conductor\_topic | The topic on which conductor nodes listen on \(default: conductor\) |
-| compute\_topic | The topic on which compute nodes listen on \(default: compute\) |
-| scheduler\_topic | The topic on which scheduler nodes listen on \(default: scheduler\) |
-| notification\_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
-| cpu\_allocation\_ratio | The Nova CPU allocation ratio \(default: 16\) |
-| ram\_allocation\_ratio | The Nova RAM allocation ratio \(default: 1.5\) |
-| metadata\_proxy\_shared\_secret | The Nova metadata\_proxy\_shared\_secret |
-| db\_connection | The SQLAlchemy connection string to use to connect to the Nova database |
+| rate | The time (in minutes) between two executions of the task implementing this manager |
+| host | The hostname where the nova-conductor service runs (default: localhost) |
+| timeout | The http connection timeout (default: 60) |
+| amqp_backend | The AMQP backend tpye (rabbit or qpid) |
+| amqp_hosts | The AMQP HA cluster host:port pairs |
+| amqp_host | The server where the AMQP service runs (default: localhost) |
+| amqp_port | The port used by the AMQP service |
+| amqp_user | The AMQP userid |
+| amqp_password | The password of the AMQP user |
+| amqp_virtual_host | The AMQP virtual host |
+| synergy_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
+| conductor_topic | The topic on which conductor nodes listen on (default: conductor) |
+| compute_topic | The topic on which compute nodes listen on (default: compute) |
+| scheduler_topic | The topic on which scheduler nodes listen on (default: scheduler) |
+| notification_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
+| cpu_allocation_ratio | The Nova CPU allocation ratio (default: 16) |
+| ram_allocation_ratio | The Nova RAM allocation ratio (default: 1.5) |
+| metadata_proxy_shared_secret | The Nova metadata_proxy_shared_secret |
+| db_connection | The SQLAlchemy connection string to use to connect to the Nova database |
 
 ---
 
-**Section \[QueueManager\]**
+**Section [QueueManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the Queue manager should be started when Synergy starts |
-| rate | The time \(in minutes\) between two executions of the task implementing this manager |
-| db\_connection | The SQLAlchemy connection string to use to connect to the Synergy database |
-| db\_pool\_size | The number of SQL connections to be kept open \(default: 10\) |
-| db\_pool\_recycle | The number of seconds after which a connection is automatically recycled \(default: 30\) |
-| db\_max\_overflow | The max overflow with SQLAlchemy \(default: 5\) |
+| rate | The time (in minutes) between two executions of the task implementing this manager |
+| db_connection | The SQLAlchemy connection string to use to connect to the Synergy database |
+| db_pool_size | The number of SQL connections to be kept open (default: 10) |
+| db_pool_recycle | The number of seconds after which a connection is automatically recycled (default: 30) |
+| db_max_overflow | The max overflow with SQLAlchemy (default: 5) |
 
 ---
 
-**Section \[QuotaManager\]**
+**Section [QuotaManager]**
 
 | Attribute | Description |
 | --- | --- |
 | autostart | Specifies if the Quota manager should be started when Synergy starts |
-| rate | The time \(in minutes\) between two executions of the task implementing this manager |
+| rate | The time (in minutes) between two executions of the task implementing this manager |
 
 # Installation and configuration using puppet
 We provide a Puppet module for Synergy so users can install and configure Synergy with Puppet.  
