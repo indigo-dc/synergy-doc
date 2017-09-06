@@ -432,6 +432,32 @@ autostart = True
 
 # set the manager rate (minutes)
 rate = 5
+
+
+[ProjectManager]
+autostart = True
+
+# set the manager rate (minutes)
+rate = 60
+
+# set the Synergy database connection:
+db_connection = DIALECT+DRIVER://USER:PASSWORD@DB_HOST/synergy
+
+# set the connection pool size (default: 10)
+db_pool_size = 10
+
+# set the number of seconds after which a connection is automatically
+# recycled (default: 30)
+db_pool_recycle = 30
+
+# set the max overflow (default: 5)
+db_max_overflow = 5
+
+# set the default max time to live (minutes) for VM/Container (default: 2880)
+default_TTL = 2880
+
+# set the default share value (default: 10)
+default_share = 10
 ```
 
 Attributes and their meanings are described in the following tables:
@@ -440,38 +466,38 @@ Attributes and their meanings are described in the following tables:
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the SchedulerManager manager should be started when Synergy starts |
+| autostart | specifies if the SchedulerManager manager should be started when Synergy starts |
 | rate | the time (in minutes) between two executions of the task implementing this manager |
-| backfill_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start (default: 100) |
+| backfill_depth | the integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start (default: 100) |
 
 **Section [FairShareManager]**
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the FairShare manager should be started when Synergy starts |
-| rate | The time (in minutes) between two executions of the task implementing this manager |
+| autostart | specifies if the FairShare manager should be started when Synergy starts |
+| rate | the time (in minutes) between two executions of the task implementing this manager |
 | period_length | The time window considered for resource usage by the fair-share algorithm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribute specifies the length, in days, of a single period (default: 7) |
-| periods | The time window considered for resource usage by the fairshare algoritm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered (default: 3) |
-| default_share | Specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section (default: 10) |
-| decay_weight | Value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage (default: 0.5) |
-| vcpus_weight | The weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by Synergy (default: 100) |
-| age_weight | This attribute defines how oldest requests (and therefore with low priority) should have their priority increased so thay cam be eventaully served (default: 10) |
-| memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy (default: 70) |
+| periods | the time window considered for resource usage by the fairshare algoritm used by Synergy is split in periods having all the same length, and the most recent periods are given a higher weight. This attribue specifies the number of periods to be considered (default: 3) |
+| default_share | specifies the default to be used for a project, if not specified in the _shares_ attribute of the _SchedulerManager_ section (default: 10) |
+| decay_weight | value  between 0 and 1, used by the fairshare scheduler, to define how oldest periods should be given a less weight wrt resource usage (default: 0.5) |
+| vcpus_weight | the weight to be used for the attribute concerning vcpus usage in the fairshare algorithm used by Synergy (default: 100) |
+| age_weight | this attribute defines how oldest requests (and therefore with low priority) should have their priority increased so thay cam be eventaully served (default: 10) |
+| memory_weight | the weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy (default: 70) |
 
 **Section [KeystoneManager]**
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the Keystone manager should be started when Synergy starts |
-| rate | The time (in minutes) between two executions of the task implementing this manage |
-| auth_url | The URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
-| username | The name of the user with admin role |
-| password | The password of the specified user with admin role |
-| project_id | The project id to request authorization on |
-| project_name | The project name to request authorization on |
-| user_domain_name | The user domain name (default: "default") |
-| project_domain_name | The project domain name (default: "default") |
-| timeout | The http connection timeout (default: 60) |
+| autostart | specifies if the Keystone manager should be started when Synergy starts |
+| rate | the time (in minutes) between two executions of the task implementing this manage |
+| auth_url | the URL of the OpenStack identity service. Please note that the v3 API endpoint must be used |
+| username | the name of the user with admin role |
+| password | the password of the specified user with admin role |
+| project_id | the project id to request authorization on |
+| project_name | the project name to request authorization on |
+| user_domain_name | the user domain name (default: "default") |
+| project_domain_name | the project domain name (default: "default") |
+| timeout | the http connection timeout (default: 60) |
 | clock_skew | force the request for token, a delta time before the token expiration (default: 60 sec) |
 | ssl_ca_file | set the PEM encoded Certificate Authority to use when verifying HTTPs connections |
 | ssl_cert_file | set the SSL client certificate (PEM encoded) |
@@ -511,12 +537,12 @@ Attributes and their meanings are described in the following tables:
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the Queue manager should be started when Synergy starts |
-| rate | The time (in minutes) between two executions of the task implementing this manager |
-| db_connection | The SQLAlchemy connection string to use to connect to the Synergy database |
-| db_pool_size | The number of SQL connections to be kept open (default: 10) |
-| db_pool_recycle | The number of seconds after which a connection is automatically recycled (default: 30) |
-| db_max_overflow | The max overflow with SQLAlchemy (default: 5) |
+| autostart | specifies if the Queue manager should be started when Synergy starts |
+| rate | the time (in minutes) between two executions of the task implementing this manager |
+| db_connection | the SQLAlchemy connection string to use to connect to the Synergy database |
+| db_pool_size | the number of SQL connections to be kept open (default: 10) |
+| db_pool_recycle | the number of seconds after which a connection is automatically recycled (default: 30) |
+| db_max_overflow | the max overflow with SQLAlchemy (default: 5) |
 
 **Section [QuotaManager]**
 
@@ -524,6 +550,20 @@ Attributes and their meanings are described in the following tables:
 | --- | --- |
 | autostart | Specifies if the Quota manager should be started when Synergy starts |
 | rate | The time (in minutes) between two executions of the task implementing this manager |
+
+**Section [ProjectManager]**
+
+| Attribute | Description |
+| --- | --- |
+| autostart | Specifies if the Quota manager should be started when Synergy starts |
+| rate | The time (in minutes) between two executions of the task implementing this manager |
+| db_connection | the SQLAlchemy connection string to use to connect to the Synergy database |
+| db_pool_size | the number of SQL connections to be kept open (default: 10) |
+| db_pool_recycle | the number of seconds after which a connection is automatically recycled (default: 30) |
+| db_max_overflow | the max overflow with SQLAlchemy (default: 5) |
+| default_TTL |set the default max time to live (minutes) for VM/Container (default: 2880)|
+| default_share | set the default share value (default: 10) |
+
 
 # Installation and configuration using puppet
 We provide a Puppet module for Synergy so users can install and configure Synergy with Puppet.  
