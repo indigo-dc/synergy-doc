@@ -83,7 +83,7 @@ openstack endpoint create --region RegionOne management admin http://$SYNERGY_HO
 openstack endpoint create --region RegionOne management internal http://$SYNERGY_HOST_IP:8051
 ```
 
-### Adjust nova notifications
+### Setup the Nova notifications
 Make sure that nova notifications are enabled on the **controller and compute node**. Edit the _/etc/nova/nova.conf_ file. The following configuration regards the OpenStack **Ocata** version. In the [notifications] and [oslo_messaging_notifications] sections add the following attributes:
 
 ```
@@ -99,11 +99,32 @@ topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
 
-Then restart the nova services on the Controller and Compute node.
+Then restart the Nova services on the Controller and Compute node.
+
+
+### Setup the Keystone notifications
+Synergy listens on the Keystone notification topic about the events on projects and users. Please set the keystone.conf as following:
+
+```
+[DEFAULT]
+...
+notification_format = basic
+
+notification_opt_out=identity.authenticate.success
+notification_opt_out=identity.authenticate.pending
+notification_opt_out=identity.authenticate.failed
+
+[oslo_messaging_notifications]
+...
+driver = messaging
+topics = notification
+```
+
+Then restart the Keystone service.
 
 
 ### Configure Controller to use Synergy
- Perform these steps on the controller node. In _/etc/nova/_ create a _nova-api.conf_ file. Edit _/etc/nova/nova-api.conf_ file and add the following to it:
+Perform these steps on the controller node. In _/etc/nova/_ create a _nova-api.conf_ file. Edit _/etc/nova/nova-api.conf_ file and add the following to it:
 
 ```
 [conductor]
@@ -503,7 +524,7 @@ Attributes and their meanings are described in the following tables:
 | ssl_cert_file | set the SSL client certificate (PEM encoded) |
 | amqp_url | set the AMQP server url (e.g. rabbit://RABBIT_USER:RABBIT_PASS@RABBIT_HOST_IP) |
 | amqp_exchange | set the AMQP exchange (default: keystone) |
-| amqp_topic | set the AMQP notification topic (default: notification) | |
+| amqp_topic | set the AMQP notification topic on which Keystone communicates with Synergy. It must have the same value of the topic defined in keystone.conf file (e.g. topics = notification) (default: notification) |
 
 **Section [NovaManager]**
 
