@@ -216,8 +216,6 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 | maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
 | backupCount | The number of log files to be kept |
 
----
-
 **Section [WSGI]**
 
 | Attribute | Description |
@@ -233,8 +231,6 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 | retry_until_window | The number of seconds to keep retrying for listening (default: 30sec) |
 | tcp_keepidle | The value of TCP_KEEPIDLE in seconds for each server socket |
 | backlog | The number of backlog requests to configure the socket with (default: 4096). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding (i.e. not yet accepted) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
-
----
 
 **Section [Authorization]**
 
@@ -347,6 +343,9 @@ rate = 5
 #set the http connection timeout (default: 60)
 timeout = 60
 
+# the amqp transport url
+# amqp_url =
+
 # set the AMQP backend type (e.g. rabbit, qpid)
 #amqp_backend =
 
@@ -383,8 +382,14 @@ compute_topic = compute
 # set the Nova scheduler topic (default: scheduler)
 scheduler_topic = scheduler
 
+# set the notification topic used by Nova for informing listeners about the state
+# changes of the VMs. In case some other service (e.g. Ceilometer) is listening
+# on the default Nova topic (i.e. "notifications"), please define a new topic
+specific for Synergy (e.g. notification_topics = notifications,synergy_notifications)
+notification_topic = notification
+
 # set the Nova database connection
-db_connection=DIALECT+DRIVER://USER:PASSWORD@DB_HOST/nova
+db_connection = DIALECT+DRIVER://USER:PASSWORD@DB_HOST/nova
 
 # set the Nova CPU allocation ratio (default: 16)
 cpu_allocation_ratio = 16
@@ -393,7 +398,7 @@ cpu_allocation_ratio = 16
 ram_allocation_ratio = 1.5
 
 # set the Nova metadata_proxy_shared_secret
-metadata_proxy_shared_secret =
+#metadata_proxy_shared_secret =
 
 # set the PEM encoded Certificate Authority to use when verifying HTTPs connections
 #ssl_ca_file =
@@ -453,8 +458,6 @@ Attributes and their meanings are described in the following tables:
 | age_weight | This attribute defines how oldest requests (and therefore with low priority) should have their priority increased so thay cam be eventaully served (default: 10) |
 | memory_weight | The weight to be used for the attribute concerning memory usage in the fairshare algorithm used by Synergy (default: 70) |
 
----
-
 **Section [KeystoneManager]**
 
 | Attribute | Description |
@@ -476,34 +479,33 @@ Attributes and their meanings are described in the following tables:
 | amqp_exchange | set the AMQP exchange (default: keystone) |
 | amqp_topic | set the AMQP notification topic (default: notification) | |
 
----
-
 **Section [NovaManager]**
 
 | Attribute | Description |
 | --- | --- |
-| autostart | Specifies if the nova manager should be started when Synergy starts |
-| rate | The time (in minutes) between two executions of the task implementing this manager |
-| host | The hostname where the nova-conductor service runs (default: localhost) |
-| timeout | The http connection timeout (default: 60) |
-| amqp_backend | The AMQP backend tpye (rabbit or qpid) |
-| amqp_hosts | The AMQP HA cluster host:port pairs |
-| amqp_host | The server where the AMQP service runs (default: localhost) |
-| amqp_port | The port used by the AMQP service |
-| amqp_user | The AMQP userid |
-| amqp_password | The password of the AMQP user |
-| amqp_virtual_host | The AMQP virtual host |
-| synergy_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
-| conductor_topic | The topic on which conductor nodes listen on (default: conductor) |
-| compute_topic | The topic on which compute nodes listen on (default: compute) |
-| scheduler_topic | The topic on which scheduler nodes listen on (default: scheduler) |
-| notification_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
-| cpu_allocation_ratio | The Nova CPU allocation ratio (default: 16) |
-| ram_allocation_ratio | The Nova RAM allocation ratio (default: 1.5) |
-| metadata_proxy_shared_secret | The Nova metadata_proxy_shared_secret |
-| db_connection | The SQLAlchemy connection string to use to connect to the Nova database |
-
----
+| autostart | specifies if the nova manager should be started when Synergy starts |
+| rate | the time (in minutes) between two executions of the task implementing this manager |
+| host | the hostname where the nova-conductor service runs (default: localhost) |
+| timeout | the http connection timeout (default: 60) |
+| amqp_url | the amqp transport url |
+| amqp_backend | the AMQP backend tpye (rabbit or qpid) |
+| amqp_hosts | the AMQP HA cluster host:port pairs |
+| amqp_host | the server where the AMQP service runs (default: localhost) |
+| amqp_port | the port used by the AMQP service |
+| amqp_user | the AMQP userid |
+| amqp_password | the password of the AMQP user |
+| amqp_virtual_host | the AMQP virtual host |
+| synergy_topic | the topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
+| conductor_topic | the topic on which conductor nodes listen on (default: conductor) |
+| compute_topic | the topic on which compute nodes listen on (default: compute) |
+| scheduler_topic | the topic on which scheduler nodes listen on (default: scheduler) |
+| notification_topic | the notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
+| cpu_allocation_ratio | the Nova CPU allocation ratio (default: 16) |
+| ram_allocation_ratio | the Nova RAM allocation ratio (default: 1.5) |
+| metadata_proxy_shared_secret | the Nova metadata_proxy_shared_secret |
+| db_connection | the SQLAlchemy connection string to use to connect to the Nova database |
+| ssl_ca_file | set the PEM encoded Certificate Authority to use when verifying HTTPs connections |
+| ssl_cert_file | set the SSL client certificate (PEM encoded) |
 
 **Section [QueueManager]**
 
@@ -515,8 +517,6 @@ Attributes and their meanings are described in the following tables:
 | db_pool_size | The number of SQL connections to be kept open (default: 10) |
 | db_pool_recycle | The number of seconds after which a connection is automatically recycled (default: 30) |
 | db_max_overflow | The max overflow with SQLAlchemy (default: 5) |
-
----
 
 **Section [QuotaManager]**
 
