@@ -471,7 +471,9 @@ Attributes and their meanings are described in the following tables:
 | user\_domain\_name | The user domain name \(default: "default"\) |
 | project\_domain\_name | The project domain name \(default: "default"\) |
 | timeout | The http connection timeout \(default: 60\) |
-| clock\_skew | Forces the request for token, a delta time before the token expiration \(default: 60 sec\) |
+| clock\_skew | force the request for token, a delta time before the token expiration (default: 60 sec) |
+| ssl_ca_file | set the PEM encoded Certificate Authority to use when verifying HTTPs connections |
+| ssl_cert_file | set the SSL client certificate (PEM encoded) |
 
 ---
 
