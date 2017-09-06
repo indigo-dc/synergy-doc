@@ -762,7 +762,7 @@ optional arguments:
   -h, --help            show this help message and exit
 ```
 
-The command **synergy manager list **provides the list of all managers deployed in the Synergy service:
+The command **synergy manager list** provides the list of all managers deployed in the Synergy service:
 
 ```
 # synergy manager list
@@ -837,6 +837,84 @@ To control the execution of a specific manager, use the **start** and **stop** s
 │ TimerManager │ ACTIVE (stopped successfully) │           60 │
 ╘══════════════╧═══════════════════════════════╧══════════════╛
 ```
+
+
+### synergy project
+This command allows to get information about the projects managed by Synergy:
+
+```
+# synergy project -h
+usage: synergy project [-h] {list,show,add,remove,set} ...
+
+positional arguments:
+  {list,show,add,remove,set}
+    list                shows the projects list
+    show                shows the project info
+    add                 adds a new project
+    remove              removes a project
+    set                 sets the project values
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
+To show all options related to each project command, use the --help argument, for example:
+
+```
+# synergy project add -h
+usage: synergy project add [-h] (-i <id> | -n <name>) [-s <share>] [-t <TTL>]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i <id>, --id <id>
+  -n <name>, --name <name>
+  -s <share>, --share <share>
+  -t <TTL>, --ttl <TTL>
+```
+
+The following examples show how to use the project commands (list, add, set, show, remove):
+
+```
+# synergy project list
+╒════════╕
+│ name   │
+╞════════╡
+│ prj_a  │
+├────────┤
+│ prj_b  │
+├────────┤
+│ prj_c  │
+╘════════╛
+  
+ # synergy project add --name prj_a --share 30 --ttl 5000
+╒════════╤═════════════════╤═══════╕
+│ name   │ share           │   TTL │
+╞════════╪═════════════════╪═══════╡
+│ prj_a  │ 30.00% | 27.27% │  5000 │
+╘════════╧═════════════════╧═══════╛
+
+# synergy project set --name prj_a --share 10 --ttl 3500
+
+# synergy project show --name prj_a --share --ttl
+╒════════╤═════════════════╤═══════╕
+│ name   │ share           │   TTL │
+╞════════╪═════════════════╪═══════╡
+│ prj_a  │ 10.00% | 11.11% │  3500 │
+╘════════╧═════════════════╧═══════╛
+
+# synergy project remove --name prj_a
+
+# synergy project list
+╒════════╕
+│ name   │
+╞════════╡
+│ prj_b  │
+├────────┤
+│ prj_c  │
+╘════════╛
+```
+
+
 
 ### synergy quota
 The overall cloud resources can be grouped in:
