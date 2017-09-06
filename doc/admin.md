@@ -210,27 +210,27 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 
 | Attribute | Description |
 | --- | --- |
-| filename | The name of the log file |
-| level | The logging level. Valid values are: CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET |
-| formatter | The format of the logged messages |
-| maxBytes | The maximum size of a log file. When this size is reached, the log file is rotated |
-| backupCount | The number of log files to be kept |
+| filename | the name of the log file |
+| level | the logging level. Valid values are: CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET |
+| formatter | the format of the logged messages |
+| maxBytes | the maximum size of a log file. When this size is reached, the log file is rotated |
+| backupCount | the number of log files to be kept |
 
 **Section [WSGI]**
 
 | Attribute | Description |
 | --- | --- |
-| host | The hostname where the Synergy service is deployed |
-| port | The port used by the Synergy service |
-| threads | The number of threads used by the Synergy service |
-| use ssl | Specify if the service is secured through SSL |
-| ssl_ca_file | The CA certificate file to use to verify connecting clients |
-| ssl_cert_file | The Identifying certificate PEM file to present to clients |
-| ssl_key_file | The Private key PEM file used to sign cert_file certificate |
-| max_header_line | The maximum size of message headers to be accepted (default: 16384) |
-| retry_until_window | The number of seconds to keep retrying for listening (default: 30sec) |
-| tcp_keepidle | The value of TCP_KEEPIDLE in seconds for each server socket |
-| backlog | The number of backlog requests to configure the socket with (default: 4096). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding (i.e. not yet accepted) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
+| host | the hostname where the Synergy service is deployed |
+| port | the port used by the Synergy service |
+| threads | the number of threads used by the Synergy service |
+| use ssl | specify if the service is secured through SSL |
+| ssl_ca_file | the CA certificate file to use to verify connecting clients |
+| ssl_cert_file | the Identifying certificate PEM file to present to clients |
+| ssl_key_file | the Private key PEM file used to sign cert_file certificate |
+| max_header_line | the maximum size of message headers to be accepted (default: 16384) |
+| retry_until_window | the number of seconds to keep retrying for listening (default: 30sec) |
+| tcp_keepidle | the value of TCP_KEEPIDLE in seconds for each server socket |
+| backlog | the number of backlog requests to configure the socket with (default: 4096). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding (i.e. not yet accepted) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
 
 **Section [Authorization]**
 
@@ -839,7 +839,7 @@ To control the execution of a specific manager, use the **start** and **stop** s
 ```
 
 
-### synergy project
+### # synergy project
 This command allows to manage the projects in Synergy:
 
 ```
@@ -916,7 +916,7 @@ The following examples show how to use the project sub-commands (list, add, set,
 N.B. the values concerning the _share_ attribute will be explained in the next section 
 
 
-### synergy user
+### # synergy user
 This command allows to get information about the users belonging to a project managed by Synergy:
 
 ```
@@ -964,7 +964,7 @@ optional arguments:
 ```
 
 
-### synergy quota
+### The quota concept
 The overall cloud resources can be grouped in:
 
 * **private quota**: composed of resources statically allocated and managed using the 'standard' OpenStack policies
