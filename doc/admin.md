@@ -608,7 +608,7 @@ Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keysto
 
 ### synergy usage
 ```
-# synergy -h
+# synergy --help
 usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
                [--os-password <auth-password>]
                [--os-user-domain-id <auth-user-domain-id>]
@@ -748,7 +748,7 @@ Specify a CA certificate bundle file to use in verifying a TLS
 This command allows to get information about the managers deployed in the Synergy service and control their execution:
 
 ```
-# synergy manager -h
+# synergy manager --help
 usage: synergy manager [-h] {list,status,start,stop} ...
 
 positional arguments:
@@ -840,10 +840,10 @@ To control the execution of a specific manager, use the **start** and **stop** s
 
 
 ### synergy project
-This command allows to get information about the projects managed by Synergy:
+This command allows to manage the projects in Synergy:
 
 ```
-# synergy project -h
+# synergy project --help
 usage: synergy project [-h] {list,show,add,remove,set} ...
 
 positional arguments:
@@ -872,7 +872,7 @@ optional arguments:
   -t <TTL>, --ttl <TTL>
 ```
 
-The following examples show how to use the project commands (list, add, set, show, remove):
+The following examples show how to use the project sub-commands (list, add, set, show, remove):
 
 ```
 # synergy project list
@@ -912,6 +912,38 @@ The following examples show how to use the project commands (list, add, set, sho
 ├────────┤
 │ prj_c  │
 ╘════════╛
+```
+N.B. the values concerning the _share_ attribute will be explained in the next section 
+
+
+### synergy user
+This command allows to get information about the users belonging to a project managed by Synergy:
+
+```
+# synergy user --help
+usage: synergy user [-h] {show} ...
+
+positional arguments:
+  {show}
+    show      shows the user info
+    
+ 
+# synergy user show --help
+usage: synergy user show [-h] (-i <id> | -n <name> | -a) (-j <id> | -m <name>)
+                         [-s] [-u] [-p] [-l]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i <id>, --id <id>
+  -n <name>, --name <name>
+  -a, --all
+  -j <id>, --prj_id <id>
+  -m <name>, --prj_name <name>
+  -s, --share
+  -u, --usage
+  -p, --priority
+  -l, --long
+
 ```
 
 
