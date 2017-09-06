@@ -1,6 +1,6 @@
 # Manual installation and configuration
 
-Synergy version: service 1.5.1, scheduler 2.5.1
+Synergy version: service 1.5.2, scheduler 2.5.0
 
 OpenStack supported versions: Mitaka, Newton, Ocata
 
@@ -84,10 +84,10 @@ openstack endpoint create --region RegionOne management internal http://$SYNERGY
 ```
 
 ### Adjust nova notifications
-Make sure that nova notifications are enabled on the **controller and compute node**. Edit the _/etc/nova/nova.conf_ file. In the [DEFAULT] and [oslo_messaging_notifications] sections add the following attributes:
+Make sure that nova notifications are enabled on the **controller and compute node**. Edit the _/etc/nova/nova.conf_ file. The following configuration regards the OpenStack **Ocata** version. In the [notifications] and [oslo_messaging_notifications] sections add the following attributes:
 
 ```
-[DEFAULT]
+[notifications]
 ...
 notify_on_state_change = vm_state
 default_notification_level = INFO
@@ -99,8 +99,7 @@ topics = notifications
 ```
 The _topics_ parameter is used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default topic _notifications_, to avoid the competition on consuming the notifications, please define a new topic specific for Synergy (e.g. _topics = notifications,**synergy_notifications**_).
 
-Then restart the nova services on the Compute node.
-
+Then restart the nova services on the Controller and Compute node.
 
 
 ### Configure Controller to use Synergy
@@ -199,6 +198,10 @@ retry_until_window = 30
 tcp_keepidle = 600
 backlog = 4096
 
+[Authorization]
+# set the authorization plugin (default: synergy.auth.plugin.LocalHostAuthorization)
+plugin = synergy_scheduler_manager.auth.plugin.KeystoneAuthorization
+policy_file = /etc/synergy/policy.json
 ```
 
 The following describes the meaning of the attributes of the _synergy.conf_ file, for each possible section:
@@ -232,11 +235,19 @@ The following describes the meaning of the attributes of the _synergy.conf_ file
 | backlog | The number of backlog requests to configure the socket with \(default: 4096\). The listen backlog is a socket setting specifying that the kernel how to limit the number of outstanding \(i.e. not yet accepted\) connections in the listen queue of a listening socket. If the number of pending connections exceeds the specified size, new ones are automatically rejected |
 
 ---
+
+**Section \[Authorization\]**
+
+| Attribute | Description |
+| --- | --- |
+| plugin | Synergy has security mechanism highly configurable. The security policies are pluggable so that it is possible to define any kind of authorization checks. The simplest authorization plugin is _synergy.auth.plugin.LocalHostAuthorization_ which denies any command coming from clients having IP address different from the Synergy's one. A more advanced security policies can be defined by using the _synergy_scheduler_manager.auth.plugin.KeystoneAuthorization_ plugin based on the policy.json |
+| policy\_file | set the policy.json file used by the _synergy_scheduler_manager.auth.plugin.KeystoneAuthorization_ plugin |
+
+
 This example shows how to configure the **synergy_scheduler.conf** file:
 
 ```
 [DEFAULT]
-
 
 [SchedulerManager]
 autostart = True
@@ -244,30 +255,9 @@ autostart = True
 # set the manager rate (minutes)
 rate = 1
 
-# set the list of projects accessing to the shared quota
-# projects = prj_a, prj_b
-#projects =
-
-# set the projects share
-# shares = prj_a=70, prj_b=30
-#shares =
-
-# set the default max time to live (minutes) for VM/Container (default: 2880)
-default_TTL = 2880
-
-# set, for the specified projects, the max time to live (minutes) for VM/Container
-# TTLs = prj_a=1440, prj_b=2880
-#TTLs =
-
 # set the max depth used by the backfilling strategy (default: 100)
 # this allows Synergy to not check the whole queue when looking for VMs to start
 backfill_depth = 100
-
-# set the notification topic used by Nova for informing listeners about the state
-# changes of the VMs. In case some other service (e.g. Ceilometer) is listening
-# on the default Nova topic (i.e. "notifications"), please define a new topic
-specific for Synergy (e.g. notification_topics = notifications,synergy_notifications)
-notification_topic = notifications
 
 
 [FairShareManager]
@@ -336,7 +326,16 @@ clock_skew = 60
 #ssl_ca_file =
 
 # set the SSL client certificate (PEM encoded)
-#ssl_cert_file = 
+#ssl_cert_file =
+
+# set the AMQP server url (e.g. rabbit://RABBIT_USER:RABBIT_PASS@RABBIT_HOST_IP)
+#amqp_url =
+
+# set the AMQP exchange (default: keystone)
+amqp_exchange = keystone
+
+# set the AMQP notification topic (default: notification)
+amqp_topic = notification
 
 
 [NovaManager]
@@ -438,12 +437,7 @@ Attributes and their meanings are described in the following tables:
 | --- | --- |
 | autostart | Specifies if the SchedulerManager manager should be started when Synergy starts |
 | rate | the time \(in minutes\) between two executions of the task implementing this manager |
-| projects | Defines the list of OpenStack projects entitled to access the dynamic resources |
-| shares | Defines, for each project entitled to access the dynamic resources, the relevant share for the usage of such resources. If for a project the value is not specified, the value set for the attribute _default\_share_ in the _FairShareManager_ section is used |
-| default\_TTL | Specifies the default maximum Time to Live for a Virtual Machine/container, in minutes \(default: 2880\) |
-| TTLs | For each project, specifies the maximum Time to Live for a Virtual Machine/container, in minutes. VMs and containers running for more that this value will be killed by Synergy. If for a certain project the value is not specified, the value specified by the _default\_TTL_ attribute will be used |
 | backfill\_depth | The integer value expresses the max depth used by the backfilling strategy: this allows Synergy to not check the whole queue when looking for VMs to start \(default: 100\) |
-| notification\_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
 
 ---
 
@@ -496,10 +490,11 @@ Attributes and their meanings are described in the following tables:
 | amqp\_user | The AMQP userid |
 | amqp\_password | The password of the AMQP user |
 | amqp\_virtual\_host | The AMQP virtual host |
-| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-   api.conf_ file (default: synergy) |
+| synergy\_topic | The topic on which Nova API communicates with Synergy. It must have the same value of the _topic_ defined in _nova-api.conf_ file (default: synergy) |
 | conductor\_topic | The topic on which conductor nodes listen on \(default: conductor\) |
 | compute\_topic | The topic on which compute nodes listen on \(default: compute\) |
 | scheduler\_topic | The topic on which scheduler nodes listen on \(default: scheduler\) |
+| notification\_topic | The notification topic used by Nova for informing listeners about the state changes of the VMs. In case some other service (e.g. Ceilometer) is listening on the default Nova topic (i.e. "notifications"), please define a new topic specific for Synergy (e.g. notification_topics = notifications,synergy_notifications) |
 | cpu\_allocation\_ratio | The Nova CPU allocation ratio \(default: 16\) |
 | ram\_allocation\_ratio | The Nova RAM allocation ratio \(default: 1.5\) |
 | metadata\_proxy\_shared\_secret | The Nova metadata\_proxy\_shared\_secret |
