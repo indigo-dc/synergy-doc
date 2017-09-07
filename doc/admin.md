@@ -627,7 +627,7 @@ Note that the OS\_AUTH\_URL variables must refer to the v3 version of the keysto
 
 `export OS_AUTH_URL=https://cloud-areapd.pd.infn.it:35357/v3`
 
-### synergy usage
+### $ synergy usage
 ```
 # synergy --help
 usage: synergy [-h] [--version] [--debug] [--os-username <auth-user-name>]
@@ -765,7 +765,7 @@ Specify a CA certificate bundle file to use in verifying a TLS
 (https) server certificate. Defaults to env[OS_CACERT]
 ```
 
-### synergy manager
+### $ synergy manager
 This command allows to get information about the managers deployed in the Synergy service and control their execution:
 
 ```
@@ -860,7 +860,7 @@ To control the execution of a specific manager, use the **start** and **stop** s
 ```
 
 
-### # synergy project
+### $ synergy project
 This command allows to manage the projects in Synergy:
 
 ```
@@ -937,7 +937,7 @@ The following examples show how to use the project sub-commands (list, add, set,
 N.B. the values concerning the _share_ attribute will be explained in the next section 
 
 
-### # synergy user
+### $ synergy user
 This command allows to get information about the users belonging to a project managed by Synergy:
 
 ```
@@ -1003,66 +1003,47 @@ Since Synergy is installed, the private quota of projects **cannot be managed an
 # openstack quota set --cores <num_vcpus> --ram <memory_size> --instances <max_num_instances> --class <project_id>
 ```
 
-The private quota will be updated from Synergy after a few minutes without restart it. This example shows how the private quota of the project _prj\_a \(id=_a5ccbaf2a9da407484de2af881198eb9\) has been modified:
+The private and shared quotas will be updated from Synergy after a few minutes without restart it. This example shows how the private quota of the project _prj\_a \(id=_a5ccbaf2a9da407484de2af881198eb9\) has been modified:
 
 ```
-# synergy quota show --project_name prj_a
-╒═══════════╤═══════════════════════════════════════════════╤═════════════════════════════════════════════════════════════════════════════╕
-│ project   │ private quota                                 │ shared quota │
-╞═══════════╪═══════════════════════════════════════════════╪═════════════════════════════════════════════════════════════════════════════╡
-│ prj_a     │ vcpus: 0.00 of 3.00 | memory: 0.00 of 1024.00 │ vcpus: 0.00 of 26.00 | memory: 0.00 of 59956.00 | share: 70.00% | TTL: 5.00 │
-╘═══════════╧═══════════════════════════════════════════════╧═════════════════════════════════════════════════════════════════════════════╛ 
+# synergy project show --name prj_a --p_quota --s_quota
+╒════════╤═══════════════════════════════════════╤═════════════════════════════════════════╕
+│ name   │ private quota                         │ shared quota                            │
+╞════════╪═══════════════════════════════════════╪═════════════════════════════════════════╡
+│ prj_a  │ vcpus: 0.0 of 1.0 | ram: 0.0 of 512.0 │ vcpus: 0.0 of 8.0 | ram: 0.0 of 10740.0 │
+╘════════╧═══════════════════════════════════════╧═════════════════════════════════════════╛
 
-# openstack quota set --cores 2 --ram 2048 --instances 10 --class a5ccbaf2a9da407484de2af881198eb9
+# openstack quota set --cores 2 --ram 1024 --instances 10 --class a5ccbaf2a9da407484de2af881198eb9
 
-# synergy quota show --project_name prj_a
-╒═══════════╤═══════════════════════════════════════════════╤═════════════════════════════════════════════════════════════════════════════╕
-│ project   │ private quota                                 │ shared quota │
-╞═══════════╪═══════════════════════════════════════════════╪═════════════════════════════════════════════════════════════════════════════╡
-│ prj_a     │ vcpus: 0.00 of 2.00 | memory: 0.00 of 2048.00 │ vcpus: 0.00 of 27.00 | memory: 0.00 of 58932.00 | share: 70.00% | TTL: 5.00 │
-╘═══════════╧═══════════════════════════════════════════════╧═════════════════════════════════════════════════════════════════════════════╛
+# synergy project show --name prj_a --p_quota --s_quota
+╒════════╤════════════════════════════════════════╤═════════════════════════════════════════╕
+│ name   │ private quota                          │ shared quota                            │
+╞════════╪════════════════════════════════════════╪═════════════════════════════════════════╡
+│ prj_a  │ vcpus: 0.0 of 2.0 | ram: 0.0 of 1024.0 │ vcpus: 0.0 of 7.0 | ram: 0.0 of 10228.0 │
+╘════════╧════════════════════════════════════════╧═════════════════════════════════════════╛
 ```
-
-To get information about the private and shared quotas you must use the **synergy quota** command :
-
-```
-# synergy quota -h
-usage: synergy quota [-h] {show} ...
-
-positional arguments:
-  {show}
-    show      shows the quota info
-
-optional arguments:
-  -h, --help  show this help message and exit
-
-# synergy quota show -h
-usage: synergy quota show [-h] [-i <id> | -n <name> | -a | -s]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -i <id>, --project_id <id>
-  -n <name>, --project_name <name>
-  -a, --all_projects
-  -s, --shared
-```
-
-To get the status about the shared quota, use the option **--shared**:
+In this example the total amount of VCPUs allocated to the shared quota is 7 whereof have been used just 2 CPUs \(similarly to the memory and instances number\). If you check the quota of the prj_a project by OpenStack CLI, you will notice that values of the cores, ram, instances attributes have been changed and set to -1 (i.e. unlimited). This means that Synergy is managing such resources rightly.
 
 ```
-# synergy quota show --shared
-╒════════════╤════════╤════════╕
-│ resource   │   used │   size │
-╞════════════╪════════╪════════╡
-│ vcpus      │      2 │     27 │
-├────────────┼────────┼────────┤
-│ memory     │   1024 │  60980 │
-├────────────┼────────┼────────┤
-│ instances  │      1 │     -1 │
-╘════════════╧════════╧════════╛
+# openstack quota show prj_a
++----------------------+----------------------------------+
+| Field                | Value                            |
++----------------------+----------------------------------+
+| cores                | -1                               |
+| ram                  | -1                               |
+| instances            | -1                               |
+| floating-ips         | 50                               |
+| health_monitors      | None                             |
+| injected-file-size   | 10240                            |
+| injected-files       | 5                                |
+| injected-path-size   | 255                              |
+| key-pairs            | 100                              |
+| l7_policies          | None                             |
+| listeners            | None                             |
+| ...                  | ....                             |
++----------------------+----------------------------------+
 ```
 
-in this example the total amount of VCPUs allocated to the shared quota is 27 whereof have been used just 2 CPUs \(similarly to the memory and instances number\). The value -1 means that the Cloud administrator has not fixed the limit of the number of instances \(i.e. VMs\), so in this example the VMs can be unlimited.
 
 The** --all\_projects** option provides information about the private and shared quotas of all projects:
 
