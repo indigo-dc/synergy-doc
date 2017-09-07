@@ -1016,13 +1016,13 @@ The private and shared quotas will be updated from Synergy after a few minutes w
 # openstack quota set --cores 2 --ram 1024 --instances 10 --class a5ccbaf2a9da407484de2af881198eb9
 
 # synergy project show --name prj_a --p_quota --s_quota
-╒════════╤════════════════════════════════════════╤═════════════════════════════════════════╕
-│ name   │ private quota                          │ shared quota                            │
-╞════════╪════════════════════════════════════════╪═════════════════════════════════════════╡
-│ prj_a  │ vcpus: 0.0 of 2.0 | ram: 0.0 of 1024.0 │ vcpus: 0.0 of 7.0 | ram: 0.0 of 10228.0 │
-╘════════╧════════════════════════════════════════╧═════════════════════════════════════════╛
+╒════════╤════════════════════════════════════════╤════════════════════════════════════════════╕
+│ name   │ private quota                          │ shared quota                               │
+╞════════╪════════════════════════════════════════╪════════════════════════════════════════════╡
+│ prj_a  │ vcpus: 0.0 of 2.0 | ram: 0.0 of 1024.0 │ vcpus: 2.0 of 7.0 | ram: 1024.0 of 10228.0 │
+╘════════╧════════════════════════════════════════╧════════════════════════════════════════════╛
 ```
-In this example the total amount of VCPUs allocated to the shared quota is 7 whereof have been used just 2 CPUs \(similarly to the memory and instances number\). If you check the quota of the prj_a project by OpenStack CLI, you will notice that values of the cores, ram, instances attributes have been changed and set to -1 (i.e. unlimited). This means that Synergy is managing such resources rightly.
+In this example the total amount of VCPUs allocated to the shared quota is 7 whereof have been used just 2 CPUs (similarly to the memory number). The private quota of the prj_a project have 2 VCPUS and 1024MB of RAM but if you check that quota by OpenStack CLI (or Horizon dashboard), you will notice that values of the _cores, ram_ attributes have been changed and set to -1 (i.e. unlimited). This means that Synergy is managing such resources rightly.
 
 ```
 # openstack quota show prj_a
@@ -1043,29 +1043,24 @@ In this example the total amount of VCPUs allocated to the shared quota is 7 whe
 | ...                  | ....                             |
 +----------------------+----------------------------------+
 ```
-
-
-The** --all\_projects** option provides information about the private and shared quotas of all projects:
+To know how many resources each project is consuming, use:
 
 ```
-# synergy quota show --all_projects
-╒═══════════╤════════════════════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════════╕
-│ project   │ private quota                                  │ shared quota                                                                  │
-╞═══════════╪════════════════════════════════════════════════╪═══════════════════════════════════════════════════════════════════════════════╡
-│ prj_b     │ vcpus: 1.00 of 3.00 | memory: 512.0 of 1536.00 │ vcpus: 0.00 of 27.00 | memory: 0.00 of 60980.00 | share: 30.00% | TTL: 5.00   │
-├───────────┼────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
-│ prj_a     │ vcpus: 0.00 of 1.00 | memory: 0.00 of 512.00   │ vcpus: 2.00 of 27.00 | memory: 1024.0 of 60980.00 | share: 70.00% | TTL: 5.00 │
-╘═══════════╧════════════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
-
-# synergy quota show --project_name prj_a
-╒═══════════╤══════════════════════════════════════════════╤═══════════════════════════════════════════════════════════════════════════════╕
-│ project   │ private quota                                │ shared quota                                                                  │
-╞═══════════╪══════════════════════════════════════════════╪═══════════════════════════════════════════════════════════════════════════════╡
-│ prj_a     │ vcpus: 0.00 of 1.00 | memory: 0.00 of 512.00 │ vcpus: 2.00 of 27.00 | memory: 1024.0 of 60980.00 | share: 70.00% | TTL: 5.00 │
-╘═══════════╧══════════════════════════════════════════════╧═══════════════════════════════════════════════════════════════════════════════╛
+# synergy project show --all --p_quota --s_quota
+╒════════╤══════════════════════════════════════════╤════════════════════════════════════════════╕
+│ name   │ private quota                            │ shared quota                               │
+╞════════╪══════════════════════════════════════════╪════════════════════════════════════════════╡
+│ prj_a  │ vcpus: 0.0 of 3.0 | ram: 0.0 of 2048.0   │ vcpus: 2.0 of 7.0 | ram: 1024.0 of 10228.0 │
+├────────┼──────────────────────────────────────────┼────────────────────────────────────────────┤
+│ prj_b  │ vcpus: 1.0 of 2.0 | ram: 512.0 of 1024.0 │ vcpus: 0.0 of 7.0 | ram: 0.0 of 10228.0    │
+╘════════╧══════════════════════════════════════════╧════════════════════════════════════════════╛
 ```
+In this example the project _prj_a_ is consuming just the shared quota (2 VCPUs and 1024MB of memory) while the _prj_b_ is currently consuming just resources of its private quota (1 VCPU and 512MB of memory) while the shared quota is not used.
 
-In this example the project prj\_b is currently consuming just resources of its private quota \(1 VCPU and 512MB of memory\) while the shared quota is not used. By contrary, the _prj\_a_ is consuming just the shared quota \(2 VCPUs and 1024MB of memory\). The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
+
+
+
+The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
 
 ### synergy queue
 This command provides information about the amount of user requests stored in the persistent priority queue:
