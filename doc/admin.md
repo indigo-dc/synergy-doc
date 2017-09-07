@@ -1056,9 +1056,18 @@ To know how many resources each project is consuming, use:
 ╘════════╧══════════════════════════════════════════╧════════════════════════════════════════════╛
 ```
 In this example the project _prj_a_ is consuming just the shared quota (2 VCPUs and 1024MB of memory) while the _prj_b_ is currently consuming just resources of its private quota (1 VCPU and 512MB of memory) while the shared quota is not used.
+Whenever the shared quota is saturated, all new requests for resources consuming are not rejected (as in standard OpenStack mode), but will be inserted into a persistent priority queue and processed as soon as some resources are again available. The know how many requests for project 
 
-
-
+```
+# synergy project show --all --p_quota --s_quota --queue
+╒════════╤════════════════════════════════════════╤════════════════════════════════════════════╤══════════════╕
+│ name   │ private quota                          │ shared quota                               │ queue usage  │
+╞════════╪════════════════════════════════════════╪════════════════════════════════════════════╪══════════════╡
+│ prj_b  │ vcpus: 0.0 of 3.0 | ram: 0.0 of 2048.0 │ vcpus: 5.0 of 7.0 | ram: 2560.0 of 10228.0 │ 50 (25.00%)  │
+├────────┼────────────────────────────────────────┼────────────────────────────────────────────┼──────────────┤
+│ prj_a  │ vcpus: 0.0 of 2.0 | ram: 0.0 of 1024.0 │ vcpus: 2.0 of 7.0 | ram: 1024.0 of 10228.0 │ 150 (75.00%) │
+╘════════╧════════════════════════════════════════╧════════════════════════════════════════════╧══════════════╛
+```
 
 The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
 
