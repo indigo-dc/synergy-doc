@@ -1056,7 +1056,7 @@ To know how many resources each project is consuming, use:
 ╘════════╧══════════════════════════════════════════╧════════════════════════════════════════════╛
 ```
 In this example the project _prj_a_ is consuming just the shared quota (2 VCPUs and 1024MB of memory) while the _prj_b_ is currently consuming just resources of its private quota (1 VCPU and 512MB of memory) while the shared quota is not used.
-Whenever the shared quota is saturated, all new requests for resources consuming are not rejected (as in standard OpenStack mode), but will be inserted into a persistent priority queue and processed as soon as some resources are again available. The know how many requests for project 
+Whenever the shared quota is saturated, all new requests for resources consuming are not rejected (as in standard OpenStack mode), but will be inserted into a persistent priority queue and processed as soon as some resources are again available. 
 
 ```
 # synergy project show --all --p_quota --s_quota --queue
@@ -1068,8 +1068,33 @@ Whenever the shared quota is saturated, all new requests for resources consuming
 │ prj_a  │ vcpus: 0.0 of 2.0 | ram: 0.0 of 1024.0 │ vcpus: 2.0 of 7.0 | ram: 1024.0 of 10228.0 │ 150 (75.00%) │
 ╘════════╧════════════════════════════════════════╧════════════════════════════════════════════╧══════════════╛
 ```
+The above table shows that the _prj_a_ has 50 requests enqueued which corresponds to 25% of total queue usage. Analogously, the _prj_b_ uses the 75%.
+To each user is associated a priority periodically calculated by Synergy. To know the current priority value use:
+```
+# synergy user show --all --prj_name prj_a --usage --share --priority
+╒═════════╤═════════╤═════════════════════════════╤════════════╕
+│ name    │ share   │ usage                       │   priority │
+╞═════════╪═════════╪═════════════════════════════╪════════════╡
+│ user_a1 │ 15.00%  │ vcpus: 25.34% | ram: 25.34% │      35.71 │
+├─────────┼─────────┼─────────────────────────────┼────────────┤
+│ user_a2 │ 15.00%  │ vcpus: 0.00% | ram: 0.00%   │      55.68 │
+╘═════════╧═════════╧═════════════════════════════╧════════════╛
 
-The share values fixed by the Cloud administrator are 70% for prj\_a and 30% prj\_b \(the attribute _shares_ in synergy.conf\) while for both projects the TTL has been set to 5 minutes \(the _TTL_ attribute\). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
+# synergy user show --all --prj_name prj_b --usage --share --priority
+╒═════════╤═════════╤═════════════════════════════╤════════════╕
+│ name    │ share   │ usage                       │   priority │
+╞═════════╪═════════╪═════════════════════════════╪════════════╡
+│ user_b1 │ 35.00%  │ vcpus: 29.71% | ram: 29.71% │      31.00 │
+├─────────┼─────────┼─────────────────────────────┼────────────┤
+│ user_b2 │ 35.00%  │ vcpus: 44.95% | ram: 44.95% │      28.75 │
+╘═════════╧═════════╧═════════════════════════════╧════════════╛
+```
+This example shows the priority of users of both projects. The main factors which affect such value are the project/user share and the historical resource usage.
+
+
+
+
+The share values fixed by the Cloud administrator are 70% for prj_a and 30% prj_b (the attribute _shares_ in synergy.conf) while for both projects the TTL has been set to 5 minutes (the _TTL_ attribute). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
 
 ### synergy queue
 This command provides information about the amount of user requests stored in the persistent priority queue:
