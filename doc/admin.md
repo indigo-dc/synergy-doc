@@ -1069,7 +1069,21 @@ Whenever the shared quota is saturated, all new requests for resources consuming
 ╘════════╧════════════════════════════════════════╧════════════════════════════════════════════╧══════════════╛
 ```
 The above table shows that the _prj_a_ has 50 requests enqueued which corresponds to 25% of total queue usage. Analogously, the _prj_b_ uses the 75%.
-To each user is associated a priority periodically calculated by Synergy. To know the current priority value use:
+
+To get information about the usage of shared resources at project use:
+```
+# synergy project show --all --usage --share
+╒════════╤═════════════════════════════╤═════════════════╕
+│ name   │ usage                       │ share           │
+╞════════╪═════════════════════════════╪═════════════════╡
+│ prj_a  │ vcpus: 74.76% | ram: 74.76% │ 10.00% | 25.00% │
+├────────┼─────────────────────────────┼─────────────────┤
+│ prj_b  │ vcpus: 25.34% | ram: 25.34% │ 30.00% | 75.00% │
+╘════════╧═════════════════════════════╧═════════════════╛
+```
+In this case _prj_a_ is consuming the 74.76% of resources (VCPUS and memory), while _prj_b_ the 25.34%. The share values defined by the Cloud administrator are 10% and 30% respectivly. The table shows even the normalized values of the shares (25% and 75%).
+The user usage can be retrieved as following:
+
 ```
 # synergy user show --all --prj_name prj_a --usage --share --priority
 ╒═════════╤═════════╤═════════════════════════════╤════════════╕
@@ -1089,134 +1103,9 @@ To each user is associated a priority periodically calculated by Synergy. To kno
 │ user_b2 │ 35.00%  │ vcpus: 44.95% | ram: 44.95% │      28.75 │
 ╘═════════╧═════════╧═════════════════════════════╧════════════╛
 ```
-This example shows the priority of users of both projects. The main factors which affect such value are the project/user share and the historical resource usage.
 
+This example shows the usage and priority of all users. The main factors which affect the priority value are the project and user shares and their historical resource usage. The user requests having a higher the priority value will be executed first. 
 
-
-
-The share values fixed by the Cloud administrator are 70% for prj_a and 30% prj_b (the attribute _shares_ in synergy.conf) while for both projects the TTL has been set to 5 minutes (the _TTL_ attribute). Remark, in this example, the VMs instantiated in the shared quota can live just 5 minutes while the ones created in the private quota can live forever.
-
-### synergy queue
-This command provides information about the amount of user requests stored in the persistent priority queue:
-
-```
-# synergy queue -h
-usage: synergy queue [-h] {show} ...
-
-positional arguments:
-  {show}
-    show      shows the queue info
-
-optional arguments:
-  -h, --help  show this help message and exit
-
-# synergy queue show
-╒═════════╤════════╤═══════════╕
-│ name    │   size │ is open   │
-╞═════════╪════════╪═══════════╡
-│ DYNAMIC │    544 │ true      │
-╘═════════╧════════╧═══════════╛
-```
-
-### synergy usage
-To get information about the usage of shared resources at project or user level, use:
-
-```
-# synergy usage show -h
-usage: synergy usage show [-h] {project,user} ...
-
-positional arguments:
-  {project,user}
-    project       project help
-    user          user help
-
-optional arguments:
-  -h, --help      show this help message and exit
-
-
-# synergy usage show project -h
-usage: synergy usage show project [-h] [-d <id> | -m <name> | -a]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -d <id>, --project_id <id>
-  -m <name>, --project_name <name>
-  -a, --all_projects
-
-
-# synergy usage show user -h
-usage: synergy usage show user [-h] (-d <id> | -m <name>)
-                               (-i <id> | -n <name> | -a)
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -d <id>, --project_id <id>
-  -m <name>, --project_name <name>
-  -i <id>, --user_id <id>
-  -n <name>, --user_name <name>
-  -a, --all_users
-```
-
-The **project** sub-command provides the resource usage information by the projects.
-
-The following example shows the projects prj\_a \(share: 70%\) and prj\_b \(share: 30%\) have consumed in the last three days, respectively 70.40% and 29.40% of shared resources:
-
-```
-# synergy usage show project --all_projects
-╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
-│ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
-╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
-│ prj_b     │ vcpus: 29.60% | memory: 29.60%                                │ 30.00%  │
-├───────────┼───────────────────────────────────────────────────────────────┼─────────┤
-│ prj_a     │ vcpus: 70.40% | memory: 70.40%                                │ 70.00%  │
-╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
-
-# synergy usage show project --project_name prj_a
-╒═══════════╤══════════════════════════════════════════════════════════════╤═════════╕
-│ project   │ shared quota (09 Dec 2016 15:01:44 - 12 Dec 2016 15:01:44)   │ share   │
-╞═══════════╪══════════════════════════════════════════════════════════════╪═════════╡
-│ prj_a     │ vcpus: 70.40% | memory: 70.40%                               │ 70.00%  │
-╘═══════════╧══════════════════════════════════════════════════════════════╧═════════╛
-```
-
-The time window is defined by Cloud administrator by setting the attributes _period_ and _period\_length_ in synergy.conf.
-
-It may happen that the prj\_a \(or prj\_b\) doesn't have the need to consume shared resources for a while: in this scenario the others projects \(i.e. prj\_b\) can take advantage and so consume more resources than the fixed share \(i.e. 30%\):
-
-```
-# synergy usage show project --all_projects
-╒═══════════╤═══════════════════════════════════════════════════════════════╤═════════╕
-│ project   │ shared quota (09 Dec 2016 14:35:43 - 12 Dec 2016 14:35:43)    │ share   │
-╞═══════════╪═══════════════════════════════════════════════════════════════╪═════════╡
-│ prj_b     │ vcpus: 98.40% | memory: 98.40%                                │ 30.00%  │
-├───────────┼───────────────────────────────────────────────────────────────┼─────────┤
-│ prj_a     │ vcpus: 1.60% | memory: 1.60%                                  │ 70.00%  │
-╘═══════════╧═══════════════════════════════════════════════════════════════╧═════════╛
-```
-
-However, as soon as the prj\_a requires more shared resources, it will gain a higher priority than the prj\_b, in order to balance their usage.
-
-The **user** sub-command provides the resource usage information by the project users.
-
-The following example shows the usage report of users belonging to the project prj\_a. They have the same value for share \(35%\) but different priority \(user\_a1=80, user\_a2=100\) because the user\_a1 has consumed too much with respect to user\_a2 \(51.90% VS 48.10%\).
-
-```
-# synergy usage show user --project_name prj_a --all_users
-╒═════════╤══════════════════════════════════════════════════════════════╤═════════╤════════════╕
-│ user    │ shared quota (09 Dec 2016 14:58:44 - 12 Dec 2016 14:58:44)   │ share   │   priority │
-╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
-│ user_a2 │ vcpus: 48.10% | memory: 48.10%                               │ 35.00%  │        100 │
-├─────────┼──────────────────────────────────────────────────────────────┼─────────┼────────────┤
-│ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
-╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
-
-# synergy usage show user --project_name prj_a --user_name user_a1
-╒═════════╤══════════════════════════════════════════════════════════════╤═════════╤════════════╕
-│ user    │ shared quota (09 Dec 2016 14:58:44 - 12 Dec 2016 14:58:44)   │ share   │   priority │
-╞═════════╪══════════════════════════════════════════════════════════════╪═════════╪════════════╡
-│ user_a1 │ vcpus: 51.90% | memory: 51.90%                               │ 35.00%  │         80 │
-╘═════════╧══════════════════════════════════════════════════════════════╧═════════╧════════════╛
-```
 
 ### Open Ports
 To interact with Synergy using the client tool, just one port needs to be open.  
