@@ -1,6 +1,6 @@
 # Manual installation and configuration
 
-Synergy version: service 1.5.2, scheduler 2.5.0
+Synergy version: service 1.5.3, scheduler 2.6.0
 
 OpenStack supported versions: Mitaka, Newton, Ocata
 
