@@ -26,13 +26,13 @@ A virtual machine instantiated into the shared quota is deleted by Synergy when 
 
 Before you begin check your enviroment.This mechnism support:
 
-Synergy version: service 1.5.3, scheduler 2.6.0
+- Synergy version: service 1.5.3, scheduler 2.6.0
 
-Operating Systems: CentOS 7, Ubuntu 14.04
+- Operating Systems: CentOS 7, Ubuntu 14.04
 
-OpenStack versions: Ocata, Newton
+- OpenStack versions: Ocata, Newton
 
-Make sure you have access to the Internet from your virtual machine
+- Make sure you have access to the Internet from your virtual machine
 
 ### Creating personal script
 
@@ -52,7 +52,7 @@ echo "User script executed on:" `date` >> /mnt/volume/synergy_test_result.txt
 ```
 ## Creating the wrapper script
 
-This bash script creates the userdata that will be used during VM contextualization phase (contextualisation phase configure a VM after it has been installed).
+This bash script creates the user data that will be used during VM contextualization phase (contextualisation phase configure a VM after it has been installed).
 
 Create an executable bash script that contains the same content of _generate_userdata.sh_ script.
 
@@ -85,7 +85,7 @@ else
 fi
 ex_3="false"
 while [ $ex_3 != "true" ] ; do
-  echo "Please enter userdata name:"
+  echo "Please enter user data name:"
   read answer
   if [[ "$answer" != "" ]] ; then
     ex_3="true"
@@ -114,10 +114,92 @@ $work_dir/create_scripts.sh
 rm -rf $work_dir/create_scripts.sh
 EOF
 ```
-## Generating userdate file
+## Generating userdata file
 
-To generate userdata run the following comand:
+To generate user data file run the following comand:
 
 ```
 # ./generate_userdata.sh my_script.sh
 ```
+Specify how many minutes before TTL expiration your script will run (_my_script.sh_). The default value is 5 minutes.
+
+```
+Do you want to run your script 5 minutes before Synergy deletes your VM from the shared quota (y/n)? y
+```
+Enter user data file name.
+
+```
+Please enter user data name:
+
+my_userdata
+```
+If everything is fine you will find a _.txt_ file (_my_userdata.txt_) in the current directory.
+```
+# ls
+generate_userdata.sh  my_script.sh  my_userdata.txt
+```
+### Creating a volume
+```
+# openstack volume create --size 1 volume_test
+
+ # openstack volume list
++--------------------------------------+--------------+-----------+------+-------------+
+| ID                                   | Display Name | Status    | Size | Attached to |
++--------------------------------------+--------------+-----------+------+-------------+
+| 1549a5d3-86f9-471f-894a-45c780ef4d02 | volume_test  | available |    1 |             |
++--------------------------------------+--------------+-----------+------+-------------+
+
+```
+### Creating Virtual Machine
+To create a VM into the shared quota folow the paragraph "How to use Synergy".
+```
+# openstack server create --image centos7 --flavor m1.small --user-data my_userdata.txt vm_test
+
+# openstack server list
++--------------------------------------+---------+--------+-----------------------+------------+
+| ID                                   | Name    | Status | Networks              | Image Name |
++--------------------------------------+---------+--------+-----------------------+------------+
+| 9ec68b44-80f4-415a-8ee6-5e4dd16663ea | vm_test | ACTIVE | prj_a_net=192.168.5.4 | centos7    |
++--------------------------------------+---------+--------+-----------------------+------------+
+
+# synergy project show -n prj_a -r -t -p -s
+╒════════╤════════════════════════════════════════╤═════════════════════════════════════════════╤═════════════════╤═══════╕
+│ name   │ private quota                          │ shared quota                                │ share           │   TTL │
+╞════════╪════════════════════════════════════════╪═════════════════════════════════════════════╪═════════════════╪═══════╡
+│ prj_a  │ vcpus: 0.0 of 3.0 | ram: 0.0 of 2048.0 │ vcpus: 1.0 of 52.0 | ram: 2048.0 of 89052.0 │ 70.00% | 63.64% │    10 │
+╘════════╧════════════════════════════════════════╧═════════════════════════════════════════════╧═════════════════╧═══════╛
+```
+### Attaching a volume
+
+```
+# openstack server add volume vm_test volume_test
+
+# openstack volume list
++--------------------------------------+--------------+--------+------+----------------------------------+
+| ID                                   | Display Name | Status | Size | Attached to                      |
++--------------------------------------+--------------+--------+------+----------------------------------+
+| 32214804-e2a2-4d26-b866-fb3a1522556e | volume_test  | in-use |    1 | Attached to vm_test on /dev/vdb  |
++--------------------------------------+--------------+--------+------+-------------------------------
+
+```
+### Verify operation
+
+Access to your virtual machine and check that the _log.txt_ file in new directory _/root/synergy_scripts_ has a similar content:
+
+```
+# cat log.txt 
+Fri Sep 15 13:06:39 UTC 2017 info: Starting..
+Fri Sep 15 13:06:39 UTC 2017 info: 'synergy_cron' file created correctly
+Fri Sep 15 13:06:40 UTC 2017 info: user script created correctly
+Fri Sep 15 13:06:40 UTC 2017 info: 'check_expiration_time' script created correctly 
+Fri Sep 15 13:07:02 UTC 2017 info: expiration time checked
+```
+For this example check also the _synergy_test_result.txt_ file in /mnt/volume
+
+```
+# cat synergy_test_result.txt 
+User script executed on: Fri Sep 15 13:11:05 UTC 2017
+```
+
+
+
