@@ -114,7 +114,7 @@ $work_dir/create_scripts.sh
 rm -rf $work_dir/create_scripts.sh
 EOF
 ```
-## Generating userdata file
+## Generating user data file
 
 To generate user data file run the following comand:
 
