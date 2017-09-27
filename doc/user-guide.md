@@ -24,7 +24,7 @@ A virtual machine instantiated into the shared quota is deleted by Synergy when 
 
 ## Example
 
-Before you begin check your enviroment.This mechnism support:
+Before you begin check your enviroment.This mechanism support:
 
 - Synergy version: service 1.5.3, scheduler 2.6.0
 
@@ -116,7 +116,7 @@ EOF
 ```
 ## Generating user data file
 
-To generate user data file run the following comand:
+To generate user data file run the following command:
 
 ```
 # ./generate_userdata.sh my_script.sh
@@ -139,8 +139,34 @@ If everything is fine you will find a _.txt_ file (_my_userdata.txt_) in the cur
 generate_userdata.sh  my_script.sh  my_userdata.txt
 ```
 ### Creating a volume
+
+To create the volume that will be mounted by the script _my_script.sh_ run the following commands:
+
 ```
 # openstack volume create --size 1 volume_test
++---------------------+--------------------------------------+
+| Field               | Value                                |
++---------------------+--------------------------------------+
+| attachments         | []                                   |
+| availability_zone   | nova                                 |
+| bootable            | false                                |
+| consistencygroup_id | None                                 |
+| created_at          | 2017-09-15T13:03:37.061092           |
+| description         | None                                 |
+| encrypted           | False                                |
+| id                  | 1549a5d3-86f9-471f-894a-45c780ef4d02 |
+| multiattach         | False                                |
+| name                | volume_test                          |
+| properties          |                                      |
+| replication_status  | disabled                             |
+| size                | 1                                    |
+| snapshot_id         | None                                 |
+| source_volid        | None                                 |
+| status              | creating                             |
+| type                | None                                 |
+| updated_at          | None                                 |
+| user_id             | 6fcc0852005943a29714d60c3d6c393e     |
++---------------------+--------------------------------------+
 
  # openstack volume list
 +--------------------------------------+--------------+-----------+------+-------------+
@@ -151,7 +177,9 @@ generate_userdata.sh  my_script.sh  my_userdata.txt
 
 ```
 ### Creating Virtual Machine
-To create a VM into the shared quota folow the paragraph "How to use Synergy".
+
+To create a VM into the shared quota follow the paragraph "How to use Synergy". 
+
 ```
 # openstack server create --image centos7 --flavor m1.small --user-data my_userdata.txt vm_test
 
@@ -179,12 +207,12 @@ To create a VM into the shared quota folow the paragraph "How to use Synergy".
 | ID                                   | Display Name | Status | Size | Attached to                      |
 +--------------------------------------+--------------+--------+------+----------------------------------+
 | 32214804-e2a2-4d26-b866-fb3a1522556e | volume_test  | in-use |    1 | Attached to vm_test on /dev/vdb  |
-+--------------------------------------+--------------+--------+------+-------------------------------
++--------------------------------------+--------------+--------+------+-----------------------------------
 
 ```
 ### Verify operation
 
-Access to your virtual machine and check that the _log.txt_ file in new directory _/root/synergy_scripts_ has a similar content:
+Access to your virtual machine and check the _log.txt_ file in new directory _/root/synergy_scripts_. It should has content like this:
 
 ```
 # cat log.txt 
