@@ -133,7 +133,7 @@ Please enter user data name:
 
 my_userdata
 ```
-If everything is fine you will find a _.txt_ file (_my_userdata.txt_) in the current directory.
+If everything is fine a _.txt_ file (_my_userdata.txt_) in the current directory is created.
 ```
 # ls
 generate_userdata.sh  my_script.sh  my_userdata.txt
@@ -212,7 +212,7 @@ To create a VM into the shared quota follow the paragraph "How to use Synergy".
 ```
 ### Verify operation
 
-Access to your virtual machine and check the _log.txt_ file in new directory _/root/synergy_scripts_. It should has content like this:
+Access to your virtual machine and check the _log.txt_ file in the new directory _/root/synergy_scripts_. It should has a content like this:
 
 ```
 # cat log.txt 
@@ -221,8 +221,14 @@ Fri Sep 15 13:06:39 UTC 2017 info: 'synergy_cron' file created correctly
 Fri Sep 15 13:06:40 UTC 2017 info: user script created correctly
 Fri Sep 15 13:06:40 UTC 2017 info: 'check_expiration_time' script created correctly 
 Fri Sep 15 13:07:02 UTC 2017 info: expiration time checked
+Fri Sep 15 13:08:04 UTC 2017 info: expiration time checked
+Fri Sep 15 13:09:02 UTC 2017 info: expiration time checked
+Fri Sep 15 13:10:02 UTC 2017 info: expiration time checked
+Fri Sep 15 13:11:05 UTC 2017 info: user script executed correctly
+Fri Sep 15 13:11:05 UTC 2017 info: 'synergy_cron' file removed correctly
 ```
-For this example check also the _synergy_test_result.txt_ file in /mnt/volume
+In the example the user script (_my_script.sh_) was executed 5 minutes before the TTL expired
+and into the file _/mnt/volume/synergy_test_result.txt_ was printed:
 
 ```
 # cat synergy_test_result.txt 
