@@ -20,11 +20,9 @@ Another way to select the shared quota is using Openstack `--property` parameter
 ```
 ## Running automated tasks before VM termination
 
-A virtual machine instantiated into the shared quota is deleted by Synergy when its time to live (TTL) is expired. A mechanism, based on TTL expiration, that allows you to execute automated tasks (i.e. exporting data, turning off services) in your instance before Synergy deletes it is provided. The following example shows how to use this mechanism.
+A virtual machine instantiated into the shared quota is deleted by Synergy when its time to live (TTL) is expired. A mechanism, based on TTL expiration, that allows you to execute automated tasks (i.e. exporting data, turning off services) in your instance before Synergy deletes it is provided through the following example.
 
-## Example
-
-Before you begin check your enviroment.This mechanism support:
+This mechanism can be used with version greater or equal of:
 
 - Synergy version: service 1.5.3, scheduler 2.6.0
 
@@ -32,7 +30,9 @@ Before you begin check your enviroment.This mechanism support:
 
 - OpenStack versions: Ocata, Newton
 
-- Make sure you have access to the Internet from your virtual machine
+## Example
+
+ Before you begin make sure you could access to the Internet from your virtual machine.
 
 ### Creating personal script
 
